@@ -1,1 +1,4 @@
-"# KidsCode-Lab - Python L3" 
+# KidsCode-Lab - Python L3
+Course Materails
+Exercieses
+Labes

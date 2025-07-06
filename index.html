@@ -282,7 +282,7 @@
     <div class="container">
         <div class="header">
             <div class="brand-logo">
-                <img src="images/kidscode-lab-logo.png.png" alt="KidsCode Lab Logo" class="brand-logo-img">
+                <img src="images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
                 <div class="brand-logo-text">KidsCode Lab</div>
             </div>
             <h2>Learn Programming with Fun!</h2>
@@ -343,6 +343,8 @@
                 var tile = document.createElement('a');
                 tile.className = 'material-tile';
                 tile.href = material.url;
+                tile.target = '_blank';
+                tile.rel = noopener noreferrer';
                 tile.style.textDecoration = 'none';
                 
                 tile.innerHTML = 

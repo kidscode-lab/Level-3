@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KidsCode-Lab: Python Try-Except Interactive Demo</title>
+    <link rel="stylesheet" href="../styles/master.css">
+    <style>
+        /* Page-specific styles only */
+        .demo-selection {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 2px solid #e9ecef;
+        }
+
+        .demo-selection h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .demo-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .demo-button {
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .demo-button.error {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+        }
+
+        .demo-button.warning {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+        }
+
+        .demo-button.success {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .code-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e3f2fd;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .panel-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .panel-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .interactive-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e8f5e8;
+        }
+
+        .interactive-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .interactive-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #8e44ad, #3498db);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        .execute-button {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .execute-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+        }
+
+        .explanation {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .explanation h4 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+
+        .explanation p {
+            color: #424242;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .demo-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <div class="header">
+        <div class="brand-logo">
+            <img src="../images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
+            <div class="brand-logo-text">KidsCode Lab</div>
+        </div>
+        <h1>🛡️ Python Try-Except Interactive Demo</h1>
+        <h3>Learn how Python handles errors gracefully<br> with try-except blocks!</h3>
+    </div>
+        <div class="demo-selection">
+            <h3>📚 Choose a Demo to See How Try-Except Works:</h3>
+            <div class="demo-buttons">
+                <button class="demo-button error" onclick="showDemo('division')">
+                    ➗ Division by Zero
+                </button>
+                <button class="demo-button error" onclick="showDemo('type')">
+                    🔤 Type Error
+                </button>
+                <button class="demo-button error" onclick="showDemo('index')">
+                    📋 Index Error
+                </button>
+                <button class="demo-button error" onclick="showDemo('key')">
+                    🔑 Key Error
+                </button>
+                <button class="demo-button warning" onclick="showDemo('file')">
+                    📁 File Not Found
+                </button>
+                <button class="demo-button success" onclick="showDemo('multiple')">
+                    🎯 Multiple Exceptions
+                </button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="code-panel">
+                <div class="panel-header">
+                    <div class="panel-icon">🐍</div>
+                    <div class="panel-title">Python Code</div>
+                </div>
+
+                <div class="code-section">
+                    <h3>📝 Try-Except Code:</h3>
+                    <div id="pythonCode" class="code-block">
+# Click a demo button above to see try-except examples!
+
+try:
+    # Your code here
+    print("Select a demo to see the code")
+except Exception as e:
+    print(f"An error occurred: {e}")
+                    </div>
+                </div>
+
+                <div class="output-section">
+                    <h3>📄 Code Output:</h3>
+                    <div id="codeOutput">
+Select a demo above to see how try-except handles different types of errors!
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-panel">
+                <div class="panel-header">
+                    <div class="panel-icon">⚠️</div>
+                    <div class="panel-title">What Happens Without Try-Except</div>
+                </div>
+
+                <div class="code-section">
+                    <h3>💥 Code Without Error Handling:</h3>
+                    <div id="unsafeCode" class="code-block">
+# This is what happens without try-except:
+
+# Your code here
+print("Select a demo to see unsafe code")
+                    </div>
+                </div>
+
+                <div class="output-section">
+                    <h3>💥 Crash Output:</h3>
+                    <div id="crashOutput">
+Select a demo above to see how code crashes without proper error handling!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="interactive-section">
+            <div class="interactive-header">
+                <div class="interactive-icon">🎮</div>
+                <div class="panel-title">Interactive Try-Except Playground</div>
+            </div>
+
+            <div class="input-group">
+                <label for="userInput">Enter values to test (separated by commas):</label>
+                <input type="text" id="userInput" class="input-field" 
+                       placeholder="e.g., 10, 0, abc, 5 (try different values to see different errors)">
+            </div>
+
+            <div class="input-group">
+                <label for="operationType">Choose operation:</label>
+                <select id="operationType" class="input-field">
+                    <option value="division">Division (10 / value)</option>
+                    <option value="conversion">Convert to Integer</option>
+                    <option value="listAccess">Access List Index</option>
+                    <option value="dictAccess">Access Dictionary Key</option>
+                </select>
+            </div>
+
+            <button class="execute-button" onclick="executeUserCode()">
+                🚀 Execute With Try-Except
+            </button>
+
+            <div class="code-section" style="margin-top: 20px;">
+                <h3>📝 Generated Code:</h3>
+                <div id="generatedCode" class="code-block">
+# Your generated try-except code will appear here
+                </div>
+            </div>
+
+            <div class="output-section" style="margin-top: 20px;">
+                <h3>📄 Execution Results:</h3>
+                <div id="executionOutput">
+Enter values above and click execute to see try-except in action!
+                </div>
+            </div>
+
+            <div id="explanation" class="explanation" style="display: none;">
+                <h4>💡 What Just Happened?</h4>
+                <p id="explanationText">Explanation will appear here...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const demos = {
+            division: {
+                safe: `try:
+    result = 10 / 0
+    print(f"Result: {result}")
+except ZeroDivisionError:
+    print("Error: Cannot divide by zero!")
+    print("Using default value instead...")
+    result = 0
+    print(f"Result: {result}")
+except Exception as e:
+    print(f"Unexpected error: {e}")
+finally:
+    print("Division operation completed.")`,
+                unsafe: `# Without try-except:
+result = 10 / 0
+print(f"Result: {result}")
+print("This line will never execute!")`,
+                safeOutput: `Error: Cannot divide by zero!
+Using default value instead...
+Result: 0
+Division operation completed.`,
+                crashOutput: `Traceback (most recent call last):
+  File "demo.py", line 2, in <module>
+    result = 10 / 0
+ZeroDivisionError: division by zero
+
+💥 PROGRAM CRASHED! 💥
+The program stops here and never continues.`,
+                explanation: "Division by zero causes a ZeroDivisionError. With try-except, we catch this error and provide a default value, allowing the program to continue running."
+            },
+            type: {
+                safe: `try:
+    number = int("hello")
+    print(f"Number: {number}")
+except ValueError:
+    print("Error: Cannot convert 'hello' to integer!")
+    print("Please enter a valid number.")
+    number = 0
+    print(f"Using default: {number}")
+except Exception as e:
+    print(f"Unexpected error: {e}")
+finally:
+    print("Type conversion completed.")`,
+                unsafe: `# Without try-except:
+number = int("hello")
+print(f"Number: {number}")
+print("This line will never execute!")`,
+                safeOutput: `Error: Cannot convert 'hello' to integer!
+Please enter a valid number.
+Using default: 0
+Type conversion completed.`,
+                crashOutput: `Traceback (most recent call last):
+  File "demo.py", line 2, in <module>
+    number = int("hello")
+ValueError: invalid literal for int() with base 10: 'hello'
+
+💥 PROGRAM CRASHED! 💥
+Cannot convert text to number without proper handling.`,
+                explanation: "ValueError occurs when trying to convert invalid text to a number. Try-except lets us handle this gracefully and continue with a default value."
+            },
+            index: {
+                safe: `try:
+    my_list = [1, 2, 3]
+    value = my_list[10]
+    print(f"Value: {value}")
+except IndexError:
+    print("Error: Index out of range!")
+    print(f"List only has {len(my_list)} items.")
+    print("Using last item instead...")
+    value = my_list[-1]
+    print(f"Value: {value}")
+except Exception as e:
+    print(f"Unexpected error: {e}")
+finally:
+    print("List access completed.")`,
+                unsafe: `# Without try-except:
+my_list = [1, 2, 3]
+value = my_list[10]
+print(f"Value: {value}")
+print("This line will never execute!")`,
+                safeOutput: `Error: Index out of range!
+List only has 3 items.
+Using last item instead...
+Value: 3
+List access completed.`,
+                crashOutput: `Traceback (most recent call last):
+  File "demo.py", line 3, in <module>
+    value = my_list[10]
+IndexError: list index out of range
+
+💥 PROGRAM CRASHED! 💥
+Trying to access index 10 in a list with only 3 items.`,
+                explanation: "IndexError happens when accessing a list position that doesn't exist. Try-except helps us handle this by using a valid index or providing a default value."
+            },
+            key: {
+                safe: `try:
+    my_dict = {"name": "Alice", "age": 25}
+    value = my_dict["height"]
+    print(f"Height: {value}")
+except KeyError:
+    print("Error: Key 'height' not found!")
+    print("Available keys:", list(my_dict.keys()))
+    print("Using default value...")
+    value = "Unknown"
+    print(f"Height: {value}")
+except Exception as e:
+    print(f"Unexpected error: {e}")
+finally:
+    print("Dictionary access completed.")`,
+                unsafe: `# Without try-except:
+my_dict = {"name": "Alice", "age": 25}
+value = my_dict["height"]
+print(f"Height: {value}")
+print("This line will never execute!")`,
+                safeOutput: `Error: Key 'height' not found!
+Available keys: ['name', 'age']
+Using default value...
+Height: Unknown
+Dictionary access completed.`,
+                crashOutput: `Traceback (most recent call last):
+  File "demo.py", line 3, in <module>
+    value = my_dict["height"]
+KeyError: 'height'
+
+💥 PROGRAM CRASHED! 💥
+The key 'height' doesn't exist in the dictionary.`,
+                explanation: "KeyError occurs when accessing a dictionary key that doesn't exist. Try-except allows us to handle missing keys gracefully and provide alternatives."
+            },
+            file: {
+                safe: `try:
+    with open("missing_file.txt", "r") as file:
+        content = file.read()
+        print(f"File content: {content}")
+except FileNotFoundError:
+    print("Error: File 'missing_file.txt' not found!")
+    print("Creating a new file instead...")
+    with open("missing_file.txt", "w") as file:
+        file.write("Hello, World!")
+    print("New file created successfully!")
+except Exception as e:
+    print(f"Unexpected error: {e}")
+finally:
+    print("File operation completed.")`,
+                unsafe: `# Without try-except:
+with open("missing_file.txt", "r") as file:
+    content = file.read()
+    print(f"File content: {content}")
+print("This line will never execute!")`,
+                safeOutput: `Error: File 'missing_file.txt' not found!
+Creating a new file instead...
+New file created successfully!
+File operation completed.`,
+                crashOutput: `Traceback (most recent call last):
+  File "demo.py", line 2, in <module>
+    with open("missing_file.txt", "r") as file:
+FileNotFoundError: [Errno 2] No such file or directory: 'missing_file.txt'
+
+💥 PROGRAM CRASHED! 💥
+Cannot open a file that doesn't exist.`,
+                explanation: "FileNotFoundError happens when trying to open a file that doesn't exist. Try-except lets us handle this by creating the file or using an alternative approach."
+            },
+            multiple: {
+                safe: `def safe_calculator(a, b, operation):
+    try:
+        a = float(a)
+        b = float(b)
+        
+        if operation == "divide":
+            result = a / b
+        elif operation == "multiply":
+            result = a * b
+        else:
+            raise ValueError("Unknown operation")
+            
+        return result
+        
+    except ValueError as e:
+        print(f"ValueError: {e}")
+        return None
+    except ZeroDivisionError:
+        print("Error: Division by zero!")
+        return None
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return None
+    finally:
+        print("Calculation completed.")
+
+# Test the function
+result = safe_calculator("10", "0", "divide")
+print(f"Result: {result}")`,
+                unsafe: `# Without try-except:
+def unsafe_calculator(a, b, operation):
+    a = float(a)
+    b = float(b)
+    
+    if operation == "divide":
+        result = a / b
+    elif operation == "multiply":
+        result = a * b
+    else:
+        raise ValueError("Unknown operation")
+        
+    return result
+
+# This will crash
+result = unsafe_calculator("10", "0", "divide")
+print(f"Result: {result}")`,
+                safeOutput: `Error: Division by zero!
+Result: None
+Calculation completed.`,
+                crashOutput: `Traceback (most recent call last):
+  File "demo.py", line 15, in <module>
+    result = unsafe_calculator("10", "0", "divide")
+  File "demo.py", line 6, in <module>
+    result = a / b
+ZeroDivisionError: division by zero
+
+💥 PROGRAM CRASHED! 💥
+Multiple things can go wrong without proper error handling.`,
+                explanation: "Multiple exception types can be handled in one try-except block. This allows robust error handling for complex operations that might fail in different ways."
+            }
+        };
+
+        function showDemo(demoType) {
+            const demo = demos[demoType];
+            
+            document.getElementById('pythonCode').textContent = demo.safe;
+            document.getElementById('unsafeCode').textContent = demo.unsafe;
+            document.getElementById('codeOutput').textContent = demo.safeOutput;
+            document.getElementById('crashOutput').textContent = demo.crashOutput;
+            
+            // Update output styling
+            document.getElementById('codeOutput').className = 'output-section success';
+            document.getElementById('crashOutput').className = 'output-section error';
+        }
+
+        function executeUserCode() {
+            const userInput = document.getElementById('userInput').value.trim();
+            const operationType = document.getElementById('operationType').value;
+            
+            if (!userInput) {
+                alert('Please enter some values to test!');
+                return;
+            }
+            
+            const values = userInput.split(',').map(v => v.trim());
+            let code = '';
+            let output = '';
+            let explanation = '';
+            
+            code += `# Testing with values: ${values.join(', ')}\n`;
+            code += `values = [${values.map(v => `"${v}"`).join(', ')}]\n`;
+            code += `results = []\n\n`;
+            
+            switch (operationType) {
+                case 'division':
+                    code += `for value in values:
+    try:
+        num = float(value)
+        result = 10 / num
+        results.append(f"10 / {value} = {result}")
+        print(f"✅ 10 / {value} = {result}")
+    except ValueError:
+        results.append(f"❌ Cannot convert '{value}' to number")
+        print(f"❌ Cannot convert '{value}' to number")
+    except ZeroDivisionError:
+        results.append(f"❌ Cannot divide by zero ({value})")
+        print(f"❌ Cannot divide by zero ({value})")
+    except Exception as e:
+        results.append(f"❌ Unexpected error with {value}: {e}")
+        print(f"❌ Unexpected error with {value}: {e}")`;
+                    
+                    output = '';
+                    values.forEach(value => {
+                        try {
+                            const num = parseFloat(value);
+                            if (isNaN(num)) {
+                                output += `❌ Cannot convert '${value}' to number\n`;
+                            } else if (num === 0) {
+                                output += `❌ Cannot divide by zero (${value})\n`;
+                            } else {
+                                const result = 10 / num;
+                                output += `✅ 10 / ${value} = ${result}\n`;
+                            }
+                        } catch (e) {
+                            output += `❌ Unexpected error with ${value}: ${e}\n`;
+                        }
+                    });
+                    explanation = 'This demonstrates handling ValueError (invalid conversions) and ZeroDivisionError (division by zero) in a single try-except block.';
+                    break;
+                    
+                case 'conversion':
+                    code += `for value in values:
+    try:
+        num = int(value)
+        results.append(f"✅ '{value}' converted to {num}")
+        print(f"✅ '{value}' converted to {num}")
+    except ValueError:
+        results.append(f"❌ Cannot convert '{value}' to integer")
+        print(f"❌ Cannot convert '{value}' to integer")
+    except Exception as e:
+        results.append(f"❌ Unexpected error with {value}: {e}")
+        print(f"❌ Unexpected error with {value}: {e}")`;
+                    
+                    output = '';
+                    values.forEach(value => {
+                        try {
+                            const num = parseInt(value);
+                            if (isNaN(num)) {
+                                output += `❌ Cannot convert '${value}' to integer\n`;
+                            } else {
+                                output += `✅ '${value}' converted to ${num}\n`;
+                            }
+                        } catch (e) {
+                            output += `❌ Unexpected error with ${value}: ${e}\n`;
+                        }
+                    });
+                    explanation = 'This shows how to handle ValueError when converting strings to integers. Invalid conversions are caught and handled gracefully.';
+                    break;
+                    
+                case 'listAccess':
+                    code += `test_list = ['apple', 'banana', 'cherry']
+for value in values:
+    try:
+        index = int(value)
+        item = test_list[index]
+        results.append(f"✅ test_list[{index}] = {item}")
+        print(f"✅ test_list[{index}] = {item}")
+    except ValueError:
+        results.append(f"❌ '{value}' is not a valid index")
+        print(f"❌ '{value}' is not a valid index")
+    except IndexError:
+        results.append(f"❌ Index {value} out of range (list has {len(test_list)} items)")
+        print(f"❌ Index {value} out of range (list has {len(test_list)} items)")
+    except Exception as e:
+        results.append(f"❌ Unexpected error with {value}: {e}")
+        print(f"❌ Unexpected error with {value}: {e}")`;
+                    
+                    const testList = ['apple', 'banana', 'cherry'];
+                    output = '';
+                    values.forEach(value => {
+                        try {
+                            const index = parseInt(value);
+                            if (isNaN(index)) {
+                                output += `❌ '${value}' is not a valid index\n`;
+                            } else if (index < 0 || index >= testList.length) {
+                                output += `❌ Index ${value} out of range (list has ${testList.length} items)\n`;
+                            } else {
+                                output += `✅ test_list[${index}] = ${testList[index]}\n`;
+                            }
+                        } catch (e) {
+                            output += `❌ Unexpected error with ${value}: ${e}\n`;
+                        }
+                    });
+                    explanation = 'This demonstrates handling IndexError (out of range) and ValueError (invalid index) when accessing list elements.';
+                    break;
+                    
+                case 'dictAccess':
+                    code += `test_dict = {'name': 'Alice', 'age': 25, 'city': 'New York'}
+for value in values:
+    try:
+        item = test_dict[value]
+        results.append(f"✅ test_dict['{value}'] = {item}")
+        print(f"✅ test_dict['{value}'] = {item}")
+    except KeyError:
+        available_keys = list(test_dict.keys())
+        results.append(f"❌ Key '{value}' not found. Available: {available_keys}")
+        print(f"❌ Key '{value}' not found. Available: {available_keys}")
+    except Exception as e:
+        results.append(f"❌ Unexpected error with {value}: {e}")
+        print(f"❌ Unexpected error with {value}: {e}")`;
+                    
+                    const testDict = {'name': 'Alice', 'age': 25, 'city': 'New York'};
+                    output = '';
+                    values.forEach(value => {
+                        try {
+                            if (value in testDict) {
+                                output += `✅ test_dict['${value}'] = ${testDict[value]}\n`;
+                            } else {
+                                const availableKeys = Object.keys(testDict);
+                                output += `❌ Key '${value}' not found. Available: ${availableKeys.join(', ')}\n`;
+                            }
+                        } catch (e) {
+                            output += `❌ Unexpected error with ${value}: ${e}\n`;
+                        }
+                    });
+                    explanation = 'This shows how to handle KeyError when accessing dictionary keys that might not exist.';
+                    break;
+            }
+            
+            document.getElementById('generatedCode').textContent = code;
+            document.getElementById('executionOutput').textContent = output;
+            document.getElementById('executionOutput').className = 'output-section success';
+            document.getElementById('explanationText').textContent = explanation;
+            document.getElementById('explanation').style.display = 'block';
+        }
+
+        // Initialize with division demo
+        window.addEventListener('load', function() {
+            showDemo('division');
+        });
+    </script>
+</body>
+</html>

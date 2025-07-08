@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -387,4 +388,374 @@
         });
     </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KidsCode-Lab - Learn Programming with Fun!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 40px;
+            border: 2px solid #e3f2fd;
+        }
+
+        .header h1 {
+            color: #1e40af;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h2 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+                .brand-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .brand-logo-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .brand-logo-text {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #1e40af, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navigation-menu {
+            background: #e8f4fd;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border: 2px solid #3b82f6;
+        }
+
+        .navigation-menu h3 {
+            color: #1e40af;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+
+        .nav-link {
+            display: block;
+            background: linear-gradient(45deg, #3b82f6, #1e40af);
+            color: white;
+            text-decoration: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .nav-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .course-materials {
+            margin-bottom: 40px;
+        }
+
+        .course-materials h3 {
+            color: #1e40af;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .material-tile {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e3f2fd;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .material-tile:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-color: #3b82f6;
+        }
+
+        .tile-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .tile-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #3b82f6, #1e40af);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .tile-level {
+            background: #e0f2fe;
+            color: #0277bd;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .tile-title {
+            color: #2c3e50;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .tile-description {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .tile-arrow {
+            margin-top: 15px;
+            text-align: right;
+            color: #3b82f6;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+            margin-top: 40px;
+        }
+
+        .footer h4 {
+            color: #1e40af;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .footer p {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .add-material-btn {
+            background: linear-gradient(45deg, #16a34a, #15803d);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .add-material-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(22, 163, 74, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .materials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+
+        .demo-notice {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .demo-notice h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .demo-notice p {
+            color: #856404;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="brand-logo">
+                <img src="images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
+                <div class="brand-logo-text">KidsCode Lab</div>
+            </div>
+            <h2>Learn Programming with Fun!</h2>
+            <p>Welcome to KidsCode-Lab! Your journey into the exciting world of programming starts here.<br>
+            We make coding fun, interactive, and easy to understand for young minds.</p>
+        </div>
+
+        <div class="course-materials">
+            <h3>📖 Course Materials Repository</h3>
+            
+            <div class="materials-grid" id="materialsGrid">
+                <!-- Materials will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="footer">
+            <h4>🎯 About KidsCode-Lab</h4>
+            <p>KidsCode-Lab is dedicated to making programming education accessible and fun for children. 
+            Our interactive lessons, visual demonstrations, and hands-on projects help young learners 
+            develop computational thinking skills while having fun!</p>
+        </div>
+    </div>
+
+    <script>
+        // Course Materials Array - Easy to update and maintain
+        var courseMaterials = [
+            {
+                level: "Level 3",
+                title: "Modular Design",
+                description: "Check-Out Process Exercise Explaination",
+                url: "https://kidscode-lab.github.io/Level-3/Lesson03/illustration-L3-03-moduleDesign.html",
+                icon: "📝"
+            },
+            {
+                level: "Level 3", 
+                title: "Error Handling > Try ... Catch ",
+                description: "Learn how Python handles errors gracefully with try-except blocks",
+                url: "https://kidscode-lab.github.io/Level-3/Lesson03/illustration-L3-03-tryCatch.html",
+                icon: "📋"
+            },
+            {
+                level: "Level 3",
+                title: "API",
+                description: "Learn how Python makes API calls and see the results in real-time!",
+                url: "https://kidscode-lab.github.io/Level-3/Lesson03/illustration-L3-03-API.html",
+                icon: "⚙️"
+            }
+        ];
+
+        // Function to generate material tiles
+        function generateMaterialTiles() {
+            var grid = document.getElementById('materialsGrid');
+            grid.innerHTML = '';
+            
+            for (var i = 0; i < courseMaterials.length; i++) {
+                var material = courseMaterials[i];
+                
+                var tile = document.createElement('a');
+                tile.className = 'material-tile';
+                tile.href = material.url;
+                tile.target = '_blank';
+                tile.rel = 'noopener noreferrer';
+                tile.style.textDecoration = 'none';
+                
+                tile.innerHTML = 
+                    '<div class="tile-header">' +
+                        '<div class="tile-icon">' + material.icon + '</div>' +
+                        '<div class="tile-level">' + material.level + '</div>' +
+                    '</div>' +
+                    '<div class="tile-title">' + material.title + '</div>' +
+                    '<div class="tile-description">' + material.description + '</div>' +
+                    '<div class="tile-arrow">→ Start Learning</div>';
+                
+                grid.appendChild(tile);
+            }
+        }
+
+        // Initialize the page
+        window.addEventListener('load', function() {
+            generateMaterialTiles();
+        });
+    </script>
+</body>
+>>>>>>> 18ce4e5e6912d6f5ea72e9efd153901ec8745393
 </html>

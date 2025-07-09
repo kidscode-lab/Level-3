@@ -1,66 +1,18 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KidsCode-Lab: API Call Demo - Understanding How APIs Work</title>
+    <link rel="stylesheet" href="../styles/master.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .header h1 {
-            color: #2c3e50;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            color: #7f8c8d;
-            font-size: 1.1rem;
-        }
-
+        /* Page-specific styles only */
         .main-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
             margin-bottom: 20px;
             position: relative;
-        }
-
-        .data-flow-arrow {
-            position: absolute;
-            top: 120px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 60px;
-            z-index: 10;
-            pointer-events: none;
         }
 
         .tile {
@@ -143,30 +95,6 @@
             font-size: 1.1rem;
         }
 
-        .code-block {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 15px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            line-height: 1.8;
-            overflow-x: auto;
-            white-space: pre;
-        }
-
-        .code-block .keyword {
-            color: #e74c3c;
-        }
-
-        .code-block .string {
-            color: #2ecc71;
-        }
-
-        .code-block .comment {
-            color: #95a5a6;
-        }
-
         .json-section {
             margin-bottom: 20px;
         }
@@ -229,65 +157,57 @@
             margin-top: 20px;
         }
 
-        .data-flow-arrow {
-            position: absolute;
-            top: -120px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 60px;
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        .arrow-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
-        .arrow-line {
-            position: absolute;
-            top: 50%;
-            left: 10px;
-            right: 10px;
-            height: 4px;
-            background: linear-gradient(90deg, #3498db, #2ecc71);
-            border-radius: 2px;
-            animation: pulse 2s infinite;
-        }
-
-        .arrow-head {
-            position: absolute;
-            top: 50%;
-            right: 0;
-            transform: translateY(-50%);
-            width: 0;
-            height: 0;
-            border-left: 20px solid #2ecc71;
-            border-top: 15px solid transparent;
-            border-bottom: 15px solid transparent;
-            animation: pulse 2s infinite;
-        }
-
-        .arrow-label {
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.9);
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 12px;
+        .api-button {
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
             font-weight: bold;
-            color: #2c3e50;
-            white-space: nowrap;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
+        .api-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+        }
+
+        .api-button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .examples {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .examples h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .example-url {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 8px;
+            margin: 5px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .example-url:hover {
+            background: #e3f2fd;
         }
 
         .json-iteration-section {
@@ -366,71 +286,10 @@
             font-style: italic;
         }
 
-        .api-button {
-            background: linear-gradient(45deg, #3498db, #2ecc71);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
-            font-weight: bold;
-        }
-
-        .api-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
-        }
-
-        .api-button:disabled {
-            background: #bdc3c7;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .examples {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .examples h4 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .example-url {
-            background: white;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            padding: 8px;
-            margin: 5px 0;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .example-url:hover {
-            background: #e3f2fd;
-        }
-
         @media (max-width: 768px) {
             .main-layout {
                 grid-template-columns: 1fr;
                 gap: 20px;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .container {
-                padding: 20px;
             }
         }
     </style>
@@ -438,12 +297,13 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>KidsCode-Lab</h1>
-            <h2>🔄 API Call Demonstration</h2>
-            <br>
-            <h3>Learn how Python makes API calls and <br>see the results in real-time!</h3>
+            <div class="brand-logo">
+                <img src="../images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
+                <div class="brand-logo-text">KidsCode Lab</div>
+            </div>
+            <h1>🔄 API Call Demonstration</h1>
+            <h2>Learn how Python makes API calls and <br>see the results in real-time!</h2>
         </div>
-
         <div class="examples">
             <h4>📚 Try these example APIs (click to use):</h4>
             <div class="example-url" onclick="setExample('https://api.adviceslip.com/advice')">
@@ -585,7 +445,7 @@ if 'slip' in data:
             <div class="json-section">
                 <h3>📄 Python Processing Output:</h3>
                 <div id="iterationOutput" class="iteration-output waiting">
-                    Make an API call above to see how Python processes the JSON data...
+                    <p>Make an API call above to see how Python processes the JSON data...</p>
                 </div>
             </div>
         </div>
@@ -803,810 +663,4 @@ if 'slip' in data:
         });
     </script>
 </body>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KidsCode-Lab: API Call Demo - Understanding How APIs Work</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .header h1 {
-            color: #2c3e50;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            color: #7f8c8d;
-            font-size: 1.1rem;
-        }
-
-        .main-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .data-flow-arrow {
-            position: absolute;
-            top: 120px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 60px;
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        .tile {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 2px solid #e3f2fd;
-        }
-
-        .tile-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .icon {
-            width: 60px;
-            height: 60px;
-            background: #3498db;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .python-icon {
-            background: linear-gradient(45deg, #3776ab, #ffd343);
-        }
-
-        .api-icon {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-        }
-
-        .tile-title {
-            font-size: 1.3rem;
-            color: #2c3e50;
-            font-weight: bold;
-        }
-
-        .input-section {
-            margin-bottom: 20px;
-        }
-
-        .input-section label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #34495e;
-        }
-
-        .url-input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #bdc3c7;
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: 'Courier New', monospace;
-            transition: border-color 0.3s;
-        }
-
-        .url-input:focus {
-            outline: none;
-            border-color: #3498db;
-        }
-
-        .code-section {
-            margin-bottom: 20px;
-        }
-
-        .code-section h3 {
-            margin-bottom: 10px;
-            color: #2c3e50;
-            font-size: 1.1rem;
-        }
-
-        .code-block {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 15px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            line-height: 1.8;
-            overflow-x: auto;
-            white-space: pre;
-        }
-
-        .code-block .keyword {
-            color: #e74c3c;
-        }
-
-        .code-block .string {
-            color: #2ecc71;
-        }
-
-        .code-block .comment {
-            color: #95a5a6;
-        }
-
-        .json-section {
-            margin-bottom: 20px;
-        }
-
-        .json-section h3 {
-            margin-bottom: 10px;
-            color: #2c3e50;
-            font-size: 1.1rem;
-        }
-
-        .json-display {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            padding: 15px;
-            min-height: 200px;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            line-height: 1.6;
-            overflow-y: auto;
-            white-space: pre-wrap;
-        }
-
-        .json-display.loading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #e3f2fd;
-            color: #1976d2;
-            font-weight: bold;
-        }
-
-        .json-display.error {
-            background: #ffebee;
-            color: #c62828;
-            border-color: #ef5350;
-        }
-
-        .json-display.success {
-            background: #e8f5e8;
-            border-color: #4caf50;
-        }
-
-        .endpoint-display {
-            background: #f0f8ff;
-            border: 2px solid #e3f2fd;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            word-break: break-all;
-            min-height: 50px;
-            display: flex;
-            align-items: center;
-        }
-
-        .control-section {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .data-flow-arrow {
-            position: absolute;
-            top: -120px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 60px;
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        .arrow-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
-        .arrow-line {
-            position: absolute;
-            top: 50%;
-            left: 10px;
-            right: 10px;
-            height: 4px;
-            background: linear-gradient(90deg, #3498db, #2ecc71);
-            border-radius: 2px;
-            animation: pulse 2s infinite;
-        }
-
-        .arrow-head {
-            position: absolute;
-            top: 50%;
-            right: 0;
-            transform: translateY(-50%);
-            width: 0;
-            height: 0;
-            border-left: 20px solid #2ecc71;
-            border-top: 15px solid transparent;
-            border-bottom: 15px solid transparent;
-            animation: pulse 2s infinite;
-        }
-
-        .arrow-label {
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.9);
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 12px;
-            font-weight: bold;
-            color: #2c3e50;
-            white-space: nowrap;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
-        }
-
-        .json-iteration-section {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 2px solid #e8f5e8;
-        }
-
-        .iteration-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .iteration-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(45deg, #8e44ad, #3498db);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .iteration-title {
-            font-size: 1.4rem;
-            color: #2c3e50;
-            font-weight: bold;
-        }
-
-        .iteration-code {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 20px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            line-height: 1.8;
-            overflow-x: auto;
-            margin-bottom: 20px;
-            white-space: pre;
-        }
-
-        .iteration-output {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            padding: 15px;
-            min-height: 150px;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-            line-height: 1.6;
-            overflow-y: auto;
-            white-space: pre-wrap;
-        }
-
-        .iteration-output.success {
-            background: #e8f5e8;
-            border-color: #4caf50;
-        }
-
-        .iteration-output.waiting {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #7f8c8d;
-            font-style: italic;
-        }
-
-        .api-button {
-            background: linear-gradient(45deg, #3498db, #2ecc71);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
-            font-weight: bold;
-        }
-
-        .api-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
-        }
-
-        .api-button:disabled {
-            background: #bdc3c7;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .examples {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .examples h4 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .example-url {
-            background: white;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            padding: 8px;
-            margin: 5px 0;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .example-url:hover {
-            background: #e3f2fd;
-        }
-
-        @media (max-width: 768px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .container {
-                padding: 20px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>KidsCode-Lab</h1>
-            <h2>🔄 API Call Demonstration</h2>
-            <br>
-            <h3>Learn how Python makes API calls and <br>see the results in real-time!</h3>
-        </div>
-
-        <div class="examples">
-            <h4>📚 Try these example APIs (click to use):</h4>
-            <div class="example-url" onclick="setExample('https://api.adviceslip.com/advice')">
-                https://api.adviceslip.com/advice - Random advice
-            </div>
-            <div class="example-url" onclick="setExample('https://dog.ceo/api/breeds/image/random')">
-                https://dog.ceo/api/breeds/image/random - Random dog image
-            </div>
-            <div class="example-url" onclick="setExample('http://numbersapi.com/42?json')">
-                http://numbersapi.com/42?json - Number facts
-            </div>
-            <div class="example-url" onclick="setExample('https://api.quotable.io/random')">
-                https://api.quotable.io/random - Random quotes
-            </div>
-        </div>
-
-        <div class="main-layout">
-            <!-- <div class="data-flow-arrow">
-                <div class="arrow-container">
-                    <div class="arrow-line"></div>
-                    <div class="arrow-head"></div>
-                    <div class="arrow-label">📡 API Request</div>
-                </div>
-            </div> -->
-
-            <!-- Left Tile - Python Side -->
-            <div class="tile">
-                <div class="tile-header">
-                    <div class="icon python-icon">🐍</div>
-                    <div class="tile-title">Python Code</div>
-                </div>
-
-                <div class="input-section">
-                    <label for="apiUrl">API Endpoint URL:</label>
-                    <input type="text" id="apiUrl" class="url-input" 
-                           placeholder="Enter API endpoint URL (e.g., https://api.adviceslip.com/advice)"
-                           value="https://api.adviceslip.com/advice">
-                </div>
-
-                <div class="code-section">
-                    <h3>📝 Python Code:</h3>
-                    <div class="code-block">
-import requests
-import json
-
-# Make API call
-url = "<span id="pythonUrl">https://api.adviceslip.com/advice</span>"
-response = requests.get(url)
-
-if response.status_code == 200:
-    data = response.json()
-    print("Success!")
-    print(json.dumps(data, indent=2))
-else:
-    print(f"Error: {response.status_code}")
-                    </div>
-                </div>
-
-                <div class="json-section">
-                    <h3>📄 Python Response:</h3>
-                    <div id="pythonResponse" class="json-display">
-                        Click "Make API Call" to see the response here...
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Tile - API Side -->
-            <div class="tile">
-                <div class="tile-header">
-                    <div class="icon api-icon">🌐</div>
-                    <div class="tile-title">API Server</div>
-                </div>
-
-                <div class="input-section">
-                    <label>API Endpoint:</label>
-                    <div id="apiEndpoint" class="endpoint-display">
-                        https://api.adviceslip.com/advice
-                    </div>
-                </div>
-
-                <div class="json-section">
-                    <h3>📡 Server Response:</h3>
-                    <div id="apiResponse" class="json-display">
-                        Waiting for API call...
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="control-section">
-            <button id="makeCallBtn" class="api-button" onclick="makeApiCall()">
-                🚀 Make API Call
-            </button>
-        </div>
-
-        <div class="json-iteration-section">
-            <div class="iteration-header">
-                <div class="iteration-icon">🔄</div>
-                <div class="iteration-title">JSON Data Processing in Python</div>
-            </div>
-
-            <div class="code-section">
-                <h3>📝 How Python Processes the JSON Response:</h3>
-                <div class="iteration-code">
-import requests
-import json
-
-# Get the JSON response
-response = requests.get("<span id="iterationUrl">https://api.adviceslip.com/advice</span>")
-data = response.json()
-
-# Display the full JSON structure
-print("=== Full JSON Response ===")
-print(json.dumps(data, indent=2))
-
-# Iterate through the JSON data
-print("\n=== Processing JSON Data ===")
-for key, value in data.items():
-    print(f"Key: '{key}' → Value: {value}")
-    
-    # Check if value is a nested object/array
-    if isinstance(value, dict):
-        print(f"  └── '{key}' is a nested object:")
-        for sub_key, sub_value in value.items():
-            print(f"      {sub_key}: {sub_value}")
-    elif isinstance(value, list):
-        print(f"  └── '{key}' is a list with {len(value)} items:")
-        for i, item in enumerate(value):
-            print(f"      [{i}]: {item}")
-
-# Extract specific values (example)
-print("\n=== Extracting Specific Data ===")
-if 'slip' in data:
-    advice = data['slip']['advice']
-    print(f"Advice: {advice}")
-                </div>
-            </div>
-
-            <div class="json-section">
-                <h3>📄 Python Processing Output:</h3>
-                <div id="iterationOutput" class="iteration-output waiting">
-                    Make an API call above to see how Python processes the JSON data...
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Update URL displays when input changes
-        document.getElementById('apiUrl').addEventListener('input', function() {
-            const url = this.value;
-            document.getElementById('pythonUrl').textContent = url;
-            document.getElementById('apiEndpoint').textContent = url || 'Enter API endpoint above';
-            document.getElementById('iterationUrl').textContent = url;
-        });
-
-        // Set example URL
-        function setExample(url) {
-            document.getElementById('apiUrl').value = url;
-            document.getElementById('pythonUrl').textContent = url;
-            document.getElementById('apiEndpoint').textContent = url;
-            document.getElementById('iterationUrl').textContent = url;
-        }
-
-        // Generate Python iteration output
-        function generateIterationOutput(data, url) {
-            let output = `=== Full JSON Response ===\n`;
-            output += JSON.stringify(data, null, 2);
-            output += `\n\n=== Processing JSON Data ===\n`;
-            
-            // Iterate through top-level keys
-            for (const [key, value] of Object.entries(data)) {
-                output += `Key: '${key}' → Value: ${JSON.stringify(value)}\n`;
-                
-                // Check if value is nested object
-                if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-                    output += `  └── '${key}' is a nested object:\n`;
-                    for (const [subKey, subValue] of Object.entries(value)) {
-                        output += `      ${subKey}: ${JSON.stringify(subValue)}\n`;
-                    }
-                } 
-                // Check if value is array
-                else if (Array.isArray(value)) {
-                    output += `  └── '${key}' is a list with ${value.length} items:\n`;
-                    value.forEach((item, index) => {
-                        output += `      [${index}]: ${JSON.stringify(item)}\n`;
-                    });
-                }
-            }
-            
-            output += `\n=== Extracting Specific Data ===\n`;
-            
-            // Add API-specific extraction examples
-            if (url.includes('adviceslip.com')) {
-                if (data.slip && data.slip.advice) {
-                    output += `Advice: ${data.slip.advice}\n`;
-                    output += `Advice ID: ${data.slip.id}\n`;
-                }
-            } else if (url.includes('dog.ceo')) {
-                if (data.message) {
-                    output += `Dog Image URL: ${data.message}\n`;
-                    output += `Status: ${data.status}\n`;
-                }
-            } else if (url.includes('numbersapi.com')) {
-                if (data.text) {
-                    output += `Number Fact: ${data.text}\n`;
-                    output += `Fact Found: ${data.found}\n`;
-                    output += `Fact Type: ${data.type}\n`;
-                }
-            } else if (url.includes('quotable.io')) {
-                if (data.content) {
-                    output += `Quote: "${data.content}"\n`;
-                    output += `Author: ${data.author}\n`;
-                    output += `Quote Length: ${data.length} characters\n`;
-                }
-            } else {
-                // Generic extraction for unknown APIs
-                const firstKey = Object.keys(data)[0];
-                const firstValue = data[firstKey];
-                output += `First key '${firstKey}': ${JSON.stringify(firstValue)}\n`;
-                
-                if (data.message) output += `Message: ${data.message}\n`;
-                if (data.text) output += `Text: ${data.text}\n`;
-                if (data.content) output += `Content: ${data.content}\n`;
-                if (data.title) output += `Title: ${data.title}\n`;
-                if (data.name) output += `Name: ${data.name}\n`;
-            }
-            
-            return output;
-        }
-
-        // Make API call
-        async function makeApiCall() {
-            const url = document.getElementById('apiUrl').value.trim();
-            const button = document.getElementById('makeCallBtn');
-            const pythonResponse = document.getElementById('pythonResponse');
-            const apiResponse = document.getElementById('apiResponse');
-            const iterationOutput = document.getElementById('iterationOutput');
-
-            // Validate URL
-            if (!url) {
-                alert('Please enter an API endpoint URL!');
-                return;
-            }
-
-            // Check if URL is valid
-            try {
-                new URL(url);
-            } catch (e) {
-                const errorMsg = 'Error: Invalid URL format!\nPlease enter a valid URL starting with http:// or https://';
-                pythonResponse.className = 'json-display error';
-                pythonResponse.textContent = errorMsg;
-                apiResponse.className = 'json-display error';
-                apiResponse.textContent = 'Error: Invalid URL format!';
-                iterationOutput.className = 'iteration-output';
-                iterationOutput.textContent = 'Cannot process invalid URL. Please enter a valid API endpoint.';
-                return;
-            }
-
-            // Disable button and show loading
-            button.disabled = true;
-            button.textContent = '⏳ Making API Call...';
-            
-            pythonResponse.className = 'json-display loading';
-            pythonResponse.textContent = 'Making API call...\n\n🔄 Waiting for response...';
-            
-            apiResponse.className = 'json-display loading';
-            apiResponse.textContent = 'Processing request...\n\n📡 Waiting for server response...';
-            
-            iterationOutput.className = 'iteration-output';
-            iterationOutput.textContent = 'Processing API response...\n\n🔄 Analyzing JSON structure...';
-
-            try {
-                // Create abort controller for timeout
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
-
-                const response = await fetch(url, {
-                    method: 'GET',
-                    signal: controller.signal,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-
-                clearTimeout(timeoutId);
-
-                if (response.ok) {
-                    const data = await response.json();
-                    const formattedJson = JSON.stringify(data, null, 2);
-                    
-                    // Show success response
-                    pythonResponse.className = 'json-display success';
-                    pythonResponse.textContent = `✅ Success! Status Code: ${response.status}\n\n${formattedJson}`;
-                    
-                    apiResponse.className = 'json-display success';
-                    apiResponse.textContent = formattedJson;
-                    
-                    // Generate iteration output
-                    const iterationText = generateIterationOutput(data, url);
-                    iterationOutput.className = 'iteration-output success';
-                    iterationOutput.textContent = iterationText;
-                    
-                } else {
-                    // Handle HTTP errors
-                    const errorText = await response.text();
-                    pythonResponse.className = 'json-display error';
-                    pythonResponse.textContent = `❌ HTTP Error: ${response.status} ${response.statusText}\n\nResponse: ${errorText}`;
-                    
-                    apiResponse.className = 'json-display error';
-                    apiResponse.textContent = `HTTP ${response.status}: ${response.statusText}\n\n${errorText}`;
-                    
-                    iterationOutput.className = 'iteration-output';
-                    iterationOutput.textContent = `Cannot process JSON data due to HTTP error ${response.status}.\n\nPython would handle this with:\n\nif response.status_code == 200:\n    # Process successful response\nelse:\n    print(f"Error: {response.status_code}")`;
-                }
-
-            } catch (error) {
-                let errorMessage = '';
-                
-                if (error.name === 'AbortError') {
-                    errorMessage = '⏱️ Request Timeout!\n\nThe API call took too long to respond (>10 seconds).\nThis might be due to:\n• Slow server response\n• Network connectivity issues\n• Invalid endpoint';
-                } else if (error.name === 'TypeError') {
-                    errorMessage = '🚫 Network Error!\n\nCannot connect to the API endpoint.\nThis might be due to:\n• CORS (Cross-Origin) restrictions\n• Invalid URL\n• Server is down\n• No internet connection';
-                } else {
-                    errorMessage = `❌ Unexpected Error!\n\nError: ${error.message}\n\nThis might be due to:\n• Invalid JSON response\n• Server error\n• Network issues`;
-                }
-                
-                pythonResponse.className = 'json-display error';
-                pythonResponse.textContent = errorMessage;
-                
-                apiResponse.className = 'json-display error';
-                apiResponse.textContent = errorMessage;
-                
-                iterationOutput.className = 'iteration-output';
-                iterationOutput.textContent = `Cannot process JSON data due to error.\n\nPython would handle this with:\n\ntry:\n    response = requests.get(url)\n    data = response.json()\nexcept requests.RequestException as e:\n    print(f"Error: {e}")`;
-            } finally {
-                // Re-enable button
-                button.disabled = false;
-                button.textContent = '🚀 Make API Call';
-            }
-        }
-
-        // Allow Enter key to trigger API call
-        document.getElementById('apiUrl').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                makeApiCall();
-            }
-        });
-
-        // Initialize with default example
-        window.addEventListener('load', function() {
-            const defaultUrl = 'https://api.adviceslip.com/advice';
-            document.getElementById('apiUrl').value = defaultUrl;
-            document.getElementById('pythonUrl').textContent = defaultUrl;
-            document.getElementById('apiEndpoint').textContent = defaultUrl;
-            document.getElementById('iterationUrl').textContent = defaultUrl;
-        });
-    </script>
-</body>
->>>>>>> 18ce4e5e6912d6f5ea72e9efd153901ec8745393
 </html>

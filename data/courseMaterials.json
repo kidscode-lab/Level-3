@@ -1,0 +1,47 @@
+{
+    "courseMaterials": [
+        {
+            "level": "Level 3",
+            "title": "Material Repository - Lesson 1",
+            "description": "Course Material Repository for Lesson 1",
+            "url": "https://github.com/kidscode-lab/Level-3/tree/main/Lesson01",
+            "icon": "📝"
+        },
+        {
+            "level": "Level 3", 
+            "title": "Material Repository - Lesson 2",
+            "description": "Course Material Repository for Lesson 2",
+            "url": "https://github.com/kidscode-lab/Level-3/tree/main/Lesson02",
+            "icon": "📋"
+        },
+        {
+            "level": "Level 3",
+            "title": "Material Repository - Lesson 2",
+            "description": "Modular Design",
+            "url": "https://kidscode-lab.github.io/Level-3/Lesson02/illustration-L3-02-moduleDesign.html",
+            "icon": "📋"
+        },
+        {
+            "level": "Level 3",
+            "title": "Material Repository - Lesson 3",
+            "description": "Course Material Repository for Lesson 3",
+            "url": "https://github.com/kidscode-lab/Level-3/tree/main/Lesson03",
+            "icon": "📋"
+        },
+        {
+            "level": "Level 3",
+            "title": "Material Repository - Lesson 3",
+            "description": "Error Handling",
+            "url": "https://kidscode-lab.github.io/Level-3/Lesson03/illustration-L3-03-tryCatch.html",
+            "icon": "📋"
+        },
+        {
+            "level": "Level 3",
+            "title": "Material Repository - Lesson 3",
+            "description": "Application Programming Interface (API)",
+            "url": "https://kidscode-lab.github.io/Level-3/Lesson03/illustration-L3-03-API.html",
+            "icon": "📋"
+        }
+
+    ]
+}

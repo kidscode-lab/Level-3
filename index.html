@@ -189,7 +189,8 @@
 
         .tile-description {
             color: #6b7280;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
+            font-weight: bold;
             line-height: 1.5;
         }
 
@@ -285,14 +286,13 @@
                 <img src="images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
                 <div class="brand-logo-text">KidsCode Lab</div>
             </div>
-            <h2>Learn Programming with Fun!</h2>
-            <p>Welcome to KidsCode-Lab! Your journey into the exciting world of programming starts here.<br>
-            We make coding fun, interactive, and easy to understand for young minds.</p>
+            <h2>Learn Programming with Fun!</h1>
+            <h3><p>Welcome to KidsCode-Lab! Your journey into the exciting world of programming starts here.<br>
+            We make coding fun, interactive, and easy to understand for young minds.</p></h2>
         </div>
 
         <div class="course-materials">
             <h3>📖 Course Materials Repository</h3>
-            
             <div class="materials-grid" id="materialsGrid">
                 <!-- Materials will be populated by JavaScript -->
             </div>
@@ -308,50 +308,25 @@
 
     <script>
         // Course Materials Array - Easy to update and maintain
-        var courseMaterials = [
-            {
-                level: "Level 3",
-                title: "Material Repository - Lesson 1",
-                description: "Course Material Repository for Lesson 1",
-                url: "https://github.com/kidscode-lab/Level-3/tree/main/Lesson01",
-                icon: "📝"
-            },
-            {
-                level: "Level 3", 
-                title: "Material Repository - Lesson 2",
-                description: "Course Material Repository for Lesson 2",
-                url: "https://github.com/kidscode-lab/Level-3/tree/main/Lesson02",
-                icon: "📋"
-            },
-            {
-                level: "Level 3",
-                title: "Material Repository - Lesson 2",
-                description: "Modular Design",
-                url: "https://kidscode-lab.github.io/Level-3/Lesson02/illustration-L3-02-moduleDesign.html",
-                icon: "📋"
-            },
-            {
-                level: "Level 3",
-                title: "Material Repository - Lesson 3",
-                description: "Course Material Repository for Lesson 3",
-                url: "https://github.com/kidscode-lab/Level-3/tree/main/Lesson03",
-                icon: "📋"
-            },
-            {
-                level: "Level 3",
-                title: "Material Repository - Lesson 3",
-                description: "Error Handling",
-                url: "https://kidscode-lab.github.io/Level-3/Lesson03/illustration-L3-03-tryCatch.html",
-                icon: "📋"
-            },
-            {
-                level: "Level 3",
-                title: "Material Repository - Lesson 3",
-                description: "Application Programming Interface (API)",
-                url: "https://kidscode-lab.github.io/Level-3/Lesson03/illustration-L3-03-API.html",
-                icon: "📋"
+        var courseMaterials = [];
+
+        // Function to load course materials from JSON file
+        async function loadCourseMaterials() {
+            try {
+                const response = await fetch('data/courseMaterials.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                courseMaterials = data.courseMaterials;
+                console.log('Course materials loaded successfully:', courseMaterials.length, 'items');
+                return true;
+            } catch (error) {
+                console.error('Error loading course materials:', error);
+                window.alert('Error loading course materials from file: /data/courseMaterials.json')
+                return false;
             }
-        ];
+        }
 
         // Function to generate material tiles
         function generateMaterialTiles() {
@@ -382,7 +357,15 @@
         }
 
         // Initialize the page
-        window.addEventListener('load', function() {
+        window.addEventListener('load', async function() {
+            // Show loading message
+            var grid = document.getElementById('materialsGrid');
+            if (grid) {
+                grid.innerHTML = '<div style="text-align: center; padding: 40px; color: #6b7280;">Loading course materials...</div>';
+            }
+
+            // Load course materials and generate tiles
+            await loadCourseMaterials();
             generateMaterialTiles();
         });
     </script>

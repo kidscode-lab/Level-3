@@ -1,28 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KidsCode-Lab: Modular Design Interactive Demo</title>
+    <title>Modular Design Interactive Demo - KidsCode Lab</title>
     <link rel="stylesheet" href="../styles/master.css">
     <style>
-        /* Page-specific styles only */
+        /* Page-specific styles using CSS custom properties for theme compatibility */
         .concept-explanation {
-            background: #e8f4fd;
-            border-left: 4px solid #3b82f6;
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid var(--color-info);
             padding: 20px;
             margin-bottom: 30px;
             border-radius: 10px;
+            border: 1px solid var(--border-primary);
         }
 
         .concept-explanation h3 {
-            color: #1e40af;
+            color: var(--color-info);
             margin-bottom: 15px;
             font-size: 1.4rem;
         }
 
         .concept-explanation p {
-            color: #374151;
+            color: var(--text-secondary);
             line-height: 1.6;
             margin-bottom: 10px;
         }
@@ -35,28 +36,34 @@
         }
 
         .code-panel {
-            background: white;
+            background: var(--bg-secondary);
             border-radius: 15px;
             padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 2px solid #e3f2fd;
+            box-shadow: 0 10px 30px var(--shadow-medium);
+            border: 2px solid var(--border-primary);
             width: 100%;
             min-width: 0;
+            transition: all 0.3s ease;
+        }
+
+        .code-panel:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px var(--shadow-heavy);
         }
 
         .code-panel.messy {
-            border-color: #f87171;
+            border-color: var(--color-error);
         }
 
         .code-panel.modular {
-            border-color: #4ade80;
+            border-color: var(--color-success);
         }
 
-        /* Make sure code blocks fit within their panels */
         .code-panel .code-block {
             max-height: 1000px;
             width: 100%;
             box-sizing: border-box;
+            margin-top: 0;
         }
 
         .panel-header {
@@ -65,7 +72,7 @@
             gap: 15px;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
+            border-bottom: 2px solid var(--border-primary);
         }
 
         .panel-icon {
@@ -81,16 +88,16 @@
         }
 
         .panel-icon.messy {
-            background: linear-gradient(45deg, #ef4444, #dc2626);
+            background: linear-gradient(45deg, var(--color-error), #dc2626);
         }
 
         .panel-icon.modular {
-            background: linear-gradient(45deg, #22c55e, #16a34a);
+            background: linear-gradient(45deg, var(--color-success), #16a34a);
         }
 
         .panel-title {
             font-size: 1.3rem;
-            color: #2c3e50;
+            color: var(--text-primary);
             font-weight: bold;
         }
 
@@ -104,26 +111,27 @@
         .problems-box, .benefits-box {
             padding: 20px;
             border-radius: 10px;
+            border: 1px solid var(--border-primary);
         }
 
         .problems-box {
-            background: #fef2f2;
-            border: 2px solid #fecaca;
+            background: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid var(--color-error);
         }
 
         .benefits-box {
-            background: #f0fdf4;
-            border: 2px solid #bbf7d0;
+            background: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid var(--color-success);
         }
 
         .problems-box h3 {
-            color: #dc2626;
+            color: var(--color-error);
             margin-bottom: 15px;
             font-size: 1.2rem;
         }
 
         .benefits-box h3 {
-            color: #16a34a;
+            color: var(--color-success);
             margin-bottom: 15px;
             font-size: 1.2rem;
         }
@@ -135,12 +143,12 @@
 
         .problems-box li {
             padding: 5px 0;
-            color: #991b1b;
+            color: var(--text-secondary);
         }
 
         .benefits-box li {
             padding: 5px 0;
-            color: #14532d;
+            color: var(--text-secondary);
         }
 
         .problems-box li::before {
@@ -154,11 +162,11 @@
         }
 
         .interactive-section {
-            background: white;
+            background: var(--bg-secondary);
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 2px solid #e8f5e8;
+            box-shadow: 0 10px 30px var(--shadow-medium);
+            border: 2px solid var(--border-primary);
             margin-bottom: 30px;
         }
 
@@ -168,13 +176,13 @@
             gap: 15px;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
+            border-bottom: 2px solid var(--border-primary);
         }
 
         .interactive-icon {
             width: 50px;
             height: 50px;
-            background: linear-gradient(45deg, #8b5cf6, #3b82f6);
+            background: var(--accent-gradient);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -192,7 +200,7 @@
         }
 
         .function-button {
-            background: linear-gradient(45deg, #3b82f6, #1e40af);
+            background: var(--accent-gradient);
             color: white;
             border: none;
             padding: 12px 16px;
@@ -205,30 +213,30 @@
 
         .function-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 5px 15px var(--shadow-medium);
         }
 
         .function-button.active {
-            background: linear-gradient(45deg, #16a34a, #15803d);
+            background: linear-gradient(45deg, var(--color-success), #15803d);
         }
 
         .function-display {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
+            background: var(--bg-elevated);
+            border: 2px solid var(--border-primary);
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
         }
 
         .function-display h4 {
-            color: #1e40af;
+            color: var(--accent-primary);
             margin-bottom: 10px;
             font-size: 1.1rem;
         }
 
         .function-code {
-            background: #2c3e50;
-            color: #ecf0f1;
+            background: var(--code-bg);
+            color: var(--text-secondary);
             padding: 15px;
             border-radius: 6px;
             font-family: 'Courier New', monospace;
@@ -236,33 +244,35 @@
             line-height: 1.6;
             white-space: pre;
             overflow-x: auto;
+            border: 1px solid var(--code-border);
         }
 
         .function-explanation {
-            background: #e0f2fe;
+            background: rgba(33, 150, 243, 0.1);
             border-radius: 6px;
             padding: 15px;
             margin-top: 10px;
+            border: 1px solid var(--border-primary);
         }
 
         .function-explanation h5 {
-            color: #0277bd;
+            color: var(--color-info);
             margin-bottom: 8px;
             font-size: 1rem;
         }
 
         .function-explanation p {
-            color: #01579b;
+            color: var(--text-secondary);
             font-size: 0.9rem;
             line-height: 1.5;
         }
 
         .workflow-section {
-            background: white;
+            background: var(--bg-secondary);
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 2px solid #e8f5e8;
+            box-shadow: 0 10px 30px var(--shadow-medium);
+            border: 2px solid var(--border-primary);
         }
 
         .workflow-header {
@@ -271,9 +281,13 @@
         }
 
         .workflow-header h3 {
-            color: #1e40af;
+            color: var(--accent-primary);
             font-size: 1.4rem;
             margin-bottom: 10px;
+        }
+
+        .workflow-header p {
+            color: var(--text-muted);
         }
 
         .workflow-steps {
@@ -285,14 +299,20 @@
         }
 
         .workflow-step {
-            background: #e0f2fe;
-            border: 2px solid #81d4fa;
+            background: var(--bg-elevated);
+            border: 2px solid var(--accent-primary);
             border-radius: 10px;
             padding: 15px;
             text-align: center;
             flex: 1;
             min-width: 120px;
             position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .workflow-step:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow-medium);
         }
 
         .workflow-step::after {
@@ -302,7 +322,7 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 1.5rem;
-            color: #3b82f6;
+            color: var(--accent-primary);
             font-weight: bold;
         }
 
@@ -311,14 +331,51 @@
         }
 
         .workflow-step h4 {
-            color: #0277bd;
+            color: var(--accent-primary);
             margin-bottom: 5px;
             font-size: 0.9rem;
         }
 
         .workflow-step p {
-            color: #01579b;
+            color: var(--text-secondary);
             font-size: 0.8rem;
+        }
+
+        /* Print-friendly theme overrides */
+        :root[data-theme="print-friendly"] .concept-explanation {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-primary);
+        }
+
+        :root[data-theme="print-friendly"] .concept-explanation h3 {
+            color: var(--text-primary);
+        }
+
+        :root[data-theme="print-friendly"] .problems-box {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-primary);
+        }
+
+        :root[data-theme="print-friendly"] .problems-box h3 {
+            color: var(--text-primary);
+        }
+
+        :root[data-theme="print-friendly"] .benefits-box {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-primary);
+        }
+
+        :root[data-theme="print-friendly"] .benefits-box h3 {
+            color: var(--text-primary);
+        }
+
+        :root[data-theme="print-friendly"] .function-explanation {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-primary);
+        }
+
+        :root[data-theme="print-friendly"] .function-explanation h5 {
+            color: var(--text-primary);
         }
 
         @media (max-width: 768px) {
@@ -341,275 +398,435 @@
             .code-panel {
                 margin-bottom: 20px;
             }
+            
+            .function-buttons {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="brand-logo">
-                <img src="../images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
-                <div class="brand-logo-text">KidsCode Lab</div>
+            <div class="header-top">
+                <div class="brand-logo">
+                    <img src="../images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
+                    <div class="brand-logo-text">KidsCode Lab</div>
+                </div>
+                
+                <div class="theme-switcher">
+                    <button class="theme-cycle-button" onclick="cycleTheme()" title="Switch Theme">
+                        🔄
+                        <div class="theme-tooltip" id="themeTooltip">Next: Light Theme</div>
+                    </button>
+                </div>
             </div>
+            
             <h2>🏗️ Modular Design Interactive Demo</h2>
-            <h3>Learn how to transform messy code into clean,<br> organized, and maintainable functions!</h3>
-        </div>
-        <div class="concept-explanation">
-            <h3>🎯 What is Modular Design?</h3>
-            <p><strong>Modular Design</strong> is like building with LEGO blocks - instead of one giant piece, you create small, specialized pieces that work together!</p>
-            <p>Each function has <strong>ONE JOB</strong> and does it well. This makes code easier to understand, test, and fix.</p>
-            <p><strong>Example:</strong> Instead of one huge checkout function, we break it into: scan_items(), calculate_total(), process_payment(), etc.</p>
+            <h3>Learn how to transform messy code into clean, organized, and maintainable functions!</h3>
         </div>
 
-        <div class="comparison-section">
-            <div class="code-panel messy">
-                <div class="panel-header">
-                    <div class="panel-icon messy">😵</div>
-                    <div class="panel-title">Messy Code (Before)</div>
-                </div>
-                <div class="code-block">
-# L3 - Lesson 02
-#   Check out program - no modular design
-
-# Start - checkout
-import random
-items = []
-print("Welcome to Checkout System =====")
-
-# Scan Items
-while True:
-    item_name = input("Enter item name: ")
-    if item_name.strip() != "":
-        # Find the price and add item to list
-        item_price = round(random.uniform(0.50, 10.00), 2)
-        items.append({"name": item_name, "price": item_price})
-        print(f"Item: {item_name} @ {item_price:.2f}")
-    else:
-        # Exit while loop for just hitting Enter key
-        break
-
-# Process if user has input more than zero item(s)
-if len(items) > 0:
-    # Calculate final total
-    total = 0
-    for item in items:
-        total += item["price"]
-    print(f"Total: {total:.2f}")
-    # Payment method
-    payment_method = input("Payment method (cash/card): ")
-    if payment_method not in ["cash", "card"]:
-        print("Error: Invalid payment method!")
-    else:
-        # Process Payment
-        amount_paid = float(input("Enter payment amount: "))
-        # Is payment sufficient?
-        if amount_paid >= total:
-            print(f"Payment successful by {payment_method}! Change: {amount_paid - total:.2f}")
-            # Issue receipt
-            print("Receipt:")
-            for item in items:
-                print(f"{item['name']}: {item['price']:.2f}")
-            print(f"Total: {total:.2f}")
-            print("Checkout complete!")
-        else:
-            print("Error: Insufficient payment!")
-                </div>
+        <div class="content">
+            <div class="concept-explanation">
+                <h3>🎯 What is Modular Design?</h3>
+                <p><strong>Modular Design</strong> is like building with LEGO blocks - instead of one giant piece, you create small, specialized pieces that work together!</p>
+                <p>Each function has <strong>ONE JOB</strong> and does it well. This makes code easier to understand, test, and fix.</p>
+                <p><strong>Example:</strong> Instead of one huge checkout function, we break it into: scan_items(), calculate_total(), process_payment(), etc.</p>
             </div>
 
-            <div class="code-panel modular">
-                <div class="panel-header">
-                    <div class="panel-icon modular">🧩</div>
-                    <div class="panel-title">Modular Code (After)</div>
+            <div class="comparison-section">
+                <div class="code-panel messy">
+                    <div class="panel-header">
+                        <div class="panel-icon messy">😵</div>
+                        <div class="panel-title">Messy Code (Before)</div>
+                    </div>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<pre><code><span class="code-comment"># L3 - Lesson 02</span>
+<span class="code-comment">#   Check out program - no modular design</span>
+
+<span class="code-comment"># Start - checkout</span>
+<span class="code-keyword">import</span> random
+items = []
+<span class="code-keyword">print</span>(<span class="code-string">"Welcome to Checkout System ====="</span>)
+
+<span class="code-comment"># Scan Items</span>
+<span class="code-keyword">while</span> <span class="code-keyword">True</span>:
+    item_name = <span class="code-function">input</span>(<span class="code-string">"Enter item name: "</span>)
+    <span class="code-keyword">if</span> item_name.<span class="code-function">strip</span>() != <span class="code-string">""</span>:
+        <span class="code-comment"># Find the price and add item to list</span>
+        item_price = <span class="code-function">round</span>(random.<span class="code-function">uniform</span>(<span class="code-number">0.50</span>, <span class="code-number">10.00</span>), <span class="code-number">2</span>)
+        items.<span class="code-function">append</span>({<span class="code-string">"name"</span>: item_name, <span class="code-string">"price"</span>: item_price})
+        <span class="code-keyword">print</span>(<span class="code-string">f"Item: {item_name} @ {item_price:.2f}"</span>)
+    <span class="code-keyword">else</span>:
+        <span class="code-comment"># Exit while loop for just hitting Enter key</span>
+        <span class="code-keyword">break</span>
+
+<span class="code-comment"># Process if user has input more than zero item(s)</span>
+<span class="code-keyword">if</span> <span class="code-function">len</span>(items) > <span class="code-number">0</span>:
+    <span class="code-comment"># Calculate final total</span>
+    total = <span class="code-number">0</span>
+    <span class="code-keyword">for</span> item <span class="code-keyword">in</span> items:
+        total += item[<span class="code-string">"price"</span>]
+    <span class="code-keyword">print</span>(<span class="code-string">f"Total: {total:.2f}"</span>)
+    <span class="code-comment"># Payment method</span>
+    payment_method = <span class="code-function">input</span>(<span class="code-string">"Payment method (cash/card): "</span>)
+    <span class="code-keyword">if</span> payment_method <span class="code-keyword">not</span> <span class="code-keyword">in</span> [<span class="code-string">"cash"</span>, <span class="code-string">"card"</span>]:
+        <span class="code-keyword">print</span>(<span class="code-string">"Error: Invalid payment method!"</span>)
+    <span class="code-keyword">else</span>:
+        <span class="code-comment"># Process Payment</span>
+        amount_paid = <span class="code-function">float</span>(<span class="code-function">input</span>(<span class="code-string">"Enter payment amount: "</span>))
+        <span class="code-comment"># Is payment sufficient?</span>
+        <span class="code-keyword">if</span> amount_paid >= total:
+            <span class="code-keyword">print</span>(<span class="code-string">f"Payment successful by {payment_method}! Change: {amount_paid - total:.2f}"</span>)
+            <span class="code-comment"># Issue receipt</span>
+            <span class="code-keyword">print</span>(<span class="code-string">"Receipt:"</span>)
+            <span class="code-keyword">for</span> item <span class="code-keyword">in</span> items:
+                <span class="code-keyword">print</span>(<span class="code-string">f"{item['name']}: {item['price']:.2f}"</span>)
+            <span class="code-keyword">print</span>(<span class="code-string">f"Total: {total:.2f}"</span>)
+            <span class="code-keyword">print</span>(<span class="code-string">"Checkout complete!"</span>)
+        <span class="code-keyword">else</span>:
+            <span class="code-keyword">print</span>(<span class="code-string">"Error: Insufficient payment!"</span>)</code></pre>
+                    </div>
                 </div>
-                <div class="code-block">
-# L3 - Lesson 02
-#   Modular Checkout System
-#   Each function has ONE job and does it well!
 
-import random
+                <div class="code-panel modular">
+                    <div class="panel-header">
+                        <div class="panel-icon modular">🧩</div>
+                        <div class="panel-title">Modular Code (After)</div>
+                    </div>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<pre><code><span class="code-comment"># L3 - Lesson 02</span>
+<span class="code-comment">#   Modular Checkout System</span>
+<span class="code-comment">#   Each function has ONE job and does it well!</span>
 
-def scan_items():
-    """
+<span class="code-keyword">import</span> random
+
+<span class="code-keyword">def</span> <span class="code-function">scan_items</span>():
+    <span class="code-string">"""
     Job: Scan items and build a list
     Input: Nothing (gets input from user)
     Output: List of items with names and prices
-    """
+    """</span>
     items = []
-    while True:
-        item_name = input("Enter item name: ")
-        if item_name.strip() != "":
-            item_price = round(random.uniform(0.50, 10.00), 2)
-            items.append({"name": item_name, "price": item_price})
-            print(f"Item: {item_name} @ {item_price:.2f}")
-        else:
-            break
-    return items
+    <span class="code-keyword">while</span> <span class="code-keyword">True</span>:
+        item_name = <span class="code-function">input</span>(<span class="code-string">"Enter item name: "</span>)
+        <span class="code-keyword">if</span> item_name.<span class="code-function">strip</span>() != <span class="code-string">""</span>:
+            item_price = <span class="code-function">round</span>(random.<span class="code-function">uniform</span>(<span class="code-number">0.50</span>, <span class="code-number">10.00</span>), <span class="code-number">2</span>)
+            items.<span class="code-function">append</span>({<span class="code-string">"name"</span>: item_name, <span class="code-string">"price"</span>: item_price})
+            <span class="code-keyword">print</span>(<span class="code-string">f"Item: {item_name} @ {item_price:.2f}"</span>)
+        <span class="code-keyword">else</span>:
+            <span class="code-keyword">break</span>
+    <span class="code-keyword">return</span> items
 
-def calculate_total(items):
-    """
+<span class="code-keyword">def</span> <span class="code-function">calculate_total</span>(items):
+    <span class="code-string">"""
     Job: Add up all item prices
     Input: List of items
     Output: Total cost as a number
-    """
-    total = 0
-    for item in items:
-        total += item["price"]
-    return total
+    """</span>
+    total = <span class="code-number">0</span>
+    <span class="code-keyword">for</span> item <span class="code-keyword">in</span> items:
+        total += item[<span class="code-string">"price"</span>]
+    <span class="code-keyword">return</span> total
 
-def get_payment_method():
-    """
+<span class="code-keyword">def</span> <span class="code-function">get_payment_method</span>():
+    <span class="code-string">"""
     Job: Get a valid payment method from user
     Input: Nothing (gets input from user)
     Output: Valid payment method ("cash" or "card")
-    """
-    payment_method = input("Payment method (cash/card): ")
-    if payment_method not in ["cash", "card"]:
-        print("Error: Invalid payment method!")
-        return None
-    return payment_method
+    """</span>
+    payment_method = <span class="code-function">input</span>(<span class="code-string">"Payment method (cash/card): "</span>)
+    <span class="code-keyword">if</span> payment_method <span class="code-keyword">not</span> <span class="code-keyword">in</span> [<span class="code-string">"cash"</span>, <span class="code-string">"card"</span>]:
+        <span class="code-keyword">print</span>(<span class="code-string">"Error: Invalid payment method!"</span>)
+        <span class="code-keyword">return</span> <span class="code-keyword">None</span>
+    <span class="code-keyword">return</span> payment_method
 
-def process_payment(total):
-    """
+<span class="code-keyword">def</span> <span class="code-function">process_payment</span>(total):
+    <span class="code-string">"""
     Job: Handle the payment process
     Input: Total amount needed
     Output: True if payment successful, False if not
-    """
+    """</span>
     payment_method = get_payment_method()
-    if payment_method is None:
-        return False
+    <span class="code-keyword">if</span> payment_method <span class="code-keyword">is</span> <span class="code-keyword">None</span>:
+        <span class="code-keyword">return</span> <span class="code-keyword">False</span>
     
-    amount_paid = float(input("Enter payment amount: "))
-    if amount_paid >= total:
+    amount_paid = <span class="code-function">float</span>(<span class="code-function">input</span>(<span class="code-string">"Enter payment amount: "</span>))
+    <span class="code-keyword">if</span> amount_paid >= total:
         change = amount_paid - total
-        print(f"Payment successful by {payment_method}! Change: {change:.2f}")
-        return True
-    else:
-        print("Error: Insufficient payment!")
-        return False
+        <span class="code-keyword">print</span>(<span class="code-string">f"Payment successful by {payment_method}! Change: {change:.2f}"</span>)
+        <span class="code-keyword">return</span> <span class="code-keyword">True</span>
+    <span class="code-keyword">else</span>:
+        <span class="code-keyword">print</span>(<span class="code-string">"Error: Insufficient payment!"</span>)
+        <span class="code-keyword">return</span> <span class="code-keyword">False</span>
 
-def print_receipt(items, total):
-    """
+<span class="code-keyword">def</span> <span class="code-function">print_receipt</span>(items, total):
+    <span class="code-string">"""
     Job: Print a receipt showing all items and total
     Input: List of items and total amount
     Output: Nothing (just prints to screen)
-    """
-    print("Receipt:")
-    for item in items:
-        print(f"{item['name']}: {item['price']:.2f}")
-    print(f"Total: {total:.2f}")
+    """</span>
+    <span class="code-keyword">print</span>(<span class="code-string">"Receipt:"</span>)
+    <span class="code-keyword">for</span> item <span class="code-keyword">in</span> items:
+        <span class="code-keyword">print</span>(<span class="code-string">f"{item['name']}: {item['price']:.2f}"</span>)
+    <span class="code-keyword">print</span>(<span class="code-string">f"Total: {total:.2f}"</span>)
 
-def main():
-    """
+<span class="code-keyword">def</span> <span class="code-function">main</span>():
+    <span class="code-string">"""
     Job: Coordinate all the other functions (like a manager)
     This is the main program that runs everything in order
-    """
-    print("Welcome to Checkout System =====")
+    """</span>
+    <span class="code-keyword">print</span>(<span class="code-string">"Welcome to Checkout System ====="</span>)
     
-    # Step 1: Scan items
+    <span class="code-comment"># Step 1: Scan items</span>
     items = scan_items()
     
-    # Step 2: Only continue if we have items
-    if len(items) > 0:
-        # Step 3: Calculate total
+    <span class="code-comment"># Step 2: Only continue if we have items</span>
+    <span class="code-keyword">if</span> <span class="code-function">len</span>(items) > <span class="code-number">0</span>:
+        <span class="code-comment"># Step 3: Calculate total</span>
         total = calculate_total(items)
-        print(f"Total: {total:.2f}")
+        <span class="code-keyword">print</span>(<span class="code-string">f"Total: {total:.2f}"</span>)
         
-        # Step 4: Process payment
+        <span class="code-comment"># Step 4: Process payment</span>
         payment_successful = process_payment(total)
         
-        # Step 5: Print receipt if payment was successful
-        if payment_successful:
+        <span class="code-comment"># Step 5: Print receipt if payment was successful</span>
+        <span class="code-keyword">if</span> payment_successful:
             print_receipt(items, total)
-            print("Checkout complete!")
-    else:
-        print("No items scanned. Goodbye!")
+            <span class="code-keyword">print</span>(<span class="code-string">"Checkout complete!"</span>)
+    <span class="code-keyword">else</span>:
+        <span class="code-keyword">print</span>(<span class="code-string">"No items scanned. Goodbye!"</span>)
 
-# Run the program
-if __name__ == "__main__":
-    main()
+<span class="code-comment"># Run the program</span>
+<span class="code-keyword">if</span> __name__ == <span class="code-string">"__main__"</span>:
+    main()</code></pre>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="problems-benefits">
-            <div class="problems-box">
-                <h3>😵 Problems with Messy Code:</h3>
-                <ul>
-                    <li>Everything is in one big block</li>
-                    <li>Hard to understand what each part does</li>
-                    <li>Difficult to test individual parts</li>
-                    <li>Hard to find and fix bugs</li>
-                    <li>Can't reuse code easily</li>
-                    <li>Adding new features is scary</li>
-                    <li>Multiple people can't work on it easily</li>
-                </ul>
-            </div>
-
-            <div class="benefits-box">
-                <h3>🧩 Benefits of Modular Code:</h3>
-                <ul>
-                    <li>Each function has ONE clear job</li>
-                    <li>Easy to understand and read</li>
-                    <li>Can test each function separately</li>
-                    <li>Easy to find and fix bugs</li>
-                    <li>Can reuse functions in other projects</li>
-                    <li>Adding new features is safe</li>
-                    <li>Multiple people can work on different functions</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="interactive-section">
-            <div class="interactive-header">
-                <div class="interactive-icon">🔍</div>
-                <div class="panel-title">Interactive Function Explorer</div>
-            </div>
-
-            <p style="margin-bottom: 20px; color: #6b7280;">Click on each function to see what it does and how it works:</p>
-
-            <div class="function-buttons">
-                <button class="function-button" onclick="showFunction('scan_items')">scan_items()</button>
-                <button class="function-button" onclick="showFunction('calculate_total')">calculate_total()</button>
-                <button class="function-button" onclick="showFunction('get_payment_method')">get_payment_method()</button>
-                <button class="function-button" onclick="showFunction('process_payment')">process_payment()</button>
-                <button class="function-button" onclick="showFunction('print_receipt')">print_receipt()</button>
-                <button class="function-button" onclick="showFunction('main')">main()</button>
-            </div>
-
-            <div id="functionDisplay" class="function-display">
-                <h4>👈 Click a function above to explore it!</h4>
-                <p style="color: #6b7280; margin-top: 10px;">Each function has a specific job and works together to create the complete checkout system.</p>
-            </div>
-        </div>
-
-        <div class="workflow-section">
-            <div class="workflow-header">
-                <h3>🔄 How the Modular System Works Together</h3>
-                <p style="color: #6b7280;">The main() function coordinates all the other functions like a manager:</p>
-            </div>
-
-            <div class="workflow-steps">
-                <div class="workflow-step">
-                    <h4>1. scan_items()</h4>
-                    <p>Get items from user</p>
+            <div class="problems-benefits">
+                <div class="problems-box">
+                    <h3>😵 Problems with Messy Code:</h3>
+                    <ul>
+                        <li>Everything is in one big block</li>
+                        <li>Hard to understand what each part does</li>
+                        <li>Difficult to test individual parts</li>
+                        <li>Hard to find and fix bugs</li>
+                        <li>Can't reuse code easily</li>
+                        <li>Adding new features is scary</li>
+                        <li>Multiple people can't work on it easily</li>
+                    </ul>
                 </div>
-                <div class="workflow-step">
-                    <h4>2. calculate_total()</h4>
-                    <p>Add up all prices</p>
+
+                <div class="benefits-box">
+                    <h3>🧩 Benefits of Modular Code:</h3>
+                    <ul>
+                        <li>Each function has ONE clear job</li>
+                        <li>Easy to understand and read</li>
+                        <li>Can test each function separately</li>
+                        <li>Easy to find and fix bugs</li>
+                        <li>Can reuse functions in other projects</li>
+                        <li>Adding new features is safe</li>
+                        <li>Multiple people can work on different functions</li>
+                    </ul>
                 </div>
-                <div class="workflow-step">
-                    <h4>3. process_payment()</h4>
-                    <p>Handle payment</p>
+            </div>
+
+            <div class="interactive-section">
+                <div class="interactive-header">
+                    <div class="interactive-icon">🔍</div>
+                    <div class="panel-title">Interactive Function Explorer</div>
                 </div>
-                <div class="workflow-step">
-                    <h4>4. print_receipt()</h4>
-                    <p>Show final receipt</p>
+
+                <p style="margin-bottom: 20px; color: var(--text-muted);">Click on each function to see what it does and how it works:</p>
+
+                <div class="function-buttons">
+                    <button class="function-button" onclick="showFunction('scan_items')">scan_items()</button>
+                    <button class="function-button" onclick="showFunction('calculate_total')">calculate_total()</button>
+                    <button class="function-button" onclick="showFunction('get_payment_method')">get_payment_method()</button>
+                    <button class="function-button" onclick="showFunction('process_payment')">process_payment()</button>
+                    <button class="function-button" onclick="showFunction('print_receipt')">print_receipt()</button>
+                    <button class="function-button" onclick="showFunction('main')">main()</button>
+                </div>
+
+                <div id="functionDisplay" class="function-display">
+                    <h4>👈 Click a function above to explore it!</h4>
+                    <p style="color: var(--text-muted); margin-top: 10px;">Each function has a specific job and works together to create the complete checkout system.</p>
+                </div>
+            </div>
+
+            <div class="workflow-section">
+                <div class="workflow-header">
+                    <h3>🔄 How the Modular System Works Together</h3>
+                    <p>The main() function coordinates all the other functions like a manager:</p>
+                </div>
+
+                <div class="workflow-steps">
+                    <div class="workflow-step">
+                        <h4>1. scan_items()</h4>
+                        <p>Get items from user</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h4>2. calculate_total()</h4>
+                        <p>Add up all prices</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h4>3. process_payment()</h4>
+                        <p>Handle payment</p>
+                    </div>
+                    <div class="workflow-step">
+                        <h4>4. print_receipt()</h4>
+                        <p>Show final receipt</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
     <script>
+        // ============== THEME SYSTEM ============== 
+        const themes = {
+            'dark': { name: 'Dark Theme', icon: 'dark' },
+            'light': { name: 'Light Theme', icon: 'light' },
+            'high-contrast': { name: 'High Contrast', icon: 'high-contrast' },
+            'kid-friendly': { name: 'Kid-Friendly', icon: 'kid-friendly' },
+            'colorful': { name: 'Colorful', icon: 'colorful' },
+            'print-friendly': { name: 'Print-Friendly', icon: 'print-friendly' }
+        };
+
+        // Theme cycle order
+        const themeOrder = ['dark', 'light', 'high-contrast', 'kid-friendly', 'colorful', 'print-friendly'];
+        let currentTheme = 'dark';
+
+        // Get next theme in cycle
+        function getNextTheme(currentTheme) {
+            const currentIndex = themeOrder.indexOf(currentTheme);
+            const nextIndex = (currentIndex + 1) % themeOrder.length;
+            return themeOrder[nextIndex];
+        }
+
+        // Update tooltip with next theme
+        function updateTooltip() {
+            const nextTheme = getNextTheme(currentTheme);
+            const tooltip = document.getElementById('themeTooltip');
+            if (tooltip) {
+                tooltip.textContent = `Next: ${themes[nextTheme].name}`;
+            }
+        }
+
+        // Cycle to next theme
+        function cycleTheme() {
+            const nextTheme = getNextTheme(currentTheme);
+            setTheme(nextTheme);
+        }
+
+        // Set theme
+        function setTheme(themeName, saveToStorage = true) {
+            if (!themes[themeName]) return;
+            
+            currentTheme = themeName;
+            
+            // Apply theme to HTML element
+            document.documentElement.setAttribute('data-theme', themeName);
+            
+            // Update tooltip for next theme
+            updateTooltip();
+            
+            // Save to localStorage
+            if (saveToStorage) {
+                localStorage.setItem('kidsCode-theme', themeName);
+            }
+            
+            // Trigger custom event for theme change
+            window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: themeName } }));
+            
+            // Brief visual feedback
+            const button = document.querySelector('.theme-cycle-button');
+            if (button) {
+                button.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    button.style.transform = '';
+                }, 150);
+            }
+        }
+
+        // Initialize theme system
+        function initThemeSystem() {
+            // Check for saved theme in localStorage
+            const savedTheme = localStorage.getItem('kidsCode-theme');
+            
+            // Check for system preference
+            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            // Determine initial theme
+            if (savedTheme && themes[savedTheme]) {
+                currentTheme = savedTheme;
+            } else if (systemPrefersDark) {
+                currentTheme = 'dark';
+            } else {
+                currentTheme = 'light';
+            }
+            
+            // Apply initial theme
+            setTheme(currentTheme, false);
+            
+            // Listen for system theme changes
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                    if (!localStorage.getItem('kidsCode-theme')) {
+                        setTheme(e.matches ? 'dark' : 'light', false);
+                    }
+                });
+            }
+        }
+
+        // Keyboard shortcuts for theme switching
+        document.addEventListener('keydown', function(event) {
+            // Ctrl/Cmd + Shift + T for theme cycle
+            if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'T') {
+                event.preventDefault();
+                cycleTheme();
+            }
+        });
+
+        // ============== COPY CODE FUNCTIONALITY ============== 
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const code = codeBlock.textContent || codeBlock.innerText;
+            
+            const textarea = document.createElement('textarea');
+            textarea.value = code;
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                
+                const originalText = button.textContent;
+                button.textContent = '✅ Copied!';
+                button.style.background = 'rgba(76, 175, 80, 0.3)';
+                
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.style.background = 'rgba(255,255,255,0.1)';
+                }, 2000);
+                
+            } catch (err) {
+                console.error('Failed to copy code:', err);
+                button.textContent = '❌ Failed';
+                setTimeout(function() {
+                    button.textContent = '📋 Copy';
+                }, 2000);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        // ============== INTERACTIVE FUNCTION EXPLORER ============== 
+        
         // Function code content stored safely
         var functionCodes = {
             'scan_items': 'def scan_items():\n    """\n    Job: Scan items and build a list\n    Input: Nothing (gets input from user)\n    Output: List of items with names and prices\n    """\n    items = []\n\n    while True:\n        item_name = input("Enter item name: ")\n        if item_name.strip() != "":\n            # Generate random price for the item\n            item_price = round(random.uniform(0.50, 10.00), 2)\n            items.append({"name": item_name, "price": item_price})\n            print(f"Item: {item_name} @ {item_price:.2f}")\n        else:\n            # Exit when user presses Enter without typing\n            break\n\n    return items',
@@ -680,9 +897,23 @@ if __name__ == "__main__":
                 '</div>';
         }
 
-        // Initialize with scan_items
+        // ============== INITIALIZATION ============== 
         window.addEventListener('load', function() {
+            // Initialize theme system first
+            initThemeSystem();
+            
+            // Then initialize with scan_items
             showFunction('scan_items');
+        });
+
+        // Listen for theme changes
+        window.addEventListener('themeChanged', function(event) {
+            console.log('Theme changed to:', event.detail.theme);
+            
+            // Add any theme-specific behaviors here if needed
+            if (event.detail.theme === 'print-friendly') {
+                console.log('Print-friendly theme activated - optimized for printing');
+            }
         });
     </script>
 </body>

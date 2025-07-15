@@ -1,312 +1,176 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KidsCode-Lab - Learn Programming with Fun!</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 40px;
-            border: 2px solid #e3f2fd;
-        }
-
-        .header h1 {
-            color: #1e40af;
-            font-size: 3rem;
-            margin-bottom: 15px;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .header h2 {
-            color: #2c3e50;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-
-        .header p {
-            color: #7f8c8d;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-                .brand-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .brand-logo-img {
-            width: 80px;
-            height: 80px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .brand-logo-text {
-            font-size: 3rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #1e40af, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .navigation-menu {
-            background: #e8f4fd;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 40px;
-            border: 2px solid #3b82f6;
-        }
-
-        .navigation-menu h3 {
-            color: #1e40af;
-            margin-bottom: 20px;
-            font-size: 1.4rem;
-            text-align: center;
-        }
-
-        .nav-link {
-            display: block;
-            background: linear-gradient(45deg, #3b82f6, #1e40af);
-            color: white;
-            text-decoration: none;
-            padding: 15px 25px;
-            border-radius: 10px;
-            margin: 10px 0;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
-        }
-
-        .nav-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-        }
-
-        .course-materials {
-            margin-bottom: 40px;
-        }
-
-        .course-materials h3 {
-            color: #1e40af;
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-            text-align: center;
-        }
-
-        .materials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .material-tile {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 2px solid #e3f2fd;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .material-tile:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-            border-color: #3b82f6;
-        }
-
-        .tile-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .tile-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(45deg, #3b82f6, #1e40af);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .tile-level {
-            background: #e0f2fe;
-            color: #0277bd;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
-
-        .tile-title {
-            color: #2c3e50;
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .tile-description {
-            color: #6b7280;
-            font-size: 1.1rem;
-            font-weight: bold;
-            line-height: 1.5;
-        }
-
-        .tile-arrow {
-            margin-top: 15px;
-            text-align: right;
-            color: #3b82f6;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .footer {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 25px;
-            text-align: center;
-            border: 2px solid #e9ecef;
-            margin-top: 40px;
-        }
-
-        .footer h4 {
-            color: #1e40af;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-
-        .footer p {
-            color: #6b7280;
-            font-size: 0.9rem;
-        }
-
-        .add-material-btn {
-            background: linear-gradient(45deg, #16a34a, #15803d);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            margin: 20px auto;
-            display: block;
-            transition: all 0.3s ease;
-        }
-
-        .add-material-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(22, 163, 74, 0.3);
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.5rem;
-            }
-            
-            .header h2 {
-                font-size: 1.3rem;
-            }
-            
-            .materials-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .container {
-                padding: 20px;
-            }
-        }
-
-        .demo-notice {
-            background: #fff3cd;
-            border: 2px solid #ffeaa7;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .demo-notice h4 {
-            color: #856404;
-            margin-bottom: 10px;
-        }
-
-        .demo-notice p {
-            color: #856404;
-            font-size: 0.9rem;
-        }
-    </style>
+    <link rel="stylesheet" href="styles/master.css">
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="brand-logo">
-                <img src="images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
-                <div class="brand-logo-text">KidsCode Lab</div>
+            <div class="header-top">
+                <div class="brand-logo">
+                    <img src="images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
+                    <div class="brand-logo-text">KidsCode Lab</div>
+                </div>
+                
+                <div class="theme-switcher">
+                    <button class="theme-cycle-button" onclick="cycleTheme()" title="Switch Theme">
+                        🔄
+                        <div class="theme-tooltip" id="themeTooltip">Next: Light Theme</div>
+                    </button>
+                </div>
             </div>
-            <h2>Learn Programming with Fun!</h1>
-            <h3><p>Welcome to KidsCode-Lab! Your journey into the exciting world of programming starts here.<br>
-            We make coding fun, interactive, and easy to understand for young minds.</p></h2>
+            
+            <h2>Learn Programming with Fun!</h2>
+            <h3>Welcome to KidsCode-Lab! Your journey into the exciting world of programming starts here.<br>
+            We make coding fun, interactive, and easy to understand for young minds.</h3>
         </div>
 
-        <div class="course-materials">
-            <h3>📖 Course Materials Repository</h3>
-            <div class="materials-grid" id="materialsGrid">
-                <!-- Materials will be populated by JavaScript -->
+        <div class="content">
+            <div class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">📖 Course Materials Repository</h2>
+                    <p class="section-description">Explore our comprehensive collection of interactive lessons, examples, and projects designed to make learning Python programming exciting and accessible.</p>
+                </div>
+                
+                <ul id="materialsGrid" class="items-list">
+                    <!-- Materials will be populated by JavaScript -->
+                    <li class="list-item">
+                        <div class="list-item-icon">📚</div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">Loading course materials...</div>
+                            <div class="list-item-description">Please wait while we fetch the latest content for you.</div>
+                        </div>
+                        <div class="list-item-level">
+                            <span class="level-button">Loading</span>
+                        </div>
+                    </li>
+                </ul>
             </div>
-        </div>
-        
-        <div class="footer">
-            <h4>🎯 About KidsCode-Lab</h4>
-            <p>KidsCode-Lab is dedicated to making programming education accessible and fun for children. 
-            Our interactive lessons, visual demonstrations, and hands-on projects help young learners 
-            develop computational thinking skills while having fun!</p>
+            
+            <div class="content-section">
+                <div class="section-header">
+                    <h3 class="section-title">🎯 About KidsCode-Lab</h3>
+                </div>
+                <div class="card-content">
+                    <p>KidsCode-Lab is dedicated to making programming education accessible and fun for children. 
+                    Our interactive lessons, visual demonstrations, and hands-on projects help young learners 
+                    develop computational thinking skills while having fun!</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
+        // ============== THEME SYSTEM ============== 
+        const themes = {
+            'dark': { name: 'Dark Theme', icon: 'dark' },
+            'light': { name: 'Light Theme', icon: 'light' },
+            'high-contrast': { name: 'High Contrast', icon: 'high-contrast' },
+            'kid-friendly': { name: 'Kid-Friendly', icon: 'kid-friendly' },
+            'colorful': { name: 'Colorful', icon: 'colorful' },
+            'print-friendly': { name: 'Print-Friendly', icon: 'print-friendly' }
+        };
+
+        // Theme cycle order
+        const themeOrder = ['dark', 'light', 'high-contrast', 'kid-friendly', 'colorful', 'print-friendly'];
+        let currentTheme = 'dark';
+
+        // Initialize theme system
+        function initThemeSystem() {
+            // Check for saved theme in localStorage
+            const savedTheme = localStorage.getItem('kidsCode-theme');
+            
+            // Check for system preference
+            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            // Determine initial theme
+            if (savedTheme && themes[savedTheme]) {
+                currentTheme = savedTheme;
+            } else if (systemPrefersDark) {
+                currentTheme = 'dark';
+            } else {
+                currentTheme = 'light';
+            }
+            
+            // Apply initial theme
+            setTheme(currentTheme, false);
+            
+            // Listen for system theme changes
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                    if (!localStorage.getItem('kidsCode-theme')) {
+                        setTheme(e.matches ? 'dark' : 'light', false);
+                    }
+                });
+            }
+        }
+
+        // Get next theme in cycle
+        function getNextTheme(currentTheme) {
+            const currentIndex = themeOrder.indexOf(currentTheme);
+            const nextIndex = (currentIndex + 1) % themeOrder.length;
+            return themeOrder[nextIndex];
+        }
+
+        // Update tooltip with next theme
+        function updateTooltip() {
+            const nextTheme = getNextTheme(currentTheme);
+            const tooltip = document.getElementById('themeTooltip');
+            if (tooltip) {
+                tooltip.textContent = `Next: ${themes[nextTheme].name}`;
+            }
+        }
+
+        // Cycle to next theme
+        function cycleTheme() {
+            const nextTheme = getNextTheme(currentTheme);
+            setTheme(nextTheme);
+        }
+
+        // Set theme
+        function setTheme(themeName, saveToStorage = true) {
+            if (!themes[themeName]) return;
+            
+            currentTheme = themeName;
+            
+            // Apply theme to HTML element
+            document.documentElement.setAttribute('data-theme', themeName);
+            
+            // Update tooltip for next theme
+            updateTooltip();
+            
+            // Save to localStorage
+            if (saveToStorage) {
+                localStorage.setItem('kidsCode-theme', themeName);
+            }
+            
+            // Trigger custom event for theme change
+            window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: themeName } }));
+            
+            // Brief visual feedback
+            const button = document.querySelector('.theme-cycle-button');
+            if (button) {
+                button.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    button.style.transform = '';
+                }, 150);
+            }
+        }
+
+        // Keyboard shortcuts for theme switching
+        document.addEventListener('keydown', function(event) {
+            // Ctrl/Cmd + Shift + T for theme cycle
+            if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'T') {
+                event.preventDefault();
+                cycleTheme();
+            }
+        });
+
+        // ============== EXISTING COURSE MATERIALS CODE ============== 
+        
         // Course Materials Array - Easy to update and maintain
         var courseMaterials = [];
 
@@ -323,50 +187,196 @@
                 return true;
             } catch (error) {
                 console.error('Error loading course materials:', error);
-                window.alert('Error loading course materials from file: /data/courseMaterials.json')
+                // Fallback to default materials if JSON file not found
+                loadDefaultMaterials();
                 return false;
             }
         }
 
-        // Function to generate material tiles
-        function generateMaterialTiles() {
+        // Fallback materials for demo purposes
+        function loadDefaultMaterials() {
+            courseMaterials = [
+                {
+                    icon: "🐍",
+                    title: "Python Fundamentals Cheatsheet",
+                    description: "Quick reference guide for Python basics, data types, and syntax",
+                    level: "Beginner",
+                    url: "Cheatsheet/python-cheatsheet.html"
+                },
+                {
+                    icon: "📊",
+                    title: "Data Structures Deep Dive",
+                    description: "Master Python lists, tuples, sets, and dictionaries with interactive examples",
+                    level: "Beginner",
+                    url: "Lesson04/illustration-L1-04-dataStructures.html"
+                },
+                {
+                    icon: "🐰",
+                    title: "Virtual Pet Game Project",
+                    description: "Build your own interactive bunny pet game using Python programming",
+                    level: "Intermediate",
+                    url: "Lesson07/illustration-L1-07-Bunny.html"
+                },
+                {
+                    icon: "🧩",
+                    title: "Modular Design Patterns",
+                    description: "Learn how to organize code with functions and modular design principles",
+                    level: "Advanced",
+                    url: "Lesson02/illustration-L3-02-moduleDesign.html"
+                },
+                {
+                    icon: "🌐",
+                    title: "API Integration Workshop",
+                    description: "Discover how to connect your Python programs with web APIs and external data",
+                    level: "Advanced",
+                    url: "Lesson03/illustration-L3-03-API.html"
+                },
+                {
+                    icon: "🛡️",
+                    title: "Error Handling Mastery",
+                    description: "Master try-except blocks and build robust Python applications",
+                    level: "Advanced",
+                    url: "Lesson03/illustration-L3-03-tryCatch.html"
+                }
+            ];
+        }
+
+        // Function to get level-specific styling
+        function getLevelStyling(level) {
+            const levelMap = {
+                'Beginner': { class: 'level-beginner', color: '#4caf50' },
+                'Intermediate': { class: 'level-intermediate', color: '#ff9800' },
+                'Advanced': { class: 'level-advanced', color: '#f44336' }
+            };
+            return levelMap[level] || { class: 'level-default', color: 'var(--accent-primary)' };
+        }
+
+        // Function to generate material list items
+        function generateMaterialItems() {
             var grid = document.getElementById('materialsGrid');
             grid.innerHTML = '';
             
+            if (courseMaterials.length === 0) {
+                grid.innerHTML = `
+                    <li class="list-item">
+                        <div class="list-item-icon">❌</div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">No materials found</div>
+                            <div class="list-item-description">Could not load course materials. Please check your connection or try again later.</div>
+                        </div>
+                        <div class="list-item-level">
+                            <span class="level-button" style="background: var(--color-error);">Error</span>
+                        </div>
+                    </li>
+                `;
+                return;
+            }
+            
             for (var i = 0; i < courseMaterials.length; i++) {
                 var material = courseMaterials[i];
+                var levelStyling = getLevelStyling(material.level);
                 
-                var tile = document.createElement('a');
-                tile.className = 'material-tile';
-                tile.href = material.url;
-                tile.target = '_blank';
-                tile.rel = 'noopener noreferrer';
-                tile.style.textDecoration = 'none';
+                var listItem = document.createElement('li');
+                listItem.className = 'list-item';
                 
-                tile.innerHTML = 
-                    '<div class="tile-header">' +
-                        '<div class="tile-icon">' + material.icon + '</div>' +
-                        '<div class="tile-level">' + material.level + '</div>' +
-                    '</div>' +
-                    '<div class="tile-title">' + material.title + '</div>' +
-                    '<div class="tile-description">' + material.description + '</div>' +
-                    '<div class="tile-arrow">→ Start Learning</div>';
+                listItem.innerHTML = `
+                    <div class="list-item-icon">${material.icon}</div>
+                    <div class="list-item-content">
+                        <div class="list-item-title">${material.title}</div>
+                        <div class="list-item-description">${material.description}</div>
+                    </div>
+                    <div class="list-item-level">
+                        <span class="level-button" style="background: ${levelStyling.color}">${material.level}</span>
+                    </div>
+                `;
                 
-                grid.appendChild(tile);
+                // Add click handler for entire item
+                listItem.addEventListener('click', function(url) {
+                    return function(e) {
+                        if (e.target.tagName !== 'A') {
+                            window.open(url, '_blank', 'noopener,noreferrer');
+                        }
+                    };
+                }(material.url));
+                
+                // Add hover effect cursor
+                listItem.style.cursor = 'pointer';
+                
+                grid.appendChild(listItem);
             }
+        }
+
+        // Copy code functionality for any code blocks
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const code = codeBlock.textContent || codeBlock.innerText;
+            
+            const textarea = document.createElement('textarea');
+            textarea.value = code;
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                
+                const originalText = button.textContent;
+                button.textContent = '✅ Copied!';
+                button.style.background = 'rgba(76, 175, 80, 0.3)';
+                
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.style.background = 'rgba(255,255,255,0.1)';
+                }, 2000);
+                
+            } catch (err) {
+                console.error('Failed to copy code:', err);
+                button.textContent = '❌ Failed';
+                setTimeout(function() {
+                    button.textContent = '📋 Copy';
+                }, 2000);
+            }
+            
+            document.body.removeChild(textarea);
         }
 
         // Initialize the page
         window.addEventListener('load', async function() {
-            // Show loading message
+            // Initialize theme system first
+            initThemeSystem();
+            
+            // Show loading state
             var grid = document.getElementById('materialsGrid');
             if (grid) {
-                grid.innerHTML = '<div style="text-align: center; padding: 40px; color: #6b7280;">Loading course materials...</div>';
+                grid.innerHTML = `
+                    <li class="list-item">
+                        <div class="list-item-icon">
+                            <div class="spinner" style="width: 20px; height: 20px; border-width: 2px;"></div>
+                        </div>
+                        <div class="list-item-content">
+                            <div class="list-item-title">Loading course materials...</div>
+                            <div class="list-item-description">Please wait while we fetch the latest content for you.</div>
+                        </div>
+                        <div class="list-item-level">
+                            <span class="level-button">Loading</span>
+                        </div>
+                    </li>
+                `;
             }
 
-            // Load course materials and generate tiles
+            // Load course materials and generate items
             await loadCourseMaterials();
-            generateMaterialTiles();
+            generateMaterialItems();
+        });
+
+        // Listen for theme changes and update materials if needed
+        window.addEventListener('themeChanged', function(event) {
+            console.log('Theme changed to:', event.detail.theme);
+            // You can add any theme-specific logic here
+            
+            // Example: Show a brief notification
+            if (event.detail.theme === 'print-friendly') {
+                console.log('Print-friendly theme activated - optimized for printing');
+            }
         });
     </script>
 </body>

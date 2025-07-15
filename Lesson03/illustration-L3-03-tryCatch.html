@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KidsCode-Lab: Python Try-Except Interactive Demo</title>
+    <title>Python Try-Except Interactive Demo - KidsCode Lab</title>
     <link rel="stylesheet" href="../styles/master.css">
     <style>
-        /* Page-specific styles only */
+        /* Page-specific styles using CSS custom properties for theme compatibility */
         .demo-selection {
-            background: #f8f9fa;
+            background: var(--bg-elevated);
             border-radius: 15px;
             padding: 20px;
             margin-bottom: 30px;
-            border: 2px solid #e9ecef;
+            border: 2px solid var(--border-primary);
         }
 
         .demo-selection h3 {
-            color: #2c3e50;
+            color: var(--text-primary);
             margin-bottom: 15px;
             font-size: 1.3rem;
         }
@@ -28,7 +28,7 @@
         }
 
         .demo-button {
-            background: linear-gradient(45deg, #3498db, #2ecc71);
+            background: var(--accent-gradient);
             color: white;
             border: none;
             padding: 15px 20px;
@@ -44,19 +44,19 @@
 
         .demo-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px var(--shadow-medium);
         }
 
         .demo-button.error {
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            background: linear-gradient(45deg, var(--color-error), #c0392b);
         }
 
         .demo-button.warning {
-            background: linear-gradient(45deg, #f39c12, #e67e22);
+            background: linear-gradient(45deg, var(--color-warning), #e67e22);
         }
 
         .demo-button.success {
-            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            background: linear-gradient(45deg, var(--color-success), #2ecc71);
         }
 
         .main-content {
@@ -67,11 +67,17 @@
         }
 
         .code-panel {
-            background: white;
+            background: var(--bg-secondary);
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 2px solid #e3f2fd;
+            box-shadow: 0 10px 30px var(--shadow-medium);
+            border: 2px solid var(--border-primary);
+            transition: all 0.3s ease;
+        }
+
+        .code-panel:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px var(--shadow-heavy);
         }
 
         .panel-header {
@@ -80,13 +86,13 @@
             gap: 15px;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
+            border-bottom: 2px solid var(--border-primary);
         }
 
         .panel-icon {
             width: 50px;
             height: 50px;
-            background: linear-gradient(45deg, #3498db, #2ecc71);
+            background: var(--accent-gradient);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -96,18 +102,56 @@
             font-weight: bold;
         }
 
+        .panel-icon.warning {
+            background: linear-gradient(45deg, var(--color-error), #c0392b);
+        }
+
         .panel-title {
             font-size: 1.3rem;
-            color: #2c3e50;
+            color: var(--text-primary);
             font-weight: bold;
         }
 
+        .code-section {
+            margin-bottom: 20px;
+        }
+
+        .code-section h3 {
+            margin-bottom: 10px;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .output-section {
+            background: var(--bg-elevated);
+            border: 2px solid var(--border-primary);
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 120px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            color: var(--text-secondary);
+        }
+
+        .output-section.success {
+            background: rgba(76, 175, 80, 0.1);
+            border-color: var(--color-success);
+        }
+
+        .output-section.error {
+            background: rgba(244, 67, 54, 0.1);
+            border-color: var(--color-error);
+        }
+
         .interactive-section {
-            background: white;
+            background: var(--bg-secondary);
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 2px solid #e8f5e8;
+            box-shadow: 0 10px 30px var(--shadow-medium);
+            border: 2px solid var(--border-primary);
         }
 
         .interactive-header {
@@ -116,13 +160,13 @@
             gap: 15px;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
+            border-bottom: 2px solid var(--border-primary);
         }
 
         .interactive-icon {
             width: 50px;
             height: 50px;
-            background: linear-gradient(45deg, #8e44ad, #3498db);
+            background: var(--accent-gradient);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -140,11 +184,32 @@
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
-            color: #34495e;
+            color: var(--text-primary);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-primary);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            background: var(--bg-elevated);
+            color: var(--text-secondary);
+            font-family: 'Courier New', monospace;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        select.input-field {
+            font-family: inherit;
         }
 
         .execute-button {
-            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            background: linear-gradient(45deg, var(--color-error), #c0392b);
             color: white;
             border: none;
             padding: 15px 30px;
@@ -152,32 +217,58 @@
             border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+            box-shadow: 0 5px 15px var(--shadow-medium);
             font-weight: bold;
             width: 100%;
         }
 
         .execute-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+            box-shadow: 0 8px 25px var(--shadow-heavy);
         }
 
         .explanation {
-            background: #e3f2fd;
-            border-left: 4px solid #2196f3;
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid var(--color-info);
             padding: 15px;
             margin-top: 20px;
             border-radius: 5px;
+            border: 1px solid var(--border-primary);
         }
 
         .explanation h4 {
-            color: #1976d2;
+            color: var(--color-info);
             margin-bottom: 10px;
         }
 
         .explanation p {
-            color: #424242;
+            color: var(--text-secondary);
             line-height: 1.6;
+        }
+
+        /* Print-friendly theme overrides */
+        :root[data-theme="print-friendly"] .demo-selection {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-primary);
+        }
+
+        :root[data-theme="print-friendly"] .output-section.success {
+            background: var(--bg-elevated);
+            border-color: var(--border-primary);
+        }
+
+        :root[data-theme="print-friendly"] .output-section.error {
+            background: var(--bg-elevated);
+            border-color: var(--border-primary);
+        }
+
+        :root[data-theme="print-friendly"] .explanation {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-primary);
+        }
+
+        :root[data-theme="print-friendly"] .explanation h4 {
+            color: var(--text-primary);
         }
 
         @media (max-width: 768px) {
@@ -188,162 +279,326 @@
             .demo-buttons {
                 grid-template-columns: 1fr;
             }
+            
+            .code-panel {
+                padding: 20px;
+            }
+            
+            .interactive-section {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-    <div class="header">
-        <div class="brand-logo">
-            <img src="../images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
-            <div class="brand-logo-text">KidsCode Lab</div>
-        </div>
-        <h2>🛡️ Python Try-Except Interactive Demo</h2>
-        <h3>Learn how Python handles errors gracefully<br> with try-except blocks!</h3>
-    </div>
-        <div class="demo-selection">
-            <h3>📚 Choose a Demo to See How Try-Except Works:</h3>
-            <div class="demo-buttons">
-                <button class="demo-button error" onclick="showDemo('division')">
-                    ➗ Division by Zero
-                </button>
-                <button class="demo-button error" onclick="showDemo('type')">
-                    🔤 Type Error
-                </button>
-                <button class="demo-button error" onclick="showDemo('index')">
-                    📋 Index Error
-                </button>
-                <button class="demo-button error" onclick="showDemo('key')">
-                    🔑 Key Error
-                </button>
-                <button class="demo-button warning" onclick="showDemo('file')">
-                    📁 File Not Found
-                </button>
-                <button class="demo-button success" onclick="showDemo('multiple')">
-                    🎯 Multiple Exceptions
-                </button>
+        <div class="header">
+            <div class="header-top">
+                <div class="brand-logo">
+                    <img src="../images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
+                    <div class="brand-logo-text">KidsCode Lab</div>
+                </div>
+                
+                <div class="theme-switcher">
+                    <button class="theme-cycle-button" onclick="cycleTheme()" title="Switch Theme">
+                        🔄
+                        <div class="theme-tooltip" id="themeTooltip">Next: Light Theme</div>
+                    </button>
+                </div>
             </div>
+            
+            <h2>🛡️ Python Try-Except Interactive Demo</h2>
+            <h3>Learn how Python handles errors gracefully with try-except blocks!</h3>
         </div>
 
-        <div class="main-content">
-            <div class="code-panel">
-                <div class="panel-header">
-                    <div class="panel-icon">🐍</div>
-                    <div class="panel-title">Python Code</div>
+        <div class="content">
+            <div class="demo-selection">
+                <h3>📚 Choose a Demo to See How Try-Except Works:</h3>
+                <div class="demo-buttons">
+                    <button class="demo-button error" onclick="showDemo('division')">
+                        ➗ Division by Zero
+                    </button>
+                    <button class="demo-button error" onclick="showDemo('type')">
+                        🔤 Type Error
+                    </button>
+                    <button class="demo-button error" onclick="showDemo('index')">
+                        📋 Index Error
+                    </button>
+                    <button class="demo-button error" onclick="showDemo('key')">
+                        🔑 Key Error
+                    </button>
+                    <button class="demo-button warning" onclick="showDemo('file')">
+                        📁 File Not Found
+                    </button>
+                    <button class="demo-button success" onclick="showDemo('multiple')">
+                        🎯 Multiple Exceptions
+                    </button>
                 </div>
+            </div>
 
-                <div class="code-section">
-                    <h3>📝 Try-Except Code:</h3>
-                    <div id="pythonCode" class="code-block">
-# Click a demo button above to see try-except examples!
-
-try:
-    # Your code here
-    print("Select a demo to see the code")
-except Exception as e:
-    print(f"An error occurred: {e}")
+            <div class="main-content">
+                <div class="code-panel">
+                    <div class="panel-header">
+                        <div class="panel-icon">🐍</div>
+                        <div class="panel-title">Python Code</div>
                     </div>
-                </div>
 
-                <div class="output-section">
-                    <h3>📄 Code Output:</h3>
-                    <div id="codeOutput">
+                    <div class="code-section">
+                        <h3>📝 Try-Except Code:</h3>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<pre><code id="pythonCode"><span class="code-comment"># Click a demo button above to see try-except examples!</span>
+
+<span class="code-keyword">try</span>:
+    <span class="code-comment"># Your code here</span>
+    <span class="code-function">print</span>(<span class="code-string">"Select a demo to see the code"</span>)
+<span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+    <span class="code-function">print</span>(<span class="code-string">f"An error occurred: {e}"</span>)</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="output-section">
+                        <h3>📄 Code Output:</h3>
+                        <div id="codeOutput">
 Select a demo above to see how try-except handles different types of errors!
-                    </div>
-                </div>
-            </div>
-
-            <div class="code-panel">
-                <div class="panel-header">
-                    <div class="panel-icon">⚠️</div>
-                    <div class="panel-title">What Happens Without Try-Except</div>
-                </div>
-
-                <div class="code-section">
-                    <h3>💥 Code Without Error Handling:</h3>
-                    <div id="unsafeCode" class="code-block">
-# This is what happens without try-except:
-
-# Your code here
-print("Select a demo to see unsafe code")
+                        </div>
                     </div>
                 </div>
 
-                <div class="output-section">
-                    <h3>💥 Crash Output:</h3>
-                    <div id="crashOutput">
+                <div class="code-panel">
+                    <div class="panel-header">
+                        <div class="panel-icon warning">⚠️</div>
+                        <div class="panel-title">What Happens Without Try-Except</div>
+                    </div>
+
+                    <div class="code-section">
+                        <h3>💥 Code Without Error Handling:</h3>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<pre><code id="unsafeCode"><span class="code-comment"># This is what happens without try-except:</span>
+
+<span class="code-comment"># Your code here</span>
+<span class="code-function">print</span>(<span class="code-string">"Select a demo to see unsafe code"</span>)</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="output-section">
+                        <h3>💥 Crash Output:</h3>
+                        <div id="crashOutput">
 Select a demo above to see how code crashes without proper error handling!
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="interactive-section">
-            <div class="interactive-header">
-                <div class="interactive-icon">🎮</div>
-                <div class="panel-title">Interactive Try-Except Playground</div>
-            </div>
-
-            <div class="input-group">
-                <label for="userInput">Enter values to test (separated by commas):</label>
-                <input type="text" id="userInput" class="input-field" 
-                       placeholder="e.g., 10, 0, abc, 5 (try different values to see different errors)">
-            </div>
-
-            <div class="input-group">
-                <label for="operationType">Choose operation:</label>
-                <select id="operationType" class="input-field">
-                    <option value="division">Division (10 / value)</option>
-                    <option value="conversion">Convert to Integer</option>
-                    <option value="listAccess">Access List Index</option>
-                    <option value="dictAccess">Access Dictionary Key</option>
-                </select>
-            </div>
-
-            <button class="execute-button" onclick="executeUserCode()">
-                🚀 Execute With Try-Except
-            </button>
-
-            <div class="code-section" style="margin-top: 20px;">
-                <h3>📝 Generated Code:</h3>
-                <div id="generatedCode" class="code-block">
-# Your generated try-except code will appear here
+            <div class="interactive-section">
+                <div class="interactive-header">
+                    <div class="interactive-icon">🎮</div>
+                    <div class="panel-title">Interactive Try-Except Playground</div>
                 </div>
-            </div>
 
-            <div class="output-section" style="margin-top: 20px;">
-                <h3>📄 Execution Results:</h3>
-                <div id="executionOutput">
+                <div class="input-group">
+                    <label for="userInput">Enter values to test (separated by commas):</label>
+                    <input type="text" id="userInput" class="input-field" 
+                           placeholder="e.g., 10, 0, abc, 5 (try different values to see different errors)">
+                </div>
+
+                <div class="input-group">
+                    <label for="operationType">Choose operation:</label>
+                    <select id="operationType" class="input-field">
+                        <option value="division">Division (10 / value)</option>
+                        <option value="conversion">Convert to Integer</option>
+                        <option value="listAccess">Access List Index</option>
+                        <option value="dictAccess">Access Dictionary Key</option>
+                    </select>
+                </div>
+
+                <button class="execute-button" onclick="executeUserCode()">
+                    🚀 Execute With Try-Except
+                </button>
+
+                <div class="code-section" style="margin-top: 20px;">
+                    <h3>📝 Generated Code:</h3>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<pre><code id="generatedCode"><span class="code-comment"># Your generated try-except code will appear here</span></code></pre>
+                    </div>
+                </div>
+
+                <div class="output-section" style="margin-top: 20px;">
+                    <h3>📄 Execution Results:</h3>
+                    <div id="executionOutput">
 Enter values above and click execute to see try-except in action!
+                    </div>
                 </div>
-            </div>
 
-            <div id="explanation" class="explanation" style="display: none;">
-                <h4>💡 What Just Happened?</h4>
-                <p id="explanationText">Explanation will appear here...</p>
+                <div id="explanation" class="explanation" style="display: none;">
+                    <h4>💡 What Just Happened?</h4>
+                    <p id="explanationText">Explanation will appear here...</p>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        // ============== THEME SYSTEM ============== 
+        const themes = {
+            'dark': { name: 'Dark Theme', icon: 'dark' },
+            'light': { name: 'Light Theme', icon: 'light' },
+            'high-contrast': { name: 'High Contrast', icon: 'high-contrast' },
+            'kid-friendly': { name: 'Kid-Friendly', icon: 'kid-friendly' },
+            'colorful': { name: 'Colorful', icon: 'colorful' },
+            'print-friendly': { name: 'Print-Friendly', icon: 'print-friendly' }
+        };
+
+        // Theme cycle order
+        const themeOrder = ['dark', 'light', 'high-contrast', 'kid-friendly', 'colorful', 'print-friendly'];
+        let currentTheme = 'dark';
+
+        // Get next theme in cycle
+        function getNextTheme(currentTheme) {
+            const currentIndex = themeOrder.indexOf(currentTheme);
+            const nextIndex = (currentIndex + 1) % themeOrder.length;
+            return themeOrder[nextIndex];
+        }
+
+        // Update tooltip with next theme
+        function updateTooltip() {
+            const nextTheme = getNextTheme(currentTheme);
+            const tooltip = document.getElementById('themeTooltip');
+            if (tooltip) {
+                tooltip.textContent = `Next: ${themes[nextTheme].name}`;
+            }
+        }
+
+        // Cycle to next theme
+        function cycleTheme() {
+            const nextTheme = getNextTheme(currentTheme);
+            setTheme(nextTheme);
+        }
+
+        // Set theme
+        function setTheme(themeName, saveToStorage = true) {
+            if (!themes[themeName]) return;
+            
+            currentTheme = themeName;
+            
+            // Apply theme to HTML element
+            document.documentElement.setAttribute('data-theme', themeName);
+            
+            // Update tooltip for next theme
+            updateTooltip();
+            
+            // Save to localStorage
+            if (saveToStorage) {
+                localStorage.setItem('kidsCode-theme', themeName);
+            }
+            
+            // Trigger custom event for theme change
+            window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: themeName } }));
+            
+            // Brief visual feedback
+            const button = document.querySelector('.theme-cycle-button');
+            if (button) {
+                button.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    button.style.transform = '';
+                }, 150);
+            }
+        }
+
+        // Initialize theme system
+        function initThemeSystem() {
+            // Check for saved theme in localStorage
+            const savedTheme = localStorage.getItem('kidsCode-theme');
+            
+            // Check for system preference
+            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            // Determine initial theme
+            if (savedTheme && themes[savedTheme]) {
+                currentTheme = savedTheme;
+            } else if (systemPrefersDark) {
+                currentTheme = 'dark';
+            } else {
+                currentTheme = 'light';
+            }
+            
+            // Apply initial theme
+            setTheme(currentTheme, false);
+            
+            // Listen for system theme changes
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                    if (!localStorage.getItem('kidsCode-theme')) {
+                        setTheme(e.matches ? 'dark' : 'light', false);
+                    }
+                });
+            }
+        }
+
+        // Keyboard shortcuts for theme switching
+        document.addEventListener('keydown', function(event) {
+            // Ctrl/Cmd + Shift + T for theme cycle
+            if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'T') {
+                event.preventDefault();
+                cycleTheme();
+            }
+        });
+
+        // ============== COPY CODE FUNCTIONALITY ============== 
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const code = codeBlock.textContent || codeBlock.innerText;
+            
+            const textarea = document.createElement('textarea');
+            textarea.value = code;
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                
+                const originalText = button.textContent;
+                button.textContent = '✅ Copied!';
+                button.style.background = 'rgba(76, 175, 80, 0.3)';
+                
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.style.background = 'rgba(255,255,255,0.1)';
+                }, 2000);
+                
+            } catch (err) {
+                console.error('Failed to copy code:', err);
+                button.textContent = '❌ Failed';
+                setTimeout(function() {
+                    button.textContent = '📋 Copy';
+                }, 2000);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        // ============== TRY-EXCEPT DEMO FUNCTIONALITY ============== 
+        
         const demos = {
             division: {
-                safe: `try:
-    result = 10 / 0
-    print(f"Result: {result}")
-except ZeroDivisionError:
-    print("Error: Cannot divide by zero!")
-    print("Using default value instead...")
-    result = 0
-    print(f"Result: {result}")
-except Exception as e:
-    print(f"Unexpected error: {e}")
-finally:
-    print("Division operation completed.")`,
-                unsafe: `# Without try-except:
-result = 10 / 0
-print(f"Result: {result}")
-print("This line will never execute!")`,
+                safe: `<span class="code-keyword">try</span>:
+    result = <span class="code-number">10</span> / <span class="code-number">0</span>
+    <span class="code-function">print</span>(<span class="code-string">f"Result: {result}"</span>)
+<span class="code-keyword">except</span> ZeroDivisionError:
+    <span class="code-function">print</span>(<span class="code-string">"Error: Cannot divide by zero!"</span>)
+    <span class="code-function">print</span>(<span class="code-string">"Using default value instead..."</span>)
+    result = <span class="code-number">0</span>
+    <span class="code-function">print</span>(<span class="code-string">f"Result: {result}"</span>)
+<span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+    <span class="code-function">print</span>(<span class="code-string">f"Unexpected error: {e}"</span>)
+<span class="code-keyword">finally</span>:
+    <span class="code-function">print</span>(<span class="code-string">"Division operation completed."</span>)`,
+                unsafe: `<span class="code-comment"># Without try-except:</span>
+result = <span class="code-number">10</span> / <span class="code-number">0</span>
+<span class="code-function">print</span>(<span class="code-string">f"Result: {result}"</span>)
+<span class="code-function">print</span>(<span class="code-string">"This line will never execute!"</span>)`,
                 safeOutput: `Error: Cannot divide by zero!
 Using default value instead...
 Result: 0
@@ -358,22 +613,22 @@ The program stops here and never continues.`,
                 explanation: "Division by zero causes a ZeroDivisionError. With try-except, we catch this error and provide a default value, allowing the program to continue running."
             },
             type: {
-                safe: `try:
-    number = int("hello")
-    print(f"Number: {number}")
-except ValueError:
-    print("Error: Cannot convert 'hello' to integer!")
-    print("Please enter a valid number.")
-    number = 0
-    print(f"Using default: {number}")
-except Exception as e:
-    print(f"Unexpected error: {e}")
-finally:
-    print("Type conversion completed.")`,
-                unsafe: `# Without try-except:
-number = int("hello")
-print(f"Number: {number}")
-print("This line will never execute!")`,
+                safe: `<span class="code-keyword">try</span>:
+    number = <span class="code-function">int</span>(<span class="code-string">"hello"</span>)
+    <span class="code-function">print</span>(<span class="code-string">f"Number: {number}"</span>)
+<span class="code-keyword">except</span> ValueError:
+    <span class="code-function">print</span>(<span class="code-string">"Error: Cannot convert 'hello' to integer!"</span>)
+    <span class="code-function">print</span>(<span class="code-string">"Please enter a valid number."</span>)
+    number = <span class="code-number">0</span>
+    <span class="code-function">print</span>(<span class="code-string">f"Using default: {number}"</span>)
+<span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+    <span class="code-function">print</span>(<span class="code-string">f"Unexpected error: {e}"</span>)
+<span class="code-keyword">finally</span>:
+    <span class="code-function">print</span>(<span class="code-string">"Type conversion completed."</span>)`,
+                unsafe: `<span class="code-comment"># Without try-except:</span>
+number = <span class="code-function">int</span>(<span class="code-string">"hello"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"Number: {number}"</span>)
+<span class="code-function">print</span>(<span class="code-string">"This line will never execute!"</span>)`,
                 safeOutput: `Error: Cannot convert 'hello' to integer!
 Please enter a valid number.
 Using default: 0
@@ -388,25 +643,25 @@ Cannot convert text to number without proper handling.`,
                 explanation: "ValueError occurs when trying to convert invalid text to a number. Try-except lets us handle this gracefully and continue with a default value."
             },
             index: {
-                safe: `try:
-    my_list = [1, 2, 3]
-    value = my_list[10]
-    print(f"Value: {value}")
-except IndexError:
-    print("Error: Index out of range!")
-    print(f"List only has {len(my_list)} items.")
-    print("Using last item instead...")
-    value = my_list[-1]
-    print(f"Value: {value}")
-except Exception as e:
-    print(f"Unexpected error: {e}")
-finally:
-    print("List access completed.")`,
-                unsafe: `# Without try-except:
-my_list = [1, 2, 3]
-value = my_list[10]
-print(f"Value: {value}")
-print("This line will never execute!")`,
+                safe: `<span class="code-keyword">try</span>:
+    my_list = [<span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">3</span>]
+    value = my_list[<span class="code-number">10</span>]
+    <span class="code-function">print</span>(<span class="code-string">f"Value: {value}"</span>)
+<span class="code-keyword">except</span> IndexError:
+    <span class="code-function">print</span>(<span class="code-string">"Error: Index out of range!"</span>)
+    <span class="code-function">print</span>(<span class="code-string">f"List only has {len(my_list)} items."</span>)
+    <span class="code-function">print</span>(<span class="code-string">"Using last item instead..."</span>)
+    value = my_list[-<span class="code-number">1</span>]
+    <span class="code-function">print</span>(<span class="code-string">f"Value: {value}"</span>)
+<span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+    <span class="code-function">print</span>(<span class="code-string">f"Unexpected error: {e}"</span>)
+<span class="code-keyword">finally</span>:
+    <span class="code-function">print</span>(<span class="code-string">"List access completed."</span>)`,
+                unsafe: `<span class="code-comment"># Without try-except:</span>
+my_list = [<span class="code-number">1</span>, <span class="code-number">2</span>, <span class="code-number">3</span>]
+value = my_list[<span class="code-number">10</span>]
+<span class="code-function">print</span>(<span class="code-string">f"Value: {value}"</span>)
+<span class="code-function">print</span>(<span class="code-string">"This line will never execute!"</span>)`,
                 safeOutput: `Error: Index out of range!
 List only has 3 items.
 Using last item instead...
@@ -422,25 +677,25 @@ Trying to access index 10 in a list with only 3 items.`,
                 explanation: "IndexError happens when accessing a list position that doesn't exist. Try-except helps us handle this by using a valid index or providing a default value."
             },
             key: {
-                safe: `try:
-    my_dict = {"name": "Alice", "age": 25}
-    value = my_dict["height"]
-    print(f"Height: {value}")
-except KeyError:
-    print("Error: Key 'height' not found!")
-    print("Available keys:", list(my_dict.keys()))
-    print("Using default value...")
-    value = "Unknown"
-    print(f"Height: {value}")
-except Exception as e:
-    print(f"Unexpected error: {e}")
-finally:
-    print("Dictionary access completed.")`,
-                unsafe: `# Without try-except:
-my_dict = {"name": "Alice", "age": 25}
-value = my_dict["height"]
-print(f"Height: {value}")
-print("This line will never execute!")`,
+                safe: `<span class="code-keyword">try</span>:
+    my_dict = {<span class="code-string">"name"</span>: <span class="code-string">"Alice"</span>, <span class="code-string">"age"</span>: <span class="code-number">25</span>}
+    value = my_dict[<span class="code-string">"height"</span>]
+    <span class="code-function">print</span>(<span class="code-string">f"Height: {value}"</span>)
+<span class="code-keyword">except</span> KeyError:
+    <span class="code-function">print</span>(<span class="code-string">"Error: Key 'height' not found!"</span>)
+    <span class="code-function">print</span>(<span class="code-string">"Available keys:"</span>, <span class="code-function">list</span>(my_dict.<span class="code-function">keys</span>()))
+    <span class="code-function">print</span>(<span class="code-string">"Using default value..."</span>)
+    value = <span class="code-string">"Unknown"</span>
+    <span class="code-function">print</span>(<span class="code-string">f"Height: {value}"</span>)
+<span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+    <span class="code-function">print</span>(<span class="code-string">f"Unexpected error: {e}"</span>)
+<span class="code-keyword">finally</span>:
+    <span class="code-function">print</span>(<span class="code-string">"Dictionary access completed."</span>)`,
+                unsafe: `<span class="code-comment"># Without try-except:</span>
+my_dict = {<span class="code-string">"name"</span>: <span class="code-string">"Alice"</span>, <span class="code-string">"age"</span>: <span class="code-number">25</span>}
+value = my_dict[<span class="code-string">"height"</span>]
+<span class="code-function">print</span>(<span class="code-string">f"Height: {value}"</span>)
+<span class="code-function">print</span>(<span class="code-string">"This line will never execute!"</span>)`,
                 safeOutput: `Error: Key 'height' not found!
 Available keys: ['name', 'age']
 Using default value...
@@ -456,25 +711,25 @@ The key 'height' doesn't exist in the dictionary.`,
                 explanation: "KeyError occurs when accessing a dictionary key that doesn't exist. Try-except allows us to handle missing keys gracefully and provide alternatives."
             },
             file: {
-                safe: `try:
-    with open("missing_file.txt", "r") as file:
-        content = file.read()
-        print(f"File content: {content}")
-except FileNotFoundError:
-    print("Error: File 'missing_file.txt' not found!")
-    print("Creating a new file instead...")
-    with open("missing_file.txt", "w") as file:
-        file.write("Hello, World!")
-    print("New file created successfully!")
-except Exception as e:
-    print(f"Unexpected error: {e}")
-finally:
-    print("File operation completed.")`,
-                unsafe: `# Without try-except:
-with open("missing_file.txt", "r") as file:
-    content = file.read()
-    print(f"File content: {content}")
-print("This line will never execute!")`,
+                safe: `<span class="code-keyword">try</span>:
+    <span class="code-keyword">with</span> <span class="code-function">open</span>(<span class="code-string">"missing_file.txt"</span>, <span class="code-string">"r"</span>) <span class="code-keyword">as</span> file:
+        content = file.<span class="code-function">read</span>()
+        <span class="code-function">print</span>(<span class="code-string">f"File content: {content}"</span>)
+<span class="code-keyword">except</span> FileNotFoundError:
+    <span class="code-function">print</span>(<span class="code-string">"Error: File 'missing_file.txt' not found!"</span>)
+    <span class="code-function">print</span>(<span class="code-string">"Creating a new file instead..."</span>)
+    <span class="code-keyword">with</span> <span class="code-function">open</span>(<span class="code-string">"missing_file.txt"</span>, <span class="code-string">"w"</span>) <span class="code-keyword">as</span> file:
+        file.<span class="code-function">write</span>(<span class="code-string">"Hello, World!"</span>)
+    <span class="code-function">print</span>(<span class="code-string">"New file created successfully!"</span>)
+<span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+    <span class="code-function">print</span>(<span class="code-string">f"Unexpected error: {e}"</span>)
+<span class="code-keyword">finally</span>:
+    <span class="code-function">print</span>(<span class="code-string">"File operation completed."</span>)`,
+                unsafe: `<span class="code-comment"># Without try-except:</span>
+<span class="code-keyword">with</span> <span class="code-function">open</span>(<span class="code-string">"missing_file.txt"</span>, <span class="code-string">"r"</span>) <span class="code-keyword">as</span> file:
+    content = file.<span class="code-function">read</span>()
+    <span class="code-function">print</span>(<span class="code-string">f"File content: {content}"</span>)
+<span class="code-function">print</span>(<span class="code-string">"This line will never execute!"</span>)`,
                 safeOutput: `Error: File 'missing_file.txt' not found!
 Creating a new file instead...
 New file created successfully!
@@ -489,55 +744,55 @@ Cannot open a file that doesn't exist.`,
                 explanation: "FileNotFoundError happens when trying to open a file that doesn't exist. Try-except lets us handle this by creating the file or using an alternative approach."
             },
             multiple: {
-                safe: `def safe_calculator(a, b, operation):
-    try:
-        a = float(a)
-        b = float(b)
+                safe: `<span class="code-keyword">def</span> <span class="code-function">safe_calculator</span>(a, b, operation):
+    <span class="code-keyword">try</span>:
+        a = <span class="code-function">float</span>(a)
+        b = <span class="code-function">float</span>(b)
         
-        if operation == "divide":
+        <span class="code-keyword">if</span> operation == <span class="code-string">"divide"</span>:
             result = a / b
-        elif operation == "multiply":
+        <span class="code-keyword">elif</span> operation == <span class="code-string">"multiply"</span>:
             result = a * b
-        else:
-            raise ValueError("Unknown operation")
+        <span class="code-keyword">else</span>:
+            <span class="code-keyword">raise</span> ValueError(<span class="code-string">"Unknown operation"</span>)
             
-        return result
+        <span class="code-keyword">return</span> result
         
-    except ValueError as e:
-        print(f"ValueError: {e}")
-        return None
-    except ZeroDivisionError:
-        print("Error: Division by zero!")
-        return None
-    except Exception as e:
-        print(f"Unexpected error: {e}")
-        return None
-    finally:
-        print("Calculation completed.")
+    <span class="code-keyword">except</span> ValueError <span class="code-keyword">as</span> e:
+        <span class="code-function">print</span>(<span class="code-string">f"ValueError: {e}"</span>)
+        <span class="code-keyword">return</span> <span class="code-keyword">None</span>
+    <span class="code-keyword">except</span> ZeroDivisionError:
+        <span class="code-function">print</span>(<span class="code-string">"Error: Division by zero!"</span>)
+        <span class="code-keyword">return</span> <span class="code-keyword">None</span>
+    <span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+        <span class="code-function">print</span>(<span class="code-string">f"Unexpected error: {e}"</span>)
+        <span class="code-keyword">return</span> <span class="code-keyword">None</span>
+    <span class="code-keyword">finally</span>:
+        <span class="code-function">print</span>(<span class="code-string">"Calculation completed."</span>)
 
-# Test the function
-result = safe_calculator("10", "0", "divide")
-print(f"Result: {result}")`,
-                unsafe: `# Without try-except:
-def unsafe_calculator(a, b, operation):
-    a = float(a)
-    b = float(b)
+<span class="code-comment"># Test the function</span>
+result = safe_calculator(<span class="code-string">"10"</span>, <span class="code-string">"0"</span>, <span class="code-string">"divide"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"Result: {result}"</span>)`,
+                unsafe: `<span class="code-comment"># Without try-except:</span>
+<span class="code-keyword">def</span> <span class="code-function">unsafe_calculator</span>(a, b, operation):
+    a = <span class="code-function">float</span>(a)
+    b = <span class="code-function">float</span>(b)
     
-    if operation == "divide":
+    <span class="code-keyword">if</span> operation == <span class="code-string">"divide"</span>:
         result = a / b
-    elif operation == "multiply":
+    <span class="code-keyword">elif</span> operation == <span class="code-string">"multiply"</span>:
         result = a * b
-    else:
-        raise ValueError("Unknown operation")
+    <span class="code-keyword">else</span>:
+        <span class="code-keyword">raise</span> ValueError(<span class="code-string">"Unknown operation"</span>)
         
-    return result
+    <span class="code-keyword">return</span> result
 
-# This will crash
-result = unsafe_calculator("10", "0", "divide")
-print(f"Result: {result}")`,
+<span class="code-comment"># This will crash</span>
+result = unsafe_calculator(<span class="code-string">"10"</span>, <span class="code-string">"0"</span>, <span class="code-string">"divide"</span>)
+<span class="code-function">print</span>(<span class="code-string">f"Result: {result}"</span>)`,
                 safeOutput: `Error: Division by zero!
-Result: None
-Calculation completed.`,
+Calculation completed.
+Result: None`,
                 crashOutput: `Traceback (most recent call last):
   File "demo.py", line 15, in <module>
     result = unsafe_calculator("10", "0", "divide")
@@ -554,8 +809,8 @@ Multiple things can go wrong without proper error handling.`,
         function showDemo(demoType) {
             const demo = demos[demoType];
             
-            document.getElementById('pythonCode').textContent = demo.safe;
-            document.getElementById('unsafeCode').textContent = demo.unsafe;
+            document.getElementById('pythonCode').innerHTML = demo.safe;
+            document.getElementById('unsafeCode').innerHTML = demo.unsafe;
             document.getElementById('codeOutput').textContent = demo.safeOutput;
             document.getElementById('crashOutput').textContent = demo.crashOutput;
             
@@ -578,27 +833,27 @@ Multiple things can go wrong without proper error handling.`,
             let output = '';
             let explanation = '';
             
-            code += `# Testing with values: ${values.join(', ')}\n`;
-            code += `values = [${values.map(v => `"${v}"`).join(', ')}]\n`;
+            code += `<span class="code-comment"># Testing with values: ${values.join(', ')}</span>\n`;
+            code += `values = [${values.map(v => `<span class="code-string">"${v}"</span>`).join(', ')}]\n`;
             code += `results = []\n\n`;
             
             switch (operationType) {
                 case 'division':
-                    code += `for value in values:
-    try:
-        num = float(value)
-        result = 10 / num
-        results.append(f"10 / {value} = {result}")
-        print(f"✅ 10 / {value} = {result}")
-    except ValueError:
-        results.append(f"❌ Cannot convert '{value}' to number")
-        print(f"❌ Cannot convert '{value}' to number")
-    except ZeroDivisionError:
-        results.append(f"❌ Cannot divide by zero ({value})")
-        print(f"❌ Cannot divide by zero ({value})")
-    except Exception as e:
-        results.append(f"❌ Unexpected error with {value}: {e}")
-        print(f"❌ Unexpected error with {value}: {e}")`;
+                    code += `<span class="code-keyword">for</span> value <span class="code-keyword">in</span> values:
+    <span class="code-keyword">try</span>:
+        num = <span class="code-function">float</span>(value)
+        result = <span class="code-number">10</span> / num
+        results.<span class="code-function">append</span>(<span class="code-string">f"10 / {value} = {result}"</span>)
+        <span class="code-function">print</span>(<span class="code-string">f"✅ 10 / {value} = {result}"</span>)
+    <span class="code-keyword">except</span> ValueError:
+        results.<span class="code-function">append</span>(<span class="code-string">f"❌ Cannot convert '{value}' to number"</span>)
+        <span class="code-function">print</span>(<span class="code-string">f"❌ Cannot convert '{value}' to number"</span>)
+    <span class="code-keyword">except</span> ZeroDivisionError:
+        results.<span class="code-function">append</span>(<span class="code-string">f"❌ Cannot divide by zero ({value})"</span>)
+        <span class="code-function">print</span>(<span class="code-string">f"❌ Cannot divide by zero ({value})"</span>)
+    <span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+        results.<span class="code-function">append</span>(<span class="code-string">f"❌ Unexpected error with {value}: {e}"</span>)
+        <span class="code-function">print</span>(<span class="code-string">f"❌ Unexpected error with {value}: {e}"</span>)`;
                     
                     output = '';
                     values.forEach(value => {
@@ -620,17 +875,17 @@ Multiple things can go wrong without proper error handling.`,
                     break;
                     
                 case 'conversion':
-                    code += `for value in values:
-    try:
-        num = int(value)
-        results.append(f"✅ '{value}' converted to {num}")
-        print(f"✅ '{value}' converted to {num}")
-    except ValueError:
-        results.append(f"❌ Cannot convert '{value}' to integer")
-        print(f"❌ Cannot convert '{value}' to integer")
-    except Exception as e:
-        results.append(f"❌ Unexpected error with {value}: {e}")
-        print(f"❌ Unexpected error with {value}: {e}")`;
+                    code += `<span class="code-keyword">for</span> value <span class="code-keyword">in</span> values:
+    <span class="code-keyword">try</span>:
+        num = <span class="code-function">int</span>(value)
+        results.<span class="code-function">append</span>(<span class="code-string">f"✅ '{value}' converted to {num}"</span>)
+        <span class="code-function">print</span>(<span class="code-string">f"✅ '{value}' converted to {num}"</span>)
+    <span class="code-keyword">except</span> ValueError:
+        results.<span class="code-function">append</span>(<span class="code-string">f"❌ Cannot convert '{value}' to integer"</span>)
+        <span class="code-function">print</span>(<span class="code-string">f"❌ Cannot convert '{value}' to integer"</span>)
+    <span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+        results.<span class="code-function">append</span>(<span class="code-string">f"❌ Unexpected error with {value}: {e}"</span>)
+        <span class="code-function">print</span>(<span class="code-string">f"❌ Unexpected error with {value}: {e}"</span>)`;
                     
                     output = '';
                     values.forEach(value => {
@@ -649,22 +904,22 @@ Multiple things can go wrong without proper error handling.`,
                     break;
                     
                 case 'listAccess':
-                    code += `test_list = ['apple', 'banana', 'cherry']
-for value in values:
-    try:
-        index = int(value)
+                    code += `test_list = [<span class="code-string">'apple'</span>, <span class="code-string">'banana'</span>, <span class="code-string">'cherry'</span>]
+<span class="code-keyword">for</span> value <span class="code-keyword">in</span> values:
+    <span class="code-keyword">try</span>:
+        index = <span class="code-function">int</span>(value)
         item = test_list[index]
-        results.append(f"✅ test_list[{index}] = {item}")
-        print(f"✅ test_list[{index}] = {item}")
-    except ValueError:
-        results.append(f"❌ '{value}' is not a valid index")
-        print(f"❌ '{value}' is not a valid index")
-    except IndexError:
-        results.append(f"❌ Index {value} out of range (list has {len(test_list)} items)")
-        print(f"❌ Index {value} out of range (list has {len(test_list)} items)")
-    except Exception as e:
-        results.append(f"❌ Unexpected error with {value}: {e}")
-        print(f"❌ Unexpected error with {value}: {e}")`;
+        results.<span class="code-function">append</span>(<span class="code-string">f"✅ test_list[{index}] = {item}"</span>)
+        <span class="code-function">print</span>(<span class="code-string">f"✅ test_list[{index}] = {item}"</span>)
+    <span class="code-keyword">except</span> ValueError:
+        results.<span class="code-function">append</span>(<span class="code-string">f"❌ '{value}' is not a valid index"</span>)
+        <span class="code-function">print</span>(<span class="code-string">f"❌ '{value}' is not a valid index"</span>)
+    <span class="code-keyword">except</span> IndexError:
+        results.<span class="code-function">append</span>(<span class="code-string">f"❌ Index {value} out of range (list has {len(test_list)} items)"</span>)
+        <span class="code-function">print</span>(<span class="code-string">f"❌ Index {value} out of range (list has {len(test_list)} items)"</span>)
+    <span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+        results.<span class="code-function">append</span>(<span class="code-string">f"❌ Unexpected error with {value}: {e}"</span>)
+        <span class="code-function">print</span>(<span class="code-string">f"❌ Unexpected error with {value}: {e}"</span>)`;
                     
                     const testList = ['apple', 'banana', 'cherry'];
                     output = '';
@@ -686,19 +941,19 @@ for value in values:
                     break;
                     
                 case 'dictAccess':
-                    code += `test_dict = {'name': 'Alice', 'age': 25, 'city': 'New York'}
-for value in values:
-    try:
+                    code += `test_dict = {<span class="code-string">'name'</span>: <span class="code-string">'Alice'</span>, <span class="code-string">'age'</span>: <span class="code-number">25</span>, <span class="code-string">'city'</span>: <span class="code-string">'New York'</span>}
+<span class="code-keyword">for</span> value <span class="code-keyword">in</span> values:
+    <span class="code-keyword">try</span>:
         item = test_dict[value]
-        results.append(f"✅ test_dict['{value}'] = {item}")
-        print(f"✅ test_dict['{value}'] = {item}")
-    except KeyError:
-        available_keys = list(test_dict.keys())
-        results.append(f"❌ Key '{value}' not found. Available: {available_keys}")
-        print(f"❌ Key '{value}' not found. Available: {available_keys}")
-    except Exception as e:
-        results.append(f"❌ Unexpected error with {value}: {e}")
-        print(f"❌ Unexpected error with {value}: {e}")`;
+        results.<span class="code-function">append</span>(<span class="code-string">f"✅ test_dict['{value}'] = {item}"</span>)
+        <span class="code-function">print</span>(<span class="code-string">f"✅ test_dict['{value}'] = {item}"</span>)
+    <span class="code-keyword">except</span> KeyError:
+        available_keys = <span class="code-function">list</span>(test_dict.<span class="code-function">keys</span>())
+        results.<span class="code-function">append</span>(<span class="code-string">f"❌ Key '{value}' not found. Available: {available_keys}"</span>)
+        <span class="code-function">print</span>(<span class="code-string">f"❌ Key '{value}' not found. Available: {available_keys}"</span>)
+    <span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+        results.<span class="code-function">append</span>(<span class="code-string">f"❌ Unexpected error with {value}: {e}"</span>)
+        <span class="code-function">print</span>(<span class="code-string">f"❌ Unexpected error with {value}: {e}"</span>)`;
                     
                     const testDict = {'name': 'Alice', 'age': 25, 'city': 'New York'};
                     output = '';
@@ -718,16 +973,30 @@ for value in values:
                     break;
             }
             
-            document.getElementById('generatedCode').textContent = code;
+            document.getElementById('generatedCode').innerHTML = code;
             document.getElementById('executionOutput').textContent = output;
             document.getElementById('executionOutput').className = 'output-section success';
             document.getElementById('explanationText').textContent = explanation;
             document.getElementById('explanation').style.display = 'block';
         }
 
-        // Initialize with division demo
+        // ============== INITIALIZATION ============== 
         window.addEventListener('load', function() {
+            // Initialize theme system first
+            initThemeSystem();
+            
+            // Initialize with division demo
             showDemo('division');
+        });
+
+        // Listen for theme changes
+        window.addEventListener('themeChanged', function(event) {
+            console.log('Theme changed to:', event.detail.theme);
+            
+            // Add any theme-specific behaviors here if needed
+            if (event.detail.theme === 'print-friendly') {
+                console.log('Print-friendly theme activated - optimized for printing');
+            }
         });
     </script>
 </body>

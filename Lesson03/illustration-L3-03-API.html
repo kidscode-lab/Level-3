@@ -1,26 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KidsCode-Lab: API Call Demo - Understanding How APIs Work</title>
+    <title>API Call Demonstration - KidsCode Lab</title>
     <link rel="stylesheet" href="../styles/master.css">
     <style>
-        /* Page-specific styles only */
+        /* Page-specific styles using CSS custom properties for theme compatibility */
+        .examples {
+            background: var(--bg-elevated);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-primary);
+        }
+
+        .examples h4 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .example-url {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            border-radius: 5px;
+            padding: 10px;
+            margin: 8px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+        }
+
+        .example-url:hover {
+            background: var(--bg-elevated);
+            border-color: var(--accent-primary);
+            transform: translateX(5px);
+        }
+
         .main-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
             margin-bottom: 20px;
-            position: relative;
         }
 
         .tile {
-            background: white;
+            background: var(--bg-secondary);
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 2px solid #e3f2fd;
+            box-shadow: 0 10px 30px var(--shadow-medium);
+            border: 2px solid var(--border-primary);
+            transition: all 0.3s ease;
+        }
+
+        .tile:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px var(--shadow-heavy);
         }
 
         .tile-header {
@@ -29,13 +67,12 @@
             gap: 15px;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
+            border-bottom: 2px solid var(--border-primary);
         }
 
         .icon {
             width: 60px;
             height: 60px;
-            background: #3498db;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -55,7 +92,7 @@
 
         .tile-title {
             font-size: 1.3rem;
-            color: #2c3e50;
+            color: var(--text-primary);
             font-weight: bold;
         }
 
@@ -67,22 +104,24 @@
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
-            color: #34495e;
+            color: var(--text-primary);
         }
 
         .url-input {
             width: 100%;
             padding: 12px;
-            border: 2px solid #bdc3c7;
+            border: 2px solid var(--border-primary);
             border-radius: 8px;
             font-size: 14px;
             font-family: 'Courier New', monospace;
             transition: border-color 0.3s;
+            background: var(--bg-elevated);
+            color: var(--text-secondary);
         }
 
         .url-input:focus {
             outline: none;
-            border-color: #3498db;
+            border-color: var(--accent-primary);
         }
 
         .code-section {
@@ -91,7 +130,7 @@
 
         .code-section h3 {
             margin-bottom: 10px;
-            color: #2c3e50;
+            color: var(--text-primary);
             font-size: 1.1rem;
         }
 
@@ -101,13 +140,13 @@
 
         .json-section h3 {
             margin-bottom: 10px;
-            color: #2c3e50;
+            color: var(--text-primary);
             font-size: 1.1rem;
         }
 
         .json-display {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
+            background: var(--bg-elevated);
+            border: 2px solid var(--border-primary);
             border-radius: 8px;
             padding: 15px;
             min-height: 200px;
@@ -116,31 +155,33 @@
             line-height: 1.6;
             overflow-y: auto;
             white-space: pre-wrap;
+            color: var(--text-secondary);
         }
 
         .json-display.loading {
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #e3f2fd;
-            color: #1976d2;
+            background: rgba(33, 150, 243, 0.1);
+            color: var(--color-info);
+            border-color: var(--color-info);
             font-weight: bold;
         }
 
         .json-display.error {
-            background: #ffebee;
-            color: #c62828;
-            border-color: #ef5350;
+            background: rgba(244, 67, 54, 0.1);
+            color: var(--color-error);
+            border-color: var(--color-error);
         }
 
         .json-display.success {
-            background: #e8f5e8;
-            border-color: #4caf50;
+            background: rgba(76, 175, 80, 0.1);
+            border-color: var(--color-success);
         }
 
         .endpoint-display {
-            background: #f0f8ff;
-            border: 2px solid #e3f2fd;
+            background: var(--bg-elevated);
+            border: 2px solid var(--border-primary);
             border-radius: 8px;
             padding: 15px;
             margin-bottom: 20px;
@@ -150,6 +191,7 @@
             min-height: 50px;
             display: flex;
             align-items: center;
+            color: var(--text-secondary);
         }
 
         .control-section {
@@ -158,7 +200,7 @@
         }
 
         .api-button {
-            background: linear-gradient(45deg, #3498db, #2ecc71);
+            background: var(--accent-gradient);
             color: white;
             border: none;
             padding: 15px 30px;
@@ -166,57 +208,29 @@
             border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+            box-shadow: 0 5px 15px var(--shadow-medium);
             font-weight: bold;
         }
 
         .api-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+            box-shadow: 0 8px 25px var(--shadow-heavy);
         }
 
         .api-button:disabled {
-            background: #bdc3c7;
+            background: var(--text-disabled);
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
         }
 
-        .examples {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .examples h4 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-
-        .example-url {
-            background: white;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            padding: 8px;
-            margin: 5px 0;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .example-url:hover {
-            background: #e3f2fd;
-        }
-
         .json-iteration-section {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--bg-secondary);
             border-radius: 15px;
             padding: 25px;
             margin-top: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 2px solid #e8f5e8;
+            box-shadow: 0 10px 30px var(--shadow-medium);
+            border: 2px solid var(--border-primary);
         }
 
         .iteration-header {
@@ -225,13 +239,13 @@
             gap: 15px;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
+            border-bottom: 2px solid var(--border-primary);
         }
 
         .iteration-icon {
             width: 50px;
             height: 50px;
-            background: linear-gradient(45deg, #8e44ad, #3498db);
+            background: var(--accent-gradient);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -243,13 +257,13 @@
 
         .iteration-title {
             font-size: 1.4rem;
-            color: #2c3e50;
+            color: var(--text-primary);
             font-weight: bold;
         }
 
         .iteration-code {
-            background: #2c3e50;
-            color: #ecf0f1;
+            background: var(--code-bg);
+            color: var(--text-secondary);
             padding: 20px;
             border-radius: 8px;
             font-family: 'Courier New', monospace;
@@ -258,11 +272,12 @@
             overflow-x: auto;
             margin-bottom: 20px;
             white-space: pre;
+            border: 1px solid var(--code-border);
         }
 
         .iteration-output {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
+            background: var(--bg-elevated);
+            border: 2px solid var(--border-primary);
             border-radius: 8px;
             padding: 15px;
             min-height: 150px;
@@ -271,19 +286,65 @@
             line-height: 1.6;
             overflow-y: auto;
             white-space: pre-wrap;
+            color: var(--text-secondary);
         }
 
         .iteration-output.success {
-            background: #e8f5e8;
-            border-color: #4caf50;
+            background: rgba(76, 175, 80, 0.1);
+            border-color: var(--color-success);
         }
 
         .iteration-output.waiting {
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #7f8c8d;
+            color: var(--text-muted);
             font-style: italic;
+        }
+
+        /* Code syntax highlighting in iteration code */
+        .iteration-code .code-keyword {
+            color: var(--code-keyword);
+        }
+
+        .iteration-code .code-string {
+            color: var(--code-string);
+        }
+
+        .iteration-code .code-comment {
+            color: var(--code-comment);
+        }
+
+        .iteration-code .code-function {
+            color: var(--code-function);
+        }
+
+        /* Print-friendly theme overrides */
+        :root[data-theme="print-friendly"] .examples {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-primary);
+        }
+
+        :root[data-theme="print-friendly"] .json-display.loading {
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+            border-color: var(--border-primary);
+        }
+
+        :root[data-theme="print-friendly"] .json-display.error {
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+            border-color: var(--border-primary);
+        }
+
+        :root[data-theme="print-friendly"] .json-display.success {
+            background: var(--bg-elevated);
+            border-color: var(--border-primary);
+        }
+
+        :root[data-theme="print-friendly"] .iteration-output.success {
+            background: var(--bg-elevated);
+            border-color: var(--border-primary);
         }
 
         @media (max-width: 768px) {
@@ -291,167 +352,325 @@
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
+            
+            .tile {
+                padding: 20px;
+            }
+            
+            .examples {
+                padding: 15px;
+            }
+            
+            .json-iteration-section {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="brand-logo">
-                <img src="../images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
-                <div class="brand-logo-text">KidsCode Lab</div>
+            <div class="header-top">
+                <div class="brand-logo">
+                    <img src="../images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
+                    <div class="brand-logo-text">KidsCode Lab</div>
+                </div>
+                
+                <div class="theme-switcher">
+                    <button class="theme-cycle-button" onclick="cycleTheme()" title="Switch Theme">
+                        🔄
+                        <div class="theme-tooltip" id="themeTooltip">Next: Light Theme</div>
+                    </button>
+                </div>
             </div>
-            <h2>🔄 API Call Demonstration</h1>
-            <h3>Learn how Python makes API calls and <br>see the results in real-time!</h3>
-        </div>
-        <div class="examples">
-            <h4>📚 Try these example APIs (click to use):</h4>
-            <div class="example-url" onclick="setExample('https://api.adviceslip.com/advice')">
-                https://api.adviceslip.com/advice - Random advice
-            </div>
-            <div class="example-url" onclick="setExample('https://dog.ceo/api/breeds/image/random')">
-                https://dog.ceo/api/breeds/image/random - Random dog image
-            </div>
-            <div class="example-url" onclick="setExample('http://numbersapi.com/42?json')">
-                http://numbersapi.com/42?json - Number facts
-            </div>
-            <div class="example-url" onclick="setExample('https://api.quotable.io/random')">
-                https://api.quotable.io/random - Random quotes
-            </div>
+            
+            <h2>🔄 API Call Demonstration</h2>
+            <h3>Learn how Python makes API calls and see the results in real-time!</h3>
         </div>
 
-        <div class="main-layout">
-            <!-- <div class="data-flow-arrow">
-                <div class="arrow-container">
-                    <div class="arrow-line"></div>
-                    <div class="arrow-head"></div>
-                    <div class="arrow-label">📡 API Request</div>
+        <div class="content">
+            <div class="examples">
+                <h4>📚 Try these example APIs (click to use):</h4>
+                <div class="example-url" onclick="setExample('https://api.adviceslip.com/advice')">
+                    https://api.adviceslip.com/advice - Random advice
                 </div>
-            </div> -->
+                <div class="example-url" onclick="setExample('https://dog.ceo/api/breeds/image/random')">
+                    https://dog.ceo/api/breeds/image/random - Random dog image
+                </div>
+                <div class="example-url" onclick="setExample('http://numbersapi.com/42?json')">
+                    http://numbersapi.com/42?json - Number facts
+                </div>
+                <div class="example-url" onclick="setExample('https://api.quotable.io/random')">
+                    https://api.quotable.io/random - Random quotes
+                </div>
+            </div>
 
-            <!-- Left Tile - Python Side -->
-            <div class="tile">
-                <div class="tile-header">
-                    <div class="icon python-icon">🐍</div>
-                    <div class="tile-title">Python Code</div>
+            <div class="main-layout">
+                <!-- Left Tile - Python Side -->
+                <div class="tile">
+                    <div class="tile-header">
+                        <div class="icon python-icon">🐍</div>
+                        <div class="tile-title">Python Code</div>
+                    </div>
+
+                    <div class="input-section">
+                        <label for="apiUrl">API Endpoint URL:</label>
+                        <input type="text" id="apiUrl" class="url-input" 
+                               placeholder="Enter API endpoint URL (e.g., https://api.adviceslip.com/advice)"
+                               value="https://api.adviceslip.com/advice">
+                    </div>
+
+                    <div class="code-section">
+                        <h3>📝 Python Code:</h3>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<pre><code><span class="code-keyword">import</span> requests
+<span class="code-keyword">import</span> json
+
+<span class="code-comment"># Make API call</span>
+url = <span class="code-string">"<span id="pythonUrl">https://api.adviceslip.com/advice</span>"</span>
+response = requests.<span class="code-function">get</span>(url)
+
+<span class="code-keyword">if</span> response.status_code == <span class="code-number">200</span>:
+    data = response.<span class="code-function">json</span>()
+    <span class="code-function">print</span>(<span class="code-string">"Success!"</span>)
+    <span class="code-function">print</span>(json.<span class="code-function">dumps</span>(data, indent=<span class="code-number">2</span>))
+<span class="code-keyword">else</span>:
+    <span class="code-function">print</span>(<span class="code-string">f"Error: {response.status_code}"</span>)</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="json-section">
+                        <h3>📄 Python Response:</h3>
+                        <div id="pythonResponse" class="json-display">
+                            Click "Make API Call" to see the response here...
+                        </div>
+                    </div>
                 </div>
 
-                <div class="input-section">
-                    <label for="apiUrl">API Endpoint URL:</label>
-                    <input type="text" id="apiUrl" class="url-input" 
-                           placeholder="Enter API endpoint URL (e.g., https://api.adviceslip.com/advice)"
-                           value="https://api.adviceslip.com/advice">
+                <!-- Right Tile - API Side -->
+                <div class="tile">
+                    <div class="tile-header">
+                        <div class="icon api-icon">🌐</div>
+                        <div class="tile-title">API Server</div>
+                    </div>
+
+                    <div class="input-section">
+                        <label>API Endpoint:</label>
+                        <div id="apiEndpoint" class="endpoint-display">
+                            https://api.adviceslip.com/advice
+                        </div>
+                    </div>
+
+                    <div class="json-section">
+                        <h3>📡 Server Response:</h3>
+                        <div id="apiResponse" class="json-display">
+                            Waiting for API call...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <button id="makeCallBtn" class="api-button" onclick="makeApiCall()">
+                    🚀 Make API Call
+                </button>
+            </div>
+
+            <div class="json-iteration-section">
+                <div class="iteration-header">
+                    <div class="iteration-icon">🔄</div>
+                    <div class="iteration-title">JSON Data Processing in Python</div>
                 </div>
 
                 <div class="code-section">
-                    <h3>📝 Python Code:</h3>
-                    <div class="code-block">
-import requests
-import json
+                    <h3>📝 How Python Processes the JSON Response:</h3>
+                    <div class="iteration-code">
+<span class="code-keyword">import</span> requests
+<span class="code-keyword">import</span> json
 
-# Make API call
-url = "<span id="pythonUrl">https://api.adviceslip.com/advice</span>"
-response = requests.get(url)
+<span class="code-comment"># Get the JSON response</span>
+response = requests.<span class="code-function">get</span>(<span class="code-string">"<span id="iterationUrl">https://api.adviceslip.com/advice</span>"</span>)
+data = response.<span class="code-function">json</span>()
 
-if response.status_code == 200:
-    data = response.json()
-    print("Success!")
-    print(json.dumps(data, indent=2))
-else:
-    print(f"Error: {response.status_code}")
-                    </div>
-                </div>
+<span class="code-comment"># Display the full JSON structure</span>
+<span class="code-function">print</span>(<span class="code-string">"=== Full JSON Response ==="</span>)
+<span class="code-function">print</span>(json.<span class="code-function">dumps</span>(data, indent=<span class="code-number">2</span>))
 
-                <div class="json-section">
-                    <h3>📄 Python Response:</h3>
-                    <div id="pythonResponse" class="json-display">
-                        Click "Make API Call" to see the response here...
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Tile - API Side -->
-            <div class="tile">
-                <div class="tile-header">
-                    <div class="icon api-icon">🌐</div>
-                    <div class="tile-title">API Server</div>
-                </div>
-
-                <div class="input-section">
-                    <label>API Endpoint:</label>
-                    <div id="apiEndpoint" class="endpoint-display">
-                        https://api.adviceslip.com/advice
-                    </div>
-                </div>
-
-                <div class="json-section">
-                    <h3>📡 Server Response:</h3>
-                    <div id="apiResponse" class="json-display">
-                        Waiting for API call...
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="control-section">
-            <button id="makeCallBtn" class="api-button" onclick="makeApiCall()">
-                🚀 Make API Call
-            </button>
-        </div>
-
-        <div class="json-iteration-section">
-            <div class="iteration-header">
-                <div class="iteration-icon">🔄</div>
-                <div class="iteration-title">JSON Data Processing in Python</div>
-            </div>
-
-            <div class="code-section">
-                <h3>📝 How Python Processes the JSON Response:</h3>
-                <div class="iteration-code">
-import requests
-import json
-
-# Get the JSON response
-response = requests.get("<span id="iterationUrl">https://api.adviceslip.com/advice</span>")
-data = response.json()
-
-# Display the full JSON structure
-print("=== Full JSON Response ===")
-print(json.dumps(data, indent=2))
-
-# Iterate through the JSON data
-print("\n=== Processing JSON Data ===")
-for key, value in data.items():
-    print(f"Key: '{key}' → Value: {value}")
+<span class="code-comment"># Iterate through the JSON data</span>
+<span class="code-function">print</span>(<span class="code-string">"\n=== Processing JSON Data ==="</span>)
+<span class="code-keyword">for</span> key, value <span class="code-keyword">in</span> data.<span class="code-function">items</span>():
+    <span class="code-function">print</span>(<span class="code-string">f"Key: '{key}' → Value: {value}"</span>)
     
-    # Check if value is a nested object/array
-    if isinstance(value, dict):
-        print(f"  └── '{key}' is a nested object:")
-        for sub_key, sub_value in value.items():
-            print(f"      {sub_key}: {sub_value}")
-    elif isinstance(value, list):
-        print(f"  └── '{key}' is a list with {len(value)} items:")
-        for i, item in enumerate(value):
-            print(f"      [{i}]: {item}")
+    <span class="code-comment"># Check if value is a nested object/array</span>
+    <span class="code-keyword">if</span> <span class="code-function">isinstance</span>(value, <span class="code-function">dict</span>):
+        <span class="code-function">print</span>(<span class="code-string">f"  └── '{key}' is a nested object:"</span>)
+        <span class="code-keyword">for</span> sub_key, sub_value <span class="code-keyword">in</span> value.<span class="code-function">items</span>():
+            <span class="code-function">print</span>(<span class="code-string">f"      {sub_key}: {sub_value}"</span>)
+    <span class="code-keyword">elif</span> <span class="code-function">isinstance</span>(value, <span class="code-function">list</span>):
+        <span class="code-function">print</span>(<span class="code-string">f"  └── '{key}' is a list with {len(value)} items:"</span>)
+        <span class="code-keyword">for</span> i, item <span class="code-keyword">in</span> <span class="code-function">enumerate</span>(value):
+            <span class="code-function">print</span>(<span class="code-string">f"      [{i}]: {item}"</span>)
 
-# Extract specific values (example)
-print("\n=== Extracting Specific Data ===")
-if 'slip' in data:
-    advice = data['slip']['advice']
-    print(f"Advice: {advice}")
+<span class="code-comment"># Extract specific values (example)</span>
+<span class="code-function">print</span>(<span class="code-string">"\n=== Extracting Specific Data ==="</span>)
+<span class="code-keyword">if</span> <span class="code-string">'slip'</span> <span class="code-keyword">in</span> data:
+    advice = data[<span class="code-string">'slip'</span>][<span class="code-string">'advice'</span>]
+    <span class="code-function">print</span>(<span class="code-string">f"Advice: {advice}"</span>)
+                    </div>
                 </div>
-            </div>
 
-            <div class="json-section">
-                <h3>📄 Python Processing Output:</h3>
-                <div id="iterationOutput" class="iteration-output waiting">
-                    <p>Make an API call above to see how Python processes the JSON data...</p>
+                <div class="json-section">
+                    <h3>📄 Python Processing Output:</h3>
+                    <div id="iterationOutput" class="iteration-output waiting">
+                        <p>Make an API call above to see how Python processes the JSON data...</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // ============== THEME SYSTEM ============== 
+        const themes = {
+            'dark': { name: 'Dark Theme', icon: 'dark' },
+            'light': { name: 'Light Theme', icon: 'light' },
+            'high-contrast': { name: 'High Contrast', icon: 'high-contrast' },
+            'kid-friendly': { name: 'Kid-Friendly', icon: 'kid-friendly' },
+            'colorful': { name: 'Colorful', icon: 'colorful' },
+            'print-friendly': { name: 'Print-Friendly', icon: 'print-friendly' }
+        };
+
+        // Theme cycle order
+        const themeOrder = ['dark', 'light', 'high-contrast', 'kid-friendly', 'colorful', 'print-friendly'];
+        let currentTheme = 'dark';
+
+        // Get next theme in cycle
+        function getNextTheme(currentTheme) {
+            const currentIndex = themeOrder.indexOf(currentTheme);
+            const nextIndex = (currentIndex + 1) % themeOrder.length;
+            return themeOrder[nextIndex];
+        }
+
+        // Update tooltip with next theme
+        function updateTooltip() {
+            const nextTheme = getNextTheme(currentTheme);
+            const tooltip = document.getElementById('themeTooltip');
+            if (tooltip) {
+                tooltip.textContent = `Next: ${themes[nextTheme].name}`;
+            }
+        }
+
+        // Cycle to next theme
+        function cycleTheme() {
+            const nextTheme = getNextTheme(currentTheme);
+            setTheme(nextTheme);
+        }
+
+        // Set theme
+        function setTheme(themeName, saveToStorage = true) {
+            if (!themes[themeName]) return;
+            
+            currentTheme = themeName;
+            
+            // Apply theme to HTML element
+            document.documentElement.setAttribute('data-theme', themeName);
+            
+            // Update tooltip for next theme
+            updateTooltip();
+            
+            // Save to localStorage
+            if (saveToStorage) {
+                localStorage.setItem('kidsCode-theme', themeName);
+            }
+            
+            // Trigger custom event for theme change
+            window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: themeName } }));
+            
+            // Brief visual feedback
+            const button = document.querySelector('.theme-cycle-button');
+            if (button) {
+                button.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    button.style.transform = '';
+                }, 150);
+            }
+        }
+
+        // Initialize theme system
+        function initThemeSystem() {
+            // Check for saved theme in localStorage
+            const savedTheme = localStorage.getItem('kidsCode-theme');
+            
+            // Check for system preference
+            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            // Determine initial theme
+            if (savedTheme && themes[savedTheme]) {
+                currentTheme = savedTheme;
+            } else if (systemPrefersDark) {
+                currentTheme = 'dark';
+            } else {
+                currentTheme = 'light';
+            }
+            
+            // Apply initial theme
+            setTheme(currentTheme, false);
+            
+            // Listen for system theme changes
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                    if (!localStorage.getItem('kidsCode-theme')) {
+                        setTheme(e.matches ? 'dark' : 'light', false);
+                    }
+                });
+            }
+        }
+
+        // Keyboard shortcuts for theme switching
+        document.addEventListener('keydown', function(event) {
+            // Ctrl/Cmd + Shift + T for theme cycle
+            if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'T') {
+                event.preventDefault();
+                cycleTheme();
+            }
+        });
+
+        // ============== COPY CODE FUNCTIONALITY ============== 
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const code = codeBlock.textContent || codeBlock.innerText;
+            
+            const textarea = document.createElement('textarea');
+            textarea.value = code;
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                
+                const originalText = button.textContent;
+                button.textContent = '✅ Copied!';
+                button.style.background = 'rgba(76, 175, 80, 0.3)';
+                
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.style.background = 'rgba(255,255,255,0.1)';
+                }, 2000);
+                
+            } catch (err) {
+                console.error('Failed to copy code:', err);
+                button.textContent = '❌ Failed';
+                setTimeout(function() {
+                    button.textContent = '📋 Copy';
+                }, 2000);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        // ============== API DEMO FUNCTIONALITY ============== 
+        
         // Update URL displays when input changes
         document.getElementById('apiUrl').addEventListener('input', function() {
             const url = this.value;
@@ -653,13 +872,27 @@ if 'slip' in data:
             }
         });
 
-        // Initialize with default example
+        // ============== INITIALIZATION ============== 
         window.addEventListener('load', function() {
+            // Initialize theme system first
+            initThemeSystem();
+            
+            // Initialize with default example
             const defaultUrl = 'https://api.adviceslip.com/advice';
             document.getElementById('apiUrl').value = defaultUrl;
             document.getElementById('pythonUrl').textContent = defaultUrl;
             document.getElementById('apiEndpoint').textContent = defaultUrl;
             document.getElementById('iterationUrl').textContent = defaultUrl;
+        });
+
+        // Listen for theme changes
+        window.addEventListener('themeChanged', function(event) {
+            console.log('Theme changed to:', event.detail.theme);
+            
+            // Add any theme-specific behaviors here if needed
+            if (event.detail.theme === 'print-friendly') {
+                console.log('Print-friendly theme activated - optimized for printing');
+            }
         });
     </script>
 </body>

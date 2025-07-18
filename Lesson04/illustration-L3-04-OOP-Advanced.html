@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced OOP Concepts - Pet Simulator Course - KidsCode Lab</title>
+    <link rel="stylesheet" href="../styles/master.css">
+    <link rel="stylesheet" href="illustration-L3-04-OOP.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-top">
+                <div class="brand-logo">
+                    <img src="../images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
+                    <div class="brand-logo-text">KidsCode Lab</div>
+                </div>
+                
+                <div class="theme-switcher">
+                    <button class="theme-cycle-button" onclick="cycleTheme()" title="Switch Theme">
+                        🔄
+                        <div class="theme-tooltip" id="themeTooltip">Next: Light Theme</div>
+                    </button>
+                </div>
+            </div>
+            
+            <h2>🚀 Advanced OOP Concepts with Pet Simulator</h2>
+            <h3>Master object relationships and collections<br>Build complex systems with multiple interacting classes!</h3>
+        </div>
+
+        <div class="lesson-nav">
+            <a href="oop-fundamentals.html" class="lesson-tab" style="background: var(--accent-secondary); border-color: var(--accent-secondary);">
+                <span>← 🏗️</span> Fundamentals
+            </a>
+            <a href="#relationships" class="lesson-tab active" onclick="showLesson('relationships')">
+                <span>🤝</span> Class Relationships
+            </a>
+            <a href="#collections" class="lesson-tab" onclick="showLesson('collections')">
+                <span>🏪</span> Managing Collections
+            </a>
+        </div>
+
+        <div class="lesson-content">
+            <!-- CLASS RELATIONSHIPS -->
+            <div id="relationshipsContent" class="lesson-section active">
+                <div class="lesson-header">
+                    <div class="lesson-number">🤝</div>
+                    <div>
+                        <h2 class="lesson-title">Class Relationships</h2>
+                        <p class="lesson-subtitle">Making objects work together</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🎯 What You'll Learn</h3>
+                    <div class="concept-grid">
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">🧩</div>
+                                <h4 class="concept-title">Composition</h4>
+                            </div>
+                            <p class="concept-description">Objects can contain other objects, like a pet having toys or a house having rooms.</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">🔗</div>
+                                <h4 class="concept-title">Interaction</h4>
+                            </div>
+                            <p class="concept-description">Objects can call methods on other objects to make them work together.</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">🎲</div>
+                                <h4 class="concept-title">Separate Classes</h4>
+                            </div>
+                            <p class="concept-description">Each class should have one clear responsibility - pets, toys, and owners are separate things.</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">🌐</div>
+                                <h4 class="concept-title">Real-World Modeling</h4>
+                            </div>
+                            <p class="concept-description">Model real relationships: pets have toys, owners have pets, toys have properties.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">💡 Real-World Example</h3>
+                    <div class="real-world-example">
+                        <h4>🏠 Think of a Family and Their Belongings</h4>
+                        <p>In real life, a family has members, and each member has their own belongings. A child has toys, a parent has tools, and pets have their own toys too. Each item belongs to someone, but they're all separate things.</p>
+                        <p>In OOP, we model this the same way: a Pet class can have Toy objects, but toys are separate classes with their own properties and behaviors. This makes our code organized and realistic!</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🎾 Pet + Toy System</h3>
+                    <div class="subsection-content">
+                        <strong>Let's create a system where pets can have and play with toys:</strong>
+                    </div>
+                    
+                    <div class="code-comparison">
+                        <div class="code-example">
+                            <h4>🎲 Toy Class</h4>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<pre><code><span class="code-keyword">class</span> <span class="code-function">Toy</span>:
+    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(<span class="code-keyword">self</span>, name, fun_level, durability):
+        <span class="code-keyword">self</span>.name = name
+        <span class="code-keyword">self</span>.fun_level = fun_level
+        <span class="code-keyword">self</span>.durability = durability
+        <span class="code-keyword">self</span>.is_broken = <span class="code-keyword">False</span>
+    
+    <span class="code-keyword">def</span> <span class="code-function">use</span>(<span class="code-keyword">self</span>):
+        <span class="code-keyword">if</span> <span class="code-keyword">not</span> <span class="code-keyword">self</span>.is_broken:
+            <span class="code-keyword">self</span>.durability -= <span class="code-number">1</span>
+            <span class="code-keyword">if</span> <span class="code-keyword">self</span>.durability <= <span class="code-number">0</span>:
+                <span class="code-keyword">self</span>.is_broken = <span class="code-keyword">True</span>
+                <span class="code-keyword">print</span>(<span class="code-string">f"💥 Oh no! {self.name} broke!"</span>)
+            <span class="code-keyword">return</span> <span class="code-keyword">self</span>.fun_level
+        <span class="code-keyword">else</span>:
+            <span class="code-keyword">print</span>(<span class="code-string">f"🚫 {self.name} is broken!"</span>)
+            <span class="code-keyword">return</span> <span class="code-number">0</span>
+    
+    <span class="code-keyword">def</span> <span class="code-function">repair</span>(<span class="code-keyword">self</span>):
+        <span class="code-keyword">self</span>.is_broken = <span class="code-keyword">False</span>
+        <span class="code-keyword">self</span>.durability = <span class="code-number">3</span>
+        <span class="code-keyword">print</span>(<span class="code-string">f"🔧 {self.name} is fixed!"</span>)
+    
+    <span class="code-keyword">def</span> <span class="code-function">get_status</span>(<span class="code-keyword">self</span>):
+        status = <span class="code-string">"💥 Broken"</span> <span class="code-keyword">if</span> <span class="code-keyword">self</span>.is_broken <span class="code-keyword">else</span> <span class="code-string">"✅ Working"</span>
+        <span class="code-keyword">return</span> <span class="code-string">f"{self.name} - {status} (Durability: {self.durability})"</span></code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="code-example">
+                            <h4>🐾 Enhanced Pet Class</h4>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<pre><code><span class="code-keyword">class</span> <span class="code-function">Pet</span>:
+    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(<span class="code-keyword">self</span>, name):
+        <span class="code-keyword">self</span>.name = name
+        <span class="code-keyword">self</span>.happiness = <span class="code-number">5</span>
+        <span class="code-keyword">self</span>.energy = <span class="code-number">5</span>
+        <span class="code-keyword">self</span>.toys = []  <span class="code-comment"># List of toy objects</span>
+    
+    <span class="code-keyword">def</span> <span class="code-function">add_toy</span>(<span class="code-keyword">self</span>, toy):
+        <span class="code-keyword">self</span>.toys.append(toy)
+        <span class="code-keyword">print</span>(<span class="code-string">f"🎁 {self.name} got a new {toy.name}!"</span>)
+    
+    <span class="code-keyword">def</span> <span class="code-function">play_with_toy</span>(<span class="code-keyword">self</span>, toy_name):
+        <span class="code-keyword">for</span> toy <span class="code-keyword">in</span> <span class="code-keyword">self</span>.toys:
+            <span class="code-keyword">if</span> toy.name == toy_name:
+                <span class="code-keyword">if</span> <span class="code-keyword">self</span>.energy > <span class="code-number">0</span>:
+                    fun_gained = toy.use()
+                    <span class="code-keyword">self</span>.happiness += fun_gained
+                    <span class="code-keyword">self</span>.energy -= <span class="code-number">1</span>
+                    <span class="code-keyword">print</span>(<span class="code-string">f"🎾 {self.name} plays with {toy_name}!"</span>)
+                    <span class="code-keyword">return</span>
+                <span class="code-keyword">else</span>:
+                    <span class="code-keyword">print</span>(<span class="code-string">f"😴 {self.name} is too tired!"</span>)
+                    <span class="code-keyword">return</span>
+        <span class="code-keyword">print</span>(<span class="code-string">f"🚫 {self.name} doesn't have {toy_name}!"</span>)
+    
+    <span class="code-keyword">def</span> <span class="code-function">list_toys</span>(<span class="code-keyword">self</span>):
+        <span class="code-keyword">if</span> <span class="code-keyword">self</span>.toys:
+            <span class="code-keyword">print</span>(<span class="code-string">f"🎲 {self.name}'s toys:"</span>)
+            <span class="code-keyword">for</span> toy <span class="code-keyword">in</span> <span class="code-keyword">self</span>.toys:
+                <span class="code-keyword">print</span>(<span class="code-string">f"   {toy.get_status()}"</span>)
+        <span class="code-keyword">else</span>:
+            <span class="code-keyword">print</span>(<span class="code-string">f"😢 {self.name} has no toys!"</span>)
+    
+    <span class="code-keyword">def</span> <span class="code-function">show_status</span>(<span class="code-keyword">self</span>):
+        <span class="code-keyword">print</span>(<span class="code-string">f"📊 {self.name}'s Status:"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   😊 Happiness: {self.happiness}/10"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   ⚡ Energy: {self.energy}/10"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   🎲 Toys: {len(self.toys)}"</span>)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🎮 Pet-Toy Interaction Demo</h3>
+                    <div class="subsection-content">
+                        <strong>Let's see how pets and toys work together:</strong>
+                    </div>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<pre><code><span class="code-comment"># Create pets and toys</span>
+max_pet = Pet(<span class="code-string">"Max"</span>)
+luna_pet = Pet(<span class="code-string">"Luna"</span>)
+
+<span class="code-comment"># Create different toys</span>
+ball = Toy(<span class="code-string">"Ball"</span>, <span class="code-number">3</span>, <span class="code-number">5</span>)
+rope = Toy(<span class="code-string">"Rope"</span>, <span class="code-number">2</span>, <span class="code-number">3</span>)
+squeaky = Toy(<span class="code-string">"Squeaky Mouse"</span>, <span class="code-number">4</span>, <span class="code-number">2</span>)
+
+<span class="code-comment"># Give toys to pets</span>
+max_pet.add_toy(ball)
+max_pet.add_toy(rope)
+luna_pet.add_toy(squeaky)
+
+<span class="code-comment"># Check what toys they have</span>
+<span class="code-keyword">print</span>(<span class="code-string">"\n=== Toy Inventory ==="</span>)
+max_pet.list_toys()
+<span class="code-keyword">print</span>()
+luna_pet.list_toys()
+<span class="code-keyword">print</span>()
+
+<span class="code-comment"># Play with toys</span>
+<span class="code-keyword">print</span>(<span class="code-string">"=== Playtime! ==="</span>)
+max_pet.play_with_toy(<span class="code-string">"Ball"</span>)
+max_pet.play_with_toy(<span class="code-string">"Ball"</span>)
+max_pet.play_with_toy(<span class="code-string">"Rope"</span>)
+
+luna_pet.play_with_toy(<span class="code-string">"Squeaky Mouse"</span>)
+luna_pet.play_with_toy(<span class="code-string">"Squeaky Mouse"</span>)
+luna_pet.play_with_toy(<span class="code-string">"Squeaky Mouse"</span>)  <span class="code-comment"># This might break it!</span>
+
+<span class="code-comment"># Check status after playing</span>
+<span class="code-keyword">print</span>(<span class="code-string">"\n=== After Playing ==="</span>)
+max_pet.show_status()
+<span class="code-keyword">print</span>()
+luna_pet.show_status()
+<span class="code-keyword">print</span>()
+luna_pet.list_toys()
+
+<span class="code-comment"># Try to fix broken toy</span>
+<span class="code-keyword">for</span> toy <span class="code-keyword">in</span> luna_pet.toys:
+    <span class="code-keyword">if</span> toy.is_broken:
+        toy.repair()</code></pre>
+                    </div>
+
+                    <div class="subsection-content">
+                        <strong>🖥️ Expected Output:</strong>
+                    </div>
+                    <div class="output-preview">🎁 Max got a new Ball!
+🎁 Max got a new Rope!
+🎁 Luna got a new Squeaky Mouse!
+
+=== Toy Inventory ===
+🎲 Max's toys:
+   Ball - ✅ Working (Durability: 5)
+   Rope - ✅ Working (Durability: 3)
+
+🎲 Luna's toys:
+   Squeaky Mouse - ✅ Working (Durability: 2)
+
+=== Playtime! ===
+🎾 Max plays with Ball!
+🎾 Max plays with Ball!
+🎾 Max plays with Rope!
+🎾 Luna plays with Squeaky Mouse!
+🎾 Luna plays with Squeaky Mouse!
+💥 Oh no! Squeaky Mouse broke!
+
+=== After Playing ===
+📊 Max's Status:
+   😊 Happiness: 10/10
+   ⚡ Energy: 2/10
+   🎲 Toys: 2
+
+📊 Luna's Status:
+   😊 Happiness: 13/10
+   ⚡ Energy: 2/10
+   🎲 Toys: 1
+
+🎲 Luna's toys:
+   Squeaky Mouse - 💥 Broken (Durability: 0)
+🔧 Squeaky Mouse is fixed!</div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🧠 Key Concepts</h3>
+                    <div class="tip-box">
+                        <h4>💡 Object Relationship Principles</h4>
+                        <ul>
+                            <li><strong>Composition:</strong> Objects can contain other objects (pets have toys)</li>
+                            <li><strong>Encapsulation:</strong> Each class manages its own data and behavior</li>
+                            <li><strong>Interaction:</strong> Objects can call methods on other objects</li>
+                            <li><strong>Separation of Concerns:</strong> Each class has one clear responsibility</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="challenge-section">
+                    <h4 class="challenge-title">🏆 Try It Yourself!</h4>
+                    <div class="challenge-list">
+                        <div class="challenge-item">
+                            <strong>🎯 Challenge 1:</strong> Create a Food class that pets can eat, with different nutritional values
+                        </div>
+                        <div class="challenge-item">
+                            <strong>🎯 Challenge 2:</strong> Add a PetOwner class that can have multiple pets and buy toys for them
+                        </div>
+                        <div class="challenge-item">
+                            <strong>🎯 Challenge 3:</strong> Create a Vet class that can heal pets and fix broken toys
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MANAGING COLLECTIONS -->
+            <div id="collectionsContent" class="lesson-section">
+                <div class="lesson-header">
+                    <div class="lesson-number">🏪</div>
+                    <div>
+                        <h2 class="lesson-title">Managing Collections</h2>
+                        <p class="lesson-subtitle">Working with multiple objects efficiently</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🎯 What You'll Learn</h3>
+                    <div class="concept-grid">
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">📦</div>
+                                <h4 class="concept-title">Collections</h4>
+                            </div>
+                            <p class="concept-description">Learn to manage lists of objects, like a pet center with many pets or a toy store with many toys.</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">🔍</div>
+                                <h4 class="concept-title">Searching</h4>
+                            </div>
+                            <p class="concept-description">Find specific objects in collections by name, type, or other properties.</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">🔄</div>
+                                <h4 class="concept-title">Batch Operations</h4>
+                            </div>
+                            <p class="concept-description">Perform actions on multiple objects at once, like feeding all pets or cleaning all toys.</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">📊</div>
+                                <h4 class="concept-title">Statistics</h4>
+                            </div>
+                            <p class="concept-description">Calculate information about collections, like average happiness or total number of toys.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">💡 Real-World Example</h3>
+                    <div class="real-world-example">
+                        <h4>🏥 Think of a Pet Hospital</h4>
+                        <p>A pet hospital has many animals, each with different needs. The staff needs to keep track of all patients, find specific pets quickly, feed them all at meal time, and generate reports about their health.</p>
+                        <p>In OOP, we create manager classes that handle collections of objects. A PetCareCenter class can store many Pet objects, search for specific ones, and perform actions on all of them efficiently!</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🏥 Pet Care Center</h3>
+                    <div class="subsection-content">
+                        <strong>Let's create a system that manages multiple pets:</strong>
+                    </div>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<pre><code><span class="code-keyword">class</span> <span class="code-function">PetCareCenter</span>:
+    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(<span class="code-keyword">self</span>, name):
+        <span class="code-keyword">self</span>.name = name
+        <span class="code-keyword">self</span>.pets = []
+        <span class="code-keyword">self</span>.toys = []
+    
+    <span class="code-keyword">def</span> <span class="code-function">add_pet</span>(<span class="code-keyword">self</span>, pet):
+        <span class="code-keyword">self</span>.pets.append(pet)
+        <span class="code-keyword">print</span>(<span class="code-string">f"🏥 Welcome {pet.name} to {self.name}!"</span>)
+    
+    <span class="code-keyword">def</span> <span class="code-function">add_toy</span>(<span class="code-keyword">self</span>, toy):
+        <span class="code-keyword">self</span>.toys.append(toy)
+        <span class="code-keyword">print</span>(<span class="code-string">f"🎲 Added {toy.name} to the toy collection!"</span>)
+    
+    <span class="code-keyword">def</span> <span class="code-function">find_pet</span>(<span class="code-keyword">self</span>, name):
+        <span class="code-comment"># Search for a pet by name</span>
+        <span class="code-keyword">for</span> pet <span class="code-keyword">in</span> <span class="code-keyword">self</span>.pets:
+            <span class="code-keyword">if</span> pet.name.lower() == name.lower():
+                <span class="code-keyword">return</span> pet
+        <span class="code-keyword">return</span> <span class="code-keyword">None</span>
+    
+    <span class="code-keyword">def</span> <span class="code-function">find_available_toy</span>(<span class="code-keyword">self</span>, toy_name):
+        <span class="code-comment"># Find a working toy by name</span>
+        <span class="code-keyword">for</span> toy <span class="code-keyword">in</span> <span class="code-keyword">self</span>.toys:
+            <span class="code-keyword">if</span> toy.name.lower() == toy_name.lower() <span class="code-keyword">and</span> <span class="code-keyword">not</span> toy.is_broken:
+                <span class="code-keyword">return</span> toy
+        <span class="code-keyword">return</span> <span class="code-keyword">None</span>
+    
+    <span class="code-keyword">def</span> <span class="code-function">feed_all_pets</span>(<span class="code-keyword">self</span>):
+        <span class="code-comment"># Batch operation: feed every pet</span>
+        <span class="code-keyword">print</span>(<span class="code-string">f"🍽️ Feeding time at {self.name}!"</span>)
+        <span class="code-keyword">for</span> pet <span class="code-keyword">in</span> <span class="code-keyword">self</span>.pets:
+            pet.feed()
+    
+    <span class="code-keyword">def</span> <span class="code-function">play_time</span>(<span class="code-keyword">self</span>):
+        <span class="code-comment"># Give each pet a random toy to play with</span>
+        <span class="code-keyword">import</span> random
+        <span class="code-keyword">print</span>(<span class="code-string">f"🎾 Play time at {self.name}!"</span>)
+        
+        <span class="code-keyword">for</span> pet <span class="code-keyword">in</span> <span class="code-keyword">self</span>.pets:
+            <span class="code-keyword">if</span> <span class="code-keyword">self</span>.toys:
+                available_toys = [toy <span class="code-keyword">for</span> toy <span class="code-keyword">in</span> <span class="code-keyword">self</span>.toys <span class="code-keyword">if</span> <span class="code-keyword">not</span> toy.is_broken]
+                <span class="code-keyword">if</span> available_toys:
+                    random_toy = random.choice(available_toys)
+                    pet.add_toy(random_toy)
+                    pet.play_with_toy(random_toy.name)
+    
+    <span class="code-keyword">def</span> <span class="code-function">get_stats</span>(<span class="code-keyword">self</span>):
+        <span class="code-comment"># Calculate statistics about the center</span>
+        <span class="code-keyword">if</span> <span class="code-keyword">not</span> <span class="code-keyword">self</span>.pets:
+            <span class="code-keyword">print</span>(<span class="code-string">f"📊 {self.name} has no pets yet!"</span>)
+            <span class="code-keyword">return</span>
+        
+        total_happiness = sum(pet.happiness <span class="code-keyword">for</span> pet <span class="code-keyword">in</span> <span class="code-keyword">self</span>.pets)
+        avg_happiness = total_happiness / len(<span class="code-keyword">self</span>.pets)
+        
+        total_energy = sum(pet.energy <span class="code-keyword">for</span> pet <span class="code-keyword">in</span> <span class="code-keyword">self</span>.pets)
+        avg_energy = total_energy / len(<span class="code-keyword">self</span>.pets)
+        
+        working_toys = sum(1 <span class="code-keyword">for</span> toy <span class="code-keyword">in</span> <span class="code-keyword">self</span>.toys <span class="code-keyword">if</span> <span class="code-keyword">not</span> toy.is_broken)
+        broken_toys = sum(1 <span class="code-keyword">for</span> toy <span class="code-keyword">in</span> <span class="code-keyword">self</span>.toys <span class="code-keyword">if</span> toy.is_broken)
+        
+        <span class="code-keyword">print</span>(<span class="code-string">f"📊 {self.name} Statistics:"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   🐾 Total Pets: {len(self.pets)}"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   😊 Average Happiness: {avg_happiness:.1f}/10"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   ⚡ Average Energy: {avg_energy:.1f}/10"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   🎲 Working Toys: {working_toys}"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   💥 Broken Toys: {broken_toys}"</span>)
+    
+    <span class="code-keyword">def</span> <span class="code-function">list_all_pets</span>(<span class="code-keyword">self</span>):
+        <span class="code-comment"># Show all pets and their status</span>
+        <span class="code-keyword">print</span>(<span class="code-string">f"🐾 Pets at {self.name}:"</span>)
+        <span class="code-keyword">for</span> i, pet <span class="code-keyword">in</span> <span class="code-keyword">enumerate</span>(<span class="code-keyword">self</span>.pets, <span class="code-number">1</span>):
+            <span class="code-keyword">print</span>(<span class="code-string">f"   {i}. {pet.name} - H:{pet.happiness} E:{pet.energy}"</span>)
+    
+    <span class="code-keyword">def</span> <span class="code-function">find_happiest_pet</span>(<span class="code-keyword">self</span>):
+        <span class="code-comment"># Find the pet with highest happiness</span>
+        <span class="code-keyword">if</span> <span class="code-keyword">not</span> <span class="code-keyword">self</span>.pets:
+            <span class="code-keyword">return</span> <span class="code-keyword">None</span>
+        
+        happiest = <span class="code-keyword">self</span>.pets[<span class="code-number">0</span>]
+        <span class="code-keyword">for</span> pet <span class="code-keyword">in</span> <span class="code-keyword">self</span>.pets:
+            <span class="code-keyword">if</span> pet.happiness > happiest.happiness:
+                happiest = pet
+        <span class="code-keyword">return</span> happiest
+    
+    <span class="code-keyword">def</span> <span class="code-function">repair_all_toys</span>(<span class="code-keyword">self</span>):
+        <span class="code-comment"># Fix all broken toys</span>
+        <span class="code-keyword">print</span>(<span class="code-string">f"🔧 Repair time at {self.name}!"</span>)
+        <span class="code-keyword">for</span> toy <span class="code-keyword">in</span> <span class="code-keyword">self</span>.toys:
+            <span class="code-keyword">if</span> toy.is_broken:
+                toy.repair()</code></pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🎮 Pet Care Center Demo</h3>
+                    <div class="subsection-content">
+                        <strong>Let's create a full pet care center:</strong>
+                    </div>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<pre><code><span class="code-comment"># Create a pet care center</span>
+happy_paws = PetCareCenter(<span class="code-string">"Happy Paws Pet Center"</span>)
+
+<span class="code-comment"># Add pets to the center</span>
+pets_to_add = [
+    Pet(<span class="code-string">"Charlie"</span>),
+    Pet(<span class="code-string">"Bella"</span>),
+    Pet(<span class="code-string">"Max"</span>),
+    Pet(<span class="code-string">"Lucy"</span>)
+]
+
+<span class="code-keyword">for</span> pet <span class="code-keyword">in</span> pets_to_add:
+    happy_paws.add_pet(pet)
+
+<span class="code-comment"># Add toys to the center</span>
+toys_to_add = [
+    Toy(<span class="code-string">"Tennis Ball"</span>, <span class="code-number">3</span>, <span class="code-number">5</span>),
+    Toy(<span class="code-string">"Rope Toy"</span>, <span class="code-number">2</span>, <span class="code-number">4</span>),
+    Toy(<span class="code-string">"Squeaky Duck"</span>, <span class="code-number">4</span>, <span class="code-number">2</span>),
+    Toy(<span class="code-string">"Frisbee"</span>, <span class="code-number">5</span>, <span class="code-number">3</span>)
+]
+
+<span class="code-keyword">for</span> toy <span class="code-keyword">in</span> toys_to_add:
+    happy_paws.add_toy(toy)
+
+<span class="code-keyword">print</span>(<span class="code-string">"\n=== Initial Status ==="</span>)
+happy_paws.list_all_pets()
+happy_paws.get_stats()
+
+<span class="code-keyword">print</span>(<span class="code-string">"\n=== Daily Activities ==="</span>)
+happy_paws.feed_all_pets()
+<span class="code-keyword">print</span>()
+happy_paws.play_time()
+
+<span class="code-keyword">print</span>(<span class="code-string">"\n=== After Activities ==="</span>)
+happy_paws.get_stats()
+
+<span class="code-comment"># Find and interact with specific pet</span>
+<span class="code-keyword">print</span>(<span class="code-string">"\n=== Individual Pet Care ==="</span>)
+charlie = happy_paws.find_pet(<span class="code-string">"Charlie"</span>)
+<span class="code-keyword">if</span> charlie:
+    <span class="code-keyword">print</span>(<span class="code-string">f"Found {charlie.name}!"</span>)
+    charlie.show_status()
+
+<span class="code-comment"># Find happiest pet</span>
+<span class="code-keyword">print</span>(<span class="code-string">"\n=== Special Recognition ==="</span>)
+happiest = happy_paws.find_happiest_pet()
+<span class="code-keyword">if</span> happiest:
+    <span class="code-keyword">print</span>(<span class="code-string">f"🏆 {happiest.name} is the happiest pet today!"</span>)
+
+<span class="code-comment"># Repair any broken toys</span>
+<span class="code-keyword">print</span>(<span class="code-string">"\n=== Maintenance ==="</span>)
+happy_paws.repair_all_toys()</code></pre>
+                    </div>
+
+                    <div class="subsection-content">
+                        <strong>🖥️ Expected Output:</strong>
+                    </div>
+                    <div class="output-preview">🏥 Welcome Charlie to Happy Paws Pet Center!
+🏥 Welcome Bella to Happy Paws Pet Center!
+🏥 Welcome Max to Happy Paws Pet Center!
+🏥 Welcome Lucy to Happy Paws Pet Center!
+🎲 Added Tennis Ball to the toy collection!
+🎲 Added Rope Toy to the toy collection!
+🎲 Added Squeaky Duck to the toy collection!
+🎲 Added Frisbee to the toy collection!
+
+=== Initial Status ===
+🐾 Pets at Happy Paws Pet Center:
+   1. Charlie - H:5 E:5
+   2. Bella - H:5 E:5
+   3. Max - H:5 E:5
+   4. Lucy - H:5 E:5
+📊 Happy Paws Pet Center Statistics:
+   🐾 Total Pets: 4
+   😊 Average Happiness: 5.0/10
+   ⚡ Average Energy: 5.0/10
+   🎲 Working Toys: 4
+   💥 Broken Toys: 0
+
+=== Daily Activities ===
+🍽️ Feeding time at Happy Paws Pet Center!
+🍽️ Charlie enjoys a delicious meal!
+🍽️ Bella enjoys a delicious meal!
+🍽️ Max enjoys a delicious meal!
+🍽️ Lucy enjoys a delicious meal!
+
+🎾 Play time at Happy Paws Pet Center!
+🎁 Charlie got a new Frisbee!
+🎾 Charlie plays with Frisbee!
+🎁 Bella got a new Tennis Ball!
+🎾 Bella plays with Tennis Ball!
+🎁 Max got a new Rope Toy!
+🎾 Max plays with Rope Toy!
+🎁 Lucy got a new Squeaky Duck!
+🎾 Lucy plays with Squeaky Duck!
+
+=== After Activities ===
+📊 Happy Paws Pet Center Statistics:
+   🐾 Total Pets: 4
+   😊 Average Happiness: 11.0/10
+   ⚡ Average Energy: 4.0/10
+   🎲 Working Toys: 4
+   💥 Broken Toys: 0
+
+=== Individual Pet Care ===
+Found Charlie!
+📊 Charlie's Status:
+   😊 Happiness: 11/10
+   ⚡ Energy: 4/10
+   🎲 Toys: 1
+
+=== Special Recognition ===
+🏆 Charlie is the happiest pet today!
+
+=== Maintenance ===
+🔧 Repair time at Happy Paws Pet Center!</div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🧠 Advanced Collection Concepts</h3>
+                    <div class="tip-box">
+                        <h4>💡 Collection Management Tips</h4>
+                        <ul>
+                            <li><strong>Search Functions:</strong> Always return None when object not found</li>
+                            <li><strong>Batch Operations:</strong> Use loops to perform actions on all objects</li>
+                            <li><strong>Statistics:</strong> Use sum(), len(), and math operations for insights</li>
+                            <li><strong>Filtering:</strong> Use list comprehensions to find subsets of objects</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🔍 Advanced Search Examples</h3>
+                    <div class="subsection-content">
+                        <strong>Here are some advanced ways to work with collections:</strong>
+                    </div>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<pre><code><span class="code-comment"># Advanced collection operations</span>
+
+<span class="code-comment"># Find all pets with high happiness</span>
+<span class="code-keyword">def</span> <span class="code-function">find_happy_pets</span>(<span class="code-keyword">self</span>):
+    happy_pets = [pet <span class="code-keyword">for</span> pet <span class="code-keyword">in</span> <span class="code-keyword">self</span>.pets <span class="code-keyword">if</span> pet.happiness >= <span class="code-number">8</span>]
+    <span class="code-keyword">return</span> happy_pets
+
+<span class="code-comment"># Find all pets that need attention</span>
+<span class="code-keyword">def</span> <span class="code-function">find_pets_needing_attention</span>(<span class="code-keyword">self</span>):
+    needs_attention = []
+    <span class="code-keyword">for</span> pet <span class="code-keyword">in</span> <span class="code-keyword">self</span>.pets:
+        <span class="code-keyword">if</span> pet.energy < <span class="code-number">3</span> <span class="code-keyword">or</span> pet.happiness < <span class="code-number">4</span>:
+            needs_attention.append(pet)
+    <span class="code-keyword">return</span> needs_attention
+
+<span class="code-comment"># Count pets by condition</span>
+<span class="code-keyword">def</span> <span class="code-function">count_pets_by_condition</span>(<span class="code-keyword">self</span>):
+    happy_count = sum(<span class="code-number">1</span> <span class="code-keyword">for</span> pet <span class="code-keyword">in</span> <span class="code-keyword">self</span>.pets <span class="code-keyword">if</span> pet.happiness >= <span class="code-number">8</span>)
+    tired_count = sum(<span class="code-number">1</span> <span class="code-keyword">for</span> pet <span class="code-keyword">in</span> <span class="code-keyword">self</span>.pets <span class="code-keyword">if</span> pet.energy < <span class="code-number">3</span>)
+    
+    <span class="code-keyword">print</span>(<span class="code-string">f"😊 Happy pets: {happy_count}"</span>)
+    <span class="code-keyword">print</span>(<span class="code-string">f"😴 Tired pets: {tired_count}"</span>)
+
+<span class="code-comment"># Example usage</span>
+happy_pets = happy_paws.find_happy_pets()
+<span class="code-keyword">print</span>(<span class="code-string">f"Found {len(happy_pets)} happy pets!"</span>)
+
+pets_needing_care = happy_paws.find_pets_needing_attention()
+<span class="code-keyword">if</span> pets_needing_care:
+    <span class="code-keyword">print</span>(<span class="code-string">"Pets needing attention:"</span>)
+    <span class="code-keyword">for</span> pet <span class="code-keyword">in</span> pets_needing_care:
+        <span class="code-keyword">print</span>(<span class="code-string">f"  - {pet.name}"</span>)</code></pre>
+                    </div>
+                </div>
+
+                <div class="challenge-section">
+                    <h4 class="challenge-title">🏆 Try It Yourself!</h4>
+                    <div class="challenge-list">
+                        <div class="challenge-item">
+                            <strong>🎯 Challenge 1:</strong> Add a method to find the pet with the lowest energy
+                        </div>
+                        <div class="challenge-item">
+                            <strong>🎯 Challenge 2:</strong> Create an "adopt_pet()" method that removes a pet from the center
+                        </div>
+                        <div class="challenge-item">
+                            <strong>🎯 Challenge 3:</strong> Add a "daily_report()" that shows which pets need attention
+                        </div>
+                        <div class="challenge-item">
+                            <strong>🎯 Challenge 4:</strong> Create a "pet_checkup()" method that increases health for all pets
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🎓 Congratulations!</h3>
+                    <div class="real-world-example">
+                        <h4>🌟 You've Mastered OOP!</h4>
+                        <p>Excellent work! You've learned all the fundamental and advanced concepts of Object-Oriented Programming:</p>
+                        <ul style="margin: 15px 0; padding-left: 20px; color: var(--text-secondary);">
+                            <li>✅ <strong>Classes & Objects</strong> - Creating blueprints and instances</li>
+                            <li>✅ <strong>Methods & Behavior</strong> - Adding interactive functionality</li>
+                            <li>✅ <strong>Multiple Attributes</strong> - Managing complex state</li>
+                            <li>✅ <strong>Class Relationships</strong> - Making objects work together</li>
+                            <li>✅ <strong>Managing Collections</strong> - Handling multiple objects efficiently</li>
+                        </ul>
+                        <p>You can now build complex, realistic applications with multiple interacting classes. These skills will help you create amazing projects like games, simulations, and real-world applications!</p>
+                        <div style="text-align: center; margin-top: 20px;">
+                            <a href="oop-fundamentals.html" class="demo-link" style="font-size: 1.1rem; padding: 15px 30px; margin-right: 15px;">
+                                <span>← 🏗️</span> Review Fundamentals
+                            </a>
+                            <a href="#" class="demo-link" style="font-size: 1.1rem; padding: 15px 30px; background: var(--color-success);">
+                                <span>🎉</span> Build Your Own Project!
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============== THEME SYSTEM ============== 
+        const themes = {
+            'dark': { name: 'Dark Theme', icon: 'dark' },
+            'light': { name: 'Light Theme', icon: 'light' },
+            'high-contrast': { name: 'High Contrast', icon: 'high-contrast' },
+            'kid-friendly': { name: 'Kid-Friendly', icon: 'kid-friendly' },
+            'colorful': { name: 'Colorful', icon: 'colorful' },
+            'print-friendly': { name: 'Print-Friendly', icon: 'print-friendly' }
+        };
+
+        const themeOrder = ['dark', 'light', 'high-contrast', 'kid-friendly', 'colorful', 'print-friendly'];
+        let currentTheme = 'dark';
+
+        function initThemeSystem() {
+            const savedTheme = localStorage.getItem('kidsCode-theme');
+            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme && themes[savedTheme]) {
+                currentTheme = savedTheme;
+            } else if (systemPrefersDark) {
+                currentTheme = 'dark';
+            } else {
+                currentTheme = 'light';
+            }
+            
+            setTheme(currentTheme, false);
+            
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                    if (!localStorage.getItem('kidsCode-theme')) {
+                        setTheme(e.matches ? 'dark' : 'light', false);
+                    }
+                });
+            }
+        }
+
+        function getNextTheme(currentTheme) {
+            const currentIndex = themeOrder.indexOf(currentTheme);
+            const nextIndex = (currentIndex + 1) % themeOrder.length;
+            return themeOrder[nextIndex];
+        }
+
+        function updateTooltip() {
+            const nextTheme = getNextTheme(currentTheme);
+            const tooltip = document.getElementById('themeTooltip');
+            if (tooltip) {
+                tooltip.textContent = `Next: ${themes[nextTheme].name}`;
+            }
+        }
+
+        function cycleTheme() {
+            const nextTheme = getNextTheme(currentTheme);
+            setTheme(nextTheme);
+        }
+
+        function setTheme(themeName, saveToStorage = true) {
+            if (!themes[themeName]) return;
+            
+            currentTheme = themeName;
+            document.documentElement.setAttribute('data-theme', themeName);
+            updateTooltip();
+            
+            if (saveToStorage) {
+                localStorage.setItem('kidsCode-theme', themeName);
+            }
+            
+            window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: themeName } }));
+            
+            const button = document.querySelector('.theme-cycle-button');
+            if (button) {
+                button.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    button.style.transform = '';
+                }, 150);
+            }
+        }
+
+        // ============== LESSON NAVIGATION ============== 
+        function showLesson(lessonId) {
+            document.querySelectorAll('.lesson-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            const targetSection = document.getElementById(lessonId + 'Content');
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            document.querySelectorAll('.lesson-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            event.target.closest('.lesson-tab').classList.add('active');
+            window.location.hash = lessonId;
+        }
+
+        // ============== COPY CODE FUNCTIONALITY ============== 
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const code = codeBlock.textContent || codeBlock.innerText;
+            
+            const textarea = document.createElement('textarea');
+            textarea.value = code;
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                
+                const originalText = button.textContent;
+                button.textContent = '✅ Copied!';
+                button.style.background = 'rgba(76, 175, 80, 0.3)';
+                
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.style.background = 'rgba(255,255,255,0.1)';
+                }, 2000);
+                
+            } catch (err) {
+                console.error('Failed to copy code:', err);
+                button.textContent = '❌ Failed';
+                setTimeout(function() {
+                    button.textContent = '📋 Copy';
+                }, 2000);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        // ============== INITIALIZATION ============== 
+        window.addEventListener('load', function() {
+            initThemeSystem();
+            
+            const hash = window.location.hash.replace('#', '');
+            const validLessons = ['relationships', 'collections'];
+            
+            if (validLessons.includes(hash)) {
+                showLesson(hash);
+            } else {
+                showLesson('relationships');
+            }
+        });
+
+        window.addEventListener('hashchange', function() {
+            const hash = window.location.hash.replace('#', '');
+            const validLessons = ['relationships', 'collections'];
+            
+            if (validLessons.includes(hash)) {
+                document.querySelectorAll('.lesson-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                document.getElementById(hash + 'Content').classList.add('active');
+                
+                document.querySelectorAll('.lesson-tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                
+                document.querySelector(`[href="#${hash}"]`).classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

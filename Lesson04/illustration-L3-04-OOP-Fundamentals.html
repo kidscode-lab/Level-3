@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOP Fundamentals - Pet Simulator Course - KidsCode Lab</title>
+    <link rel="stylesheet" href="../styles/master.css">
+    <link rel="stylesheet" href="illustration-L3-04-OOP.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-top">
+                <div class="brand-logo">
+                    <img src="../images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
+                    <div class="brand-logo-text">KidsCode Lab</div>
+                </div>
+                
+                <div class="theme-switcher">
+                    <button class="theme-cycle-button" onclick="cycleTheme()" title="Switch Theme">
+                        🔄
+                        <div class="theme-tooltip" id="themeTooltip">Next: Light Theme</div>
+                    </button>
+                </div>
+            </div>
+            
+            <h2>🐾 OOP Fundamentals with Pet Simulator</h2>
+            <h3>Master the building blocks of Object-Oriented Programming<br>Learn Classes, Methods, and Attributes through hands-on pet care!</h3>
+        </div>
+
+        <div class="lesson-nav">
+            <a href="#classes" class="lesson-tab active" onclick="showLesson('classes')">
+                <span>🏗️</span> Classes & Objects
+            </a>
+            <a href="#methods" class="lesson-tab" onclick="showLesson('methods')">
+                <span>⚡</span> Methods & Behavior
+            </a>
+            <a href="#stats" class="lesson-tab" onclick="showLesson('stats')">
+                <span>📊</span> Multiple Attributes
+            </a>
+            <a href="oop-advanced.html" class="lesson-tab" style="background: var(--accent-secondary); border-color: var(--accent-secondary);">
+                <span>🚀</span> Advanced OOP →
+            </a>
+        </div>
+
+        <div class="lesson-content">
+            <!-- CLASSES & OBJECTS -->
+            <div id="classesContent" class="lesson-section active">
+                <div class="lesson-header">
+                    <div class="lesson-number">🏗️</div>
+                    <div>
+                        <h2 class="lesson-title">Classes & Objects</h2>
+                        <p class="lesson-subtitle">Understanding the building blocks of OOP</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🎯 What You'll Learn</h3>
+                    <div class="concept-grid">
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">📋</div>
+                                <h4 class="concept-title">Classes</h4>
+                            </div>
+                            <p class="concept-description">Think of a class as a blueprint or template. Just like a cookie cutter makes cookies, a class makes objects!</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">🍪</div>
+                                <h4 class="concept-title">Objects</h4>
+                            </div>
+                            <p class="concept-description">Objects are actual "things" created from classes. Each object has its own unique data but follows the same pattern.</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">🔧</div>
+                                <h4 class="concept-title">Attributes</h4>
+                            </div>
+                            <p class="concept-description">These are the characteristics or properties that objects remember, like a pet's name or hunger level.</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">🏃</div>
+                                <h4 class="concept-title">Constructor</h4>
+                            </div>
+                            <p class="concept-description">The special __init__ method that sets up your object when it's first created, like naming your pet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">💡 Real-World Example</h3>
+                    <div class="real-world-example">
+                        <div class="blueprint-container">
+                            <div class="blueprint-image">
+                                <img src="car.png" alt="Car Blueprint Illustration" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; box-shadow: 0 4px 12px var(--shadow-medium);">
+                            </div>
+                            <div class="blueprint-text">
+                                <h4>🚗 Think of a Car Blueprint</h4>
+                                <p>A car blueprint shows where the engine, wheels, and seats go, but it's not a real car. When manufacturers use that blueprint, they create actual cars. Each car has the same basic structure but different colors, interiors, and owners driving them.</p>
+                                <p>Similarly, a Pet class is like a blueprint that defines what all pets should have (name, hunger, happiness), but each pet object is unique with its own values!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🔨 Basic Pet Class</h3>
+                    <div class="subsection-content">
+                        <strong>Let's create our first pet class:</strong>
+                    </div>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<pre><code><span class="code-keyword">class</span> <span class="code-function">Pet</span>:
+    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(<span class="code-keyword">self</span>, name):
+        <span class="code-comment"># These are attributes - each pet remembers its own values</span>
+        <span class="code-keyword">self</span>.name = name
+        <span class="code-keyword">self</span>.hunger = <span class="code-number">5</span>
+        <span class="code-keyword">self</span>.happiness = <span class="code-number">5</span>
+    
+    <span class="code-keyword">def</span> <span class="code-function">say_hello</span>(<span class="code-keyword">self</span>):
+        <span class="code-comment"># This is a method - something the pet can do</span>
+        <span class="code-keyword">print</span>(<span class="code-string">f"🐾 Hi! I'm {self.name}! Nice to meet you!"</span>)
+    
+    <span class="code-keyword">def</span> <span class="code-function">show_status</span>(<span class="code-keyword">self</span>):
+        <span class="code-comment"># Show the pet's current condition</span>
+        <span class="code-keyword">print</span>(<span class="code-string">f"📊 {self.name}'s Status:"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   🍽️ Hunger: {self.hunger}/10"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   😊 Happiness: {self.happiness}/10"</span>)</code></pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🎮 Creating Multiple Pets</h3>
+                    <div class="subsection-content">
+                        <strong>Now let's create several different pets from our class:</strong>
+                    </div>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<pre><code><span class="code-comment"># Create different pets from the same class</span>
+fluffy = Pet(<span class="code-string">"Fluffy"</span>)
+buddy = Pet(<span class="code-string">"Buddy"</span>)
+whiskers = Pet(<span class="code-string">"Whiskers"</span>)
+shadow = Pet(<span class="code-string">"Shadow"</span>)
+
+<span class="code-comment"># Each pet introduces itself</span>
+fluffy.say_hello()
+buddy.say_hello()
+whiskers.say_hello()
+shadow.say_hello()
+
+<span class="code-comment"># Check their status</span>
+<span class="code-keyword">print</span>(<span class="code-string">"\n=== Pet Status Check ==="</span>)
+fluffy.show_status()
+<span class="code-keyword">print</span>()
+buddy.show_status()
+<span class="code-keyword">print</span>()
+whiskers.show_status()</code></pre>
+                    </div>
+
+                    <div class="subsection-content">
+                        <strong>🖥️ Expected Output:</strong>
+                    </div>
+                    <div class="output-preview">🐾 Hi! I'm Fluffy! Nice to meet you!
+🐾 Hi! I'm Buddy! Nice to meet you!
+🐾 Hi! I'm Whiskers! Nice to meet you!
+🐾 Hi! I'm Shadow! Nice to meet you!
+
+=== Pet Status Check ===
+📊 Fluffy's Status:
+   🍽️ Hunger: 5/10
+   😊 Happiness: 5/10
+
+📊 Buddy's Status:
+   🍽️ Hunger: 5/10
+   😊 Happiness: 5/10
+
+📊 Whiskers's Status:
+   🍽️ Hunger: 5/10
+   😊 Happiness: 5/10</div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🐾 Meet Your Pet Family</h3>
+                    <div class="pet-showcase">
+                        <div class="pet-item">
+                            <span class="emoji">🐰</span>
+                            <div class="name">Fluffy</div>
+                            <div class="type">Bunny</div>
+                        </div>
+                        <div class="pet-item">
+                            <span class="emoji">🐶</span>
+                            <div class="name">Buddy</div>
+                            <div class="type">Dog</div>
+                        </div>
+                        <div class="pet-item">
+                            <span class="emoji">🐱</span>
+                            <div class="name">Whiskers</div>
+                            <div class="type">Cat</div>
+                        </div>
+                        <div class="pet-item">
+                            <span class="emoji">🐺</span>
+                            <div class="name">Shadow</div>
+                            <div class="type">Wolf</div>
+                        </div>
+                        <div class="pet-item">
+                            <span class="emoji">🦊</span>
+                            <div class="name">Rusty</div>
+                            <div class="type">Fox</div>
+                        </div>
+                        <div class="pet-item">
+                            <span class="emoji">🐼</span>
+                            <div class="name">Bamboo</div>
+                            <div class="type">Panda</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="challenge-section">
+                    <h4 class="challenge-title">🏆 Try It Yourself!</h4>
+                    <div class="challenge-list">
+                        <div class="challenge-item">
+                            <strong>🎯 Challenge 1:</strong> Create a pet with your favorite name and make it say hello!
+                        </div>
+                        <div class="challenge-item">
+                            <strong>🎯 Challenge 2:</strong> Add a new attribute like "energy" to the Pet class
+                        </div>
+                        <div class="challenge-item">
+                            <strong>🎯 Challenge 3:</strong> Create 5 different pets and show all their statuses
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- METHODS & BEHAVIOR -->
+            <div id="methodsContent" class="lesson-section">
+                <div class="lesson-header">
+                    <div class="lesson-number">⚡</div>
+                    <div>
+                        <h2 class="lesson-title">Methods & Behavior</h2>
+                        <p class="lesson-subtitle">Making your pets interactive and responsive</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🎯 What You'll Learn</h3>
+                    <div class="concept-grid">
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">🔧</div>
+                                <h4 class="concept-title">Methods</h4>
+                            </div>
+                            <p class="concept-description">Functions that belong to objects. They define what your pet can do, like eat, play, or sleep.</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">📝</div>
+                                <h4 class="concept-title">State Changes</h4>
+                            </div>
+                            <p class="concept-description">Methods can change object attributes. When a pet eats, its hunger goes down!</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">🎮</div>
+                                <h4 class="concept-title">Input Validation</h4>
+                            </div>
+                            <p class="concept-description">Make sure your pet can't eat when it's not hungry or play when it's too tired.</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">💬</div>
+                                <h4 class="concept-title">Feedback</h4>
+                            </div>
+                            <p class="concept-description">Give users messages about what happened when they interact with their pet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🍽️ Enhanced Pet with Actions</h3>
+                    <div class="subsection-content">
+                        <strong>Let's add interactive behaviors to our Pet class:</strong>
+                    </div>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<pre><code><span class="code-keyword">class</span> <span class="code-function">Pet</span>:
+    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(<span class="code-keyword">self</span>, name):
+        <span class="code-keyword">self</span>.name = name
+        <span class="code-keyword">self</span>.hunger = <span class="code-number">5</span>
+        <span class="code-keyword">self</span>.happiness = <span class="code-number">5</span>
+        <span class="code-keyword">self</span>.energy = <span class="code-number">5</span>
+    
+    <span class="code-keyword">def</span> <span class="code-function">say_hello</span>(<span class="code-keyword">self</span>):
+        <span class="code-keyword">print</span>(<span class="code-string">f"🐾 Hi! I'm {self.name}! Nice to meet you!"</span>)
+    
+    <span class="code-keyword">def</span> <span class="code-function">feed</span>(<span class="code-keyword">self</span>):
+        <span class="code-comment"># Method that changes the pet's state</span>
+        <span class="code-keyword">if</span> <span class="code-keyword">self</span>.hunger > <span class="code-number">0</span>:
+            <span class="code-keyword">self</span>.hunger -= <span class="code-number">1</span>
+            <span class="code-keyword">self</span>.happiness += <span class="code-number">1</span>
+            <span class="code-keyword">print</span>(<span class="code-string">f"🍽️ {self.name} is eating! Yum yum!"</span>)
+            <span class="code-keyword">print</span>(<span class="code-string">f"   Hunger: {self.hunger}/10, Happiness: {self.happiness}/10"</span>)
+        <span class="code-keyword">else</span>:
+            <span class="code-keyword">print</span>(<span class="code-string">f"😋 {self.name} is already full! No more food needed."</span>)
+    
+    <span class="code-keyword">def</span> <span class="code-function">play</span>(<span class="code-keyword">self</span>):
+        <span class="code-comment"># Playing makes pet happy but costs energy</span>
+        <span class="code-keyword">if</span> <span class="code-keyword">self</span>.energy > <span class="code-number">0</span>:
+            <span class="code-keyword">self</span>.energy -= <span class="code-number">1</span>
+            <span class="code-keyword">self</span>.happiness += <span class="code-number">2</span>
+            <span class="code-keyword">self</span>.hunger += <span class="code-number">1</span>
+            <span class="code-keyword">print</span>(<span class="code-string">f"🎾 {self.name} is playing! So much fun!"</span>)
+            <span class="code-keyword">print</span>(<span class="code-string">f"   Energy: {self.energy}/10, Happiness: {self.happiness}/10"</span>)
+        <span class="code-keyword">else</span>:
+            <span class="code-keyword">print</span>(<span class="code-string">f"😴 {self.name} is too tired to play. Let them rest!"</span>)
+    
+    <span class="code-keyword">def</span> <span class="code-function">sleep</span>(<span class="code-keyword">self</span>):
+        <span class="code-comment"># Sleeping restores energy</span>
+        <span class="code-keyword">self</span>.energy += <span class="code-number">3</span>
+        <span class="code-keyword">self</span>.happiness += <span class="code-number">1</span>
+        <span class="code-comment"># Keep values in reasonable range</span>
+        <span class="code-keyword">if</span> <span class="code-keyword">self</span>.energy > <span class="code-number">10</span>:
+            <span class="code-keyword">self</span>.energy = <span class="code-number">10</span>
+        <span class="code-keyword">if</span> <span class="code-keyword">self</span>.happiness > <span class="code-number">10</span>:
+            <span class="code-keyword">self</span>.happiness = <span class="code-number">10</span>
+        <span class="code-keyword">print</span>(<span class="code-string">f"💤 {self.name} takes a nice nap! Zzz..."</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   Energy: {self.energy}/10, Happiness: {self.happiness}/10"</span>)
+    
+    <span class="code-keyword">def</span> <span class="code-function">show_status</span>(<span class="code-keyword">self</span>):
+        <span class="code-keyword">print</span>(<span class="code-string">f"📊 {self.name}'s Status:"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   🍽️ Hunger: {self.hunger}/10"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   😊 Happiness: {self.happiness}/10"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   ⚡ Energy: {self.energy}/10"</span>)</code></pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🎮 Interactive Pet Demo</h3>
+                    <div class="subsection-content">
+                        <strong>Let's create pets and interact with them:</strong>
+                    </div>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<pre><code><span class="code-comment"># Create our pets with the enhanced class</span>
+fluffy = Pet(<span class="code-string">"Fluffy"</span>)
+buddy = Pet(<span class="code-string">"Buddy"</span>)
+
+<span class="code-comment"># Show initial status</span>
+<span class="code-keyword">print</span>(<span class="code-string">"=== Initial Pet Status ==="</span>)
+fluffy.show_status()
+<span class="code-keyword">print</span>()
+buddy.show_status()
+<span class="code-keyword">print</span>()
+
+<span class="code-comment"># Let's interact with Fluffy</span>
+<span class="code-keyword">print</span>(<span class="code-string">"=== Playing with Fluffy ==="</span>)
+fluffy.feed()
+fluffy.play()
+fluffy.play()
+fluffy.sleep()
+<span class="code-keyword">print</span>()
+
+<span class="code-comment"># And with Buddy</span>
+<span class="code-keyword">print</span>(<span class="code-string">"=== Playing with Buddy ==="</span>)
+buddy.play()
+buddy.feed()
+buddy.feed()
+buddy.show_status()</code></pre>
+                    </div>
+
+                    <div class="subsection-content">
+                        <strong>🖥️ Expected Output:</strong>
+                    </div>
+                    <div class="output-preview">=== Initial Pet Status ===
+📊 Fluffy's Status:
+   🍽️ Hunger: 5/10
+   😊 Happiness: 5/10
+   ⚡ Energy: 5/10
+
+📊 Buddy's Status:
+   🍽️ Hunger: 5/10
+   😊 Happiness: 5/10
+   ⚡ Energy: 5/10
+
+=== Playing with Fluffy ===
+🍽️ Fluffy is eating! Yum yum!
+   Hunger: 4/10, Happiness: 6/10
+🎾 Fluffy is playing! So much fun!
+   Energy: 4/10, Happiness: 8/10
+🎾 Fluffy is playing! So much fun!
+   Energy: 3/10, Happiness: 10/10
+💤 Fluffy takes a nice nap! Zzz...
+   Energy: 6/10, Happiness: 10/10
+
+=== Playing with Buddy ===
+🎾 Buddy is playing! So much fun!
+   Energy: 4/10, Happiness: 7/10
+🍽️ Buddy is eating! Yum yum!
+   Hunger: 5/10, Happiness: 8/10
+🍽️ Buddy is eating! Yum yum!
+   Hunger: 4/10, Happiness: 9/10
+📊 Buddy's Status:
+   🍽️ Hunger: 4/10
+   😊 Happiness: 9/10
+   ⚡ Energy: 4/10</div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🧠 Key Concepts</h3>
+                    <div class="tip-box">
+                        <h4>💡 Method Design Principles</h4>
+                        <ul>
+                            <li><strong>Input Validation:</strong> Check if actions are possible before doing them</li>
+                            <li><strong>State Management:</strong> Keep attribute values within reasonable ranges</li>
+                            <li><strong>User Feedback:</strong> Always tell the user what happened</li>
+                            <li><strong>Logical Consequences:</strong> Actions should have realistic effects</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="challenge-section">
+                    <h4 class="challenge-title">🏆 Try It Yourself!</h4>
+                    <div class="challenge-list">
+                        <div class="challenge-item">
+                            <strong>🎯 Challenge 1:</strong> Add a "get_sick()" method that reduces health and happiness
+                        </div>
+                        <div class="challenge-item">
+                            <strong>🎯 Challenge 2:</strong> Create a "take_medicine()" method that can only be used when pet is sick
+                        </div>
+                        <div class="challenge-item">
+                            <strong>🎯 Challenge 3:</strong> Add bounds checking to prevent negative values
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MULTIPLE ATTRIBUTES -->
+            <div id="statsContent" class="lesson-section">
+                <div class="lesson-header">
+                    <div class="lesson-number">📊</div>
+                    <div>
+                        <h2 class="lesson-title">Multiple Attributes</h2>
+                        <p class="lesson-subtitle">Managing complex pet statistics and behaviors</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🎯 What You'll Learn</h3>
+                    <div class="concept-grid">
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">📈</div>
+                                <h4 class="concept-title">Complex State</h4>
+                            </div>
+                            <p class="concept-description">Learn to manage multiple interconnected attributes that affect each other.</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">🔄</div>
+                                <h4 class="concept-title">Bounds Checking</h4>
+                            </div>
+                            <p class="concept-description">Keep all values within realistic ranges (0-10) to prevent impossible states.</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">🎭</div>
+                                <h4 class="concept-title">Mood System</h4>
+                            </div>
+                            <p class="concept-description">Calculate overall pet mood based on multiple factors for realistic behavior.</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <div class="concept-icon">⚖️</div>
+                                <h4 class="concept-title">Balanced Actions</h4>
+                            </div>
+                            <p class="concept-description">Actions affect multiple stats in realistic ways, creating interesting gameplay.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🐾 Advanced Pet Class</h3>
+                    <div class="subsection-content">
+                        <strong>Let's enhance our Pet class with more attributes and smarter behavior:</strong>
+                    </div>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<pre><code><span class="code-keyword">class</span> <span class="code-function">Pet</span>:
+    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(<span class="code-keyword">self</span>, name):
+        <span class="code-keyword">self</span>.name = name
+        <span class="code-keyword">self</span>.hunger = <span class="code-number">5</span>
+        <span class="code-keyword">self</span>.happiness = <span class="code-number">5</span>
+        <span class="code-keyword">self</span>.energy = <span class="code-number">5</span>
+        <span class="code-keyword">self</span>.health = <span class="code-number">10</span>
+        <span class="code-keyword">self</span>.cleanliness = <span class="code-number">5</span>
+    
+    <span class="code-keyword">def</span> <span class="code-function">_keep_in_bounds</span>(<span class="code-keyword">self</span>, value, min_val=<span class="code-number">0</span>, max_val=<span class="code-number">10</span>):
+        <span class="code-comment"># Helper method to keep values in range</span>
+        <span class="code-keyword">return</span> max(min_val, min(max_val, value))
+    
+    <span class="code-keyword">def</span> <span class="code-function">get_mood</span>(<span class="code-keyword">self</span>):
+        <span class="code-comment"># Calculate overall mood based on all stats</span>
+        total_wellness = (
+            <span class="code-keyword">self</span>.health + 
+            <span class="code-keyword">self</span>.happiness + 
+            <span class="code-keyword">self</span>.energy + 
+            (<span class="code-number">10</span> - <span class="code-keyword">self</span>.hunger) + 
+            <span class="code-keyword">self</span>.cleanliness
+        ) / <span class="code-number">5</span>
+        
+        <span class="code-keyword">if</span> total_wellness >= <span class="code-number">8</span>:
+            <span class="code-keyword">return</span> <span class="code-string">"🌟 Excellent"</span>
+        <span class="code-keyword">elif</span> total_wellness >= <span class="code-number">6</span>:
+            <span class="code-keyword">return</span> <span class="code-string">"😊 Happy"</span>
+        <span class="code-keyword">elif</span> total_wellness >= <span class="code-number">4</span>:
+            <span class="code-keyword">return</span> <span class="code-string">"😐 Okay"</span>
+        <span class="code-keyword">elif</span> total_wellness >= <span class="code-number">2</span>:
+            <span class="code-keyword">return</span> <span class="code-string">"😟 Worried"</span>
+        <span class="code-keyword">else</span>:
+            <span class="code-keyword">return</span> <span class="code-string">"😢 Very Sad"</span>
+    
+    <span class="code-keyword">def</span> <span class="code-function">feed</span>(<span class="code-keyword">self</span>):
+        <span class="code-keyword">if</span> <span class="code-keyword">self</span>.hunger > <span class="code-number">0</span>:
+            <span class="code-keyword">self</span>.hunger -= <span class="code-number">2</span>
+            <span class="code-keyword">self</span>.happiness += <span class="code-number">1</span>
+            <span class="code-keyword">self</span>.health += <span class="code-number">1</span>
+            <span class="code-keyword">self</span>.cleanliness -= <span class="code-number">1</span>  <span class="code-comment"># Eating can be messy!</span>
+            
+            <span class="code-comment"># Keep all values in bounds</span>
+            <span class="code-keyword">self</span>.hunger = <span class="code-keyword">self</span>._keep_in_bounds(<span class="code-keyword">self</span>.hunger)
+            <span class="code-keyword">self</span>.happiness = <span class="code-keyword">self</span>._keep_in_bounds(<span class="code-keyword">self</span>.happiness)
+            <span class="code-keyword">self</span>.health = <span class="code-keyword">self</span>._keep_in_bounds(<span class="code-keyword">self</span>.health)
+            <span class="code-keyword">self</span>.cleanliness = <span class="code-keyword">self</span>._keep_in_bounds(<span class="code-keyword">self</span>.cleanliness)
+            
+            <span class="code-keyword">print</span>(<span class="code-string">f"🍽️ {self.name} enjoys a delicious meal!"</span>)
+        <span class="code-keyword">else</span>:
+            <span class="code-keyword">print</span>(<span class="code-string">f"😋 {self.name} is already full!"</span>)
+    
+    <span class="code-keyword">def</span> <span class="code-function">play</span>(<span class="code-keyword">self</span>):
+        <span class="code-keyword">if</span> <span class="code-keyword">self</span>.energy > <span class="code-number">1</span>:
+            <span class="code-keyword">self</span>.energy -= <span class="code-number">2</span>
+            <span class="code-keyword">self</span>.happiness += <span class="code-number">3</span>
+            <span class="code-keyword">self</span>.hunger += <span class="code-number">1</span>
+            <span class="code-keyword">self</span>.cleanliness -= <span class="code-number">2</span>  <span class="code-comment"># Playing gets dirty!</span>
+            
+            <span class="code-comment"># Keep all values in bounds</span>
+            <span class="code-keyword">self</span>.energy = <span class="code-keyword">self</span>._keep_in_bounds(<span class="code-keyword">self</span>.energy)
+            <span class="code-keyword">self</span>.happiness = <span class="code-keyword">self</span>._keep_in_bounds(<span class="code-keyword">self</span>.happiness)
+            <span class="code-keyword">self</span>.hunger = <span class="code-keyword">self</span>._keep_in_bounds(<span class="code-keyword">self</span>.hunger)
+            <span class="code-keyword">self</span>.cleanliness = <span class="code-keyword">self</span>._keep_in_bounds(<span class="code-keyword">self</span>.cleanliness)
+            
+            <span class="code-keyword">print</span>(<span class="code-string">f"🎾 {self.name} has a blast playing!"</span>)
+        <span class="code-keyword">else</span>:
+            <span class="code-keyword">print</span>(<span class="code-string">f"😴 {self.name} is too tired to play!"</span>)
+    
+    <span class="code-keyword">def</span> <span class="code-function">clean</span>(<span class="code-keyword">self</span>):
+        <span class="code-keyword">self</span>.cleanliness += <span class="code-number">4</span>
+        <span class="code-keyword">self</span>.happiness += <span class="code-number">1</span>
+        <span class="code-keyword">self</span>.health += <span class="code-number">1</span>
+        
+        <span class="code-keyword">self</span>.cleanliness = <span class="code-keyword">self</span>._keep_in_bounds(<span class="code-keyword">self</span>.cleanliness)
+        <span class="code-keyword">self</span>.happiness = <span class="code-keyword">self</span>._keep_in_bounds(<span class="code-keyword">self</span>.happiness)
+        <span class="code-keyword">self</span>.health = <span class="code-keyword">self</span>._keep_in_bounds(<span class="code-keyword">self</span>.health)
+        
+        <span class="code-keyword">print</span>(<span class="code-string">f"🛁 {self.name} gets a nice, refreshing bath!"</span>)
+    
+    <span class="code-keyword">def</span> <span class="code-function">sleep</span>(<span class="code-keyword">self</span>):
+        <span class="code-keyword">self</span>.energy += <span class="code-number">4</span>
+        <span class="code-keyword">self</span>.happiness += <span class="code-number">1</span>
+        <span class="code-keyword">self</span>.hunger += <span class="code-number">1</span>
+        
+        <span class="code-keyword">self</span>.energy = <span class="code-keyword">self</span>._keep_in_bounds(<span class="code-keyword">self</span>.energy)
+        <span class="code-keyword">self</span>.happiness = <span class="code-keyword">self</span>._keep_in_bounds(<span class="code-keyword">self</span>.happiness)
+        <span class="code-keyword">self</span>.hunger = <span class="code-keyword">self</span>._keep_in_bounds(<span class="code-keyword">self</span>.hunger)
+        
+        <span class="code-keyword">print</span>(<span class="code-string">f"💤 {self.name} takes a peaceful nap!"</span>)
+    
+    <span class="code-keyword">def</span> <span class="code-function">show_status</span>(<span class="code-keyword">self</span>):
+        <span class="code-keyword">print</span>(<span class="code-string">f"📊 {self.name}'s Complete Status:"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   🍽️ Hunger: {self.hunger}/10"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   😊 Happiness: {self.happiness}/10"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   ⚡ Energy: {self.energy}/10"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   ❤️ Health: {self.health}/10"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   🧼 Cleanliness: {self.cleanliness}/10"</span>)
+        <span class="code-keyword">print</span>(<span class="code-string">f"   🎭 Mood: {self.get_mood()}"</span>)</code></pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🎮 Complex Pet Interactions</h3>
+                    <div class="subsection-content">
+                        <strong>Let's see how multiple attributes interact:</strong>
+                    </div>
+                    
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">📋 Copy</button>
+<pre><code><span class="code-comment"># Create pets with the enhanced class</span>
+rocky = Pet(<span class="code-string">"Rocky"</span>)
+bella = Pet(<span class="code-string">"Bella"</span>)
+
+<span class="code-comment"># Show initial status</span>
+<span class="code-keyword">print</span>(<span class="code-string">"=== Initial Status ==="</span>)
+rocky.show_status()
+<span class="code-keyword">print</span>()
+
+<span class="code-comment"># Rocky has a busy day</span>
+<span class="code-keyword">print</span>(<span class="code-string">"=== Rocky's Busy Day ==="</span>)
+rocky.play()
+rocky.play()
+rocky.feed()
+rocky.clean()
+rocky.sleep()
+<span class="code-keyword">print</span>()
+rocky.show_status()
+<span class="code-keyword">print</span>()
+
+<span class="code-comment"># Bella has a different routine</span>
+<span class="code-keyword">print</span>(<span class="code-string">"=== Bella's Routine ==="</span>)
+bella.feed()
+bella.sleep()
+bella.play()
+bella.show_status()</code></pre>
+                    </div>
+
+                    <div class="subsection-content">
+                        <strong>🖥️ Expected Output:</strong>
+                    </div>
+                    <div class="output-preview">=== Initial Status ===
+📊 Rocky's Complete Status:
+   🍽️ Hunger: 5/10
+   😊 Happiness: 5/10
+   ⚡ Energy: 5/10
+   ❤️ Health: 10/10
+   🧼 Cleanliness: 5/10
+   🎭 Mood: 😊 Happy
+
+=== Rocky's Busy Day ===
+🎾 Rocky has a blast playing!
+🎾 Rocky has a blast playing!
+🍽️ Rocky enjoys a delicious meal!
+🛁 Rocky gets a nice, refreshing bath!
+💤 Rocky takes a peaceful nap!
+
+📊 Rocky's Complete Status:
+   🍽️ Hunger: 4/10
+   😊 Happiness: 10/10
+   ⚡ Energy: 3/10
+   ❤️ Health: 10/10
+   🧼 Cleanliness: 8/10
+   🎭 Mood: 🌟 Excellent
+
+=== Bella's Routine ===
+🍽️ Bella enjoys a delicious meal!
+💤 Bella takes a peaceful nap!
+🎾 Bella has a blast playing!
+📊 Bella's Complete Status:
+   🍽️ Hunger: 4/10
+   😊 Happiness: 9/10
+   ⚡ Energy: 7/10
+   ❤️ Health: 10/10
+   🧼 Cleanliness: 2/10
+   🎭 Mood: 😊 Happy</div>
+                </div>
+
+                <div class="warning-box">
+                    <h4>⚠️ Common Mistakes to Avoid</h4>
+                    <ul>
+                        <li>Forgetting to keep values within bounds (0-10)</li>
+                        <li>Making actions affect only one attribute when they should affect multiple</li>
+                        <li>Not considering realistic consequences (playing makes you dirty and hungry)</li>
+                        <li>Forgetting to give user feedback about what happened</li>
+                    </ul>
+                </div>
+
+                <div class="challenge-section">
+                    <h4 class="challenge-title">🏆 Try It Yourself!</h4>
+                    <div class="challenge-list">
+                        <div class="challenge-item">
+                            <strong>🎯 Challenge 1:</strong> Add a "sickness" attribute and make pets get sick when health is low
+                        </div>
+                        <div class="challenge-item">
+                            <strong>🎯 Challenge 2:</strong> Create a "vet_visit()" method that improves health but costs happiness
+                        </div>
+                        <div class="challenge-item">
+                            <strong>🎯 Challenge 3:</strong> Add age attribute and make pets slower but wiser as they age
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3 class="subsection-title">🚀 Ready for More?</h3>
+                    <div class="real-world-example">
+                        <h4>🎓 What's Next?</h4>
+                        <p>Great job mastering the fundamentals! You now understand how to create classes, add methods that change object state, and manage complex attributes that interact with each other.</p>
+                        <p>In the next course, you'll learn advanced OOP concepts like making objects work together, creating pet-toy relationships, and managing collections of pets in a care center!</p>
+                        <div style="text-align: center; margin-top: 20px;">
+                            <a href="oop-advanced.html" class="demo-link" style="font-size: 1.1rem; padding: 15px 30px;">
+                                <span>🚀</span> Continue to Advanced OOP
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============== THEME SYSTEM ============== 
+        const themes = {
+            'dark': { name: 'Dark Theme', icon: 'dark' },
+            'light': { name: 'Light Theme', icon: 'light' },
+            'high-contrast': { name: 'High Contrast', icon: 'high-contrast' },
+            'kid-friendly': { name: 'Kid-Friendly', icon: 'kid-friendly' },
+            'colorful': { name: 'Colorful', icon: 'colorful' },
+            'print-friendly': { name: 'Print-Friendly', icon: 'print-friendly' }
+        };
+
+        const themeOrder = ['dark', 'light', 'high-contrast', 'kid-friendly', 'colorful', 'print-friendly'];
+        let currentTheme = 'dark';
+
+        function initThemeSystem() {
+            const savedTheme = localStorage.getItem('kidsCode-theme');
+            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme && themes[savedTheme]) {
+                currentTheme = savedTheme;
+            } else if (systemPrefersDark) {
+                currentTheme = 'dark';
+            } else {
+                currentTheme = 'light';
+            }
+            
+            setTheme(currentTheme, false);
+            
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                    if (!localStorage.getItem('kidsCode-theme')) {
+                        setTheme(e.matches ? 'dark' : 'light', false);
+                    }
+                });
+            }
+        }
+
+        function getNextTheme(currentTheme) {
+            const currentIndex = themeOrder.indexOf(currentTheme);
+            const nextIndex = (currentIndex + 1) % themeOrder.length;
+            return themeOrder[nextIndex];
+        }
+
+        function updateTooltip() {
+            const nextTheme = getNextTheme(currentTheme);
+            const tooltip = document.getElementById('themeTooltip');
+            if (tooltip) {
+                tooltip.textContent = `Next: ${themes[nextTheme].name}`;
+            }
+        }
+
+        function cycleTheme() {
+            const nextTheme = getNextTheme(currentTheme);
+            setTheme(nextTheme);
+        }
+
+        function setTheme(themeName, saveToStorage = true) {
+            if (!themes[themeName]) return;
+            
+            currentTheme = themeName;
+            document.documentElement.setAttribute('data-theme', themeName);
+            updateTooltip();
+            
+            if (saveToStorage) {
+                localStorage.setItem('kidsCode-theme', themeName);
+            }
+            
+            window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: themeName } }));
+            
+            const button = document.querySelector('.theme-cycle-button');
+            if (button) {
+                button.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    button.style.transform = '';
+                }, 150);
+            }
+        }
+
+        // ============== LESSON NAVIGATION ============== 
+        function showLesson(lessonId) {
+            document.querySelectorAll('.lesson-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            const targetSection = document.getElementById(lessonId + 'Content');
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            document.querySelectorAll('.lesson-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            event.target.closest('.lesson-tab').classList.add('active');
+            window.location.hash = lessonId;
+        }
+
+        // ============== COPY CODE FUNCTIONALITY ============== 
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const code = codeBlock.textContent || codeBlock.innerText;
+            
+            const textarea = document.createElement('textarea');
+            textarea.value = code;
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                
+                const originalText = button.textContent;
+                button.textContent = '✅ Copied!';
+                button.style.background = 'rgba(76, 175, 80, 0.3)';
+                
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.style.background = 'rgba(255,255,255,0.1)';
+                }, 2000);
+                
+            } catch (err) {
+                console.error('Failed to copy code:', err);
+                button.textContent = '❌ Failed';
+                setTimeout(function() {
+                    button.textContent = '📋 Copy';
+                }, 2000);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+
+        // ============== INITIALIZATION ============== 
+        window.addEventListener('load', function() {
+            initThemeSystem();
+            
+            const hash = window.location.hash.replace('#', '');
+            const validLessons = ['classes', 'methods', 'stats'];
+            
+            if (validLessons.includes(hash)) {
+                showLesson(hash);
+            } else {
+                showLesson('classes');
+            }
+        });
+
+        window.addEventListener('hashchange', function() {
+            const hash = window.location.hash.replace('#', '');
+            const validLessons = ['classes', 'methods', 'stats'];
+            
+            if (validLessons.includes(hash)) {
+                document.querySelectorAll('.lesson-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                document.getElementById(hash + 'Content').classList.add('active');
+                
+                document.querySelectorAll('.lesson-tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                
+                document.querySelector(`[href="#${hash}"]`).classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

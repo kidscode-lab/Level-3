@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modular Design Interactive Demo - KidsCode Lab</title>
     <link rel="stylesheet" href="../styles/master.css">
+    <script src="../scripts/presentation-engine.js"></script>
     <style>
         /* Page-specific styles using CSS custom properties for theme compatibility */
         .concept-explanation {
@@ -404,6 +405,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="../styles/presentation-mode.css">
 </head>
 <body>
     <div class="container">
@@ -427,7 +429,7 @@
         </div>
 
         <div class="content">
-            <div class="concept-explanation">
+            <div class="concept-explanation" data-slide="1" data-slide-title="Modular Design">
                 <h3>🎯 What is Modular Design?</h3>
                 <p><strong>Modular Design</strong> is like building with LEGO blocks - instead of one giant piece, you create small, specialized pieces that work together!</p>
                 <p>Each function has <strong>ONE JOB</strong> and does it well. This makes code easier to understand, test, and fix.</p>
@@ -606,7 +608,7 @@ items = []
                 </div>
             </div>
 
-            <div class="problems-benefits">
+            <div class="problems-benefits" data-slide="2" data-slide-title="Why Modular Design">
                 <div class="problems-box">
                     <h3>😵 Problems with Messy Code:</h3>
                     <ul>
@@ -634,7 +636,7 @@ items = []
                 </div>
             </div>
 
-            <div class="interactive-section">
+            <div class="interactive-section" data-slide="3" data-slide-title="Module By Module">
                 <div class="interactive-header">
                     <div class="interactive-icon">🔍</div>
                     <div class="panel-title">Interactive Function Explorer</div>

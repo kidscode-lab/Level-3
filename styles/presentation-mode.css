@@ -1,0 +1,583 @@
+/**
+ * Generic Presentation Mode Styles
+ * Works with any educational web page and all existing themes
+ * 
+ * Features:
+ * - Clean fullscreen presentation layout
+ * - Theme-aware styling that integrates with existing themes
+ * - Responsive design for all screen sizes
+ * - Enhanced typography and spacing for presentations
+ * - Print-friendly styles
+ */
+
+/* ============== ROOT VARIABLES ============== */
+:root {
+    /* Presentation-specific variables */
+    --slide-padding: clamp(2rem, 5vw, 4rem);
+    --slide-font-scale: 1.15;
+    --slide-max-width: 1200px;
+    --slide-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Animation timing */
+    --presentation-enter-duration: 0.4s;
+    --presentation-exit-duration: 0.3s;
+    
+    /* Z-index layers */
+    --z-presentation-ui: 10000;
+    --z-slide-content: 9999;
+    --z-slide-overlay: 9998;
+}
+
+/* ============== PRESENTATION MODE ACTIVATION ============== */
+
+/* Hide all non-essential elements when in presentation mode */
+.presentation-mode .header,
+.presentation-mode .lesson-nav,
+.presentation-mode .footer,
+.presentation-mode .brand-logo,
+.presentation-mode .theme-switcher {
+    display: none !important;
+}
+
+/* Container adjustments */
+.presentation-mode .container {
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Hide all content except active slide */
+.presentation-mode .lesson-content > *:not(.active-slide),
+.presentation-mode [data-slide]:not(.active-slide),
+.presentation-mode .subsection:not(.active-slide) {
+    display: none !important;
+}
+
+/* ============== ACTIVE SLIDE STYLING ============== */
+
+.presentation-mode .active-slide {
+    /* Full viewport layout */
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: var(--z-slide-content);
+    
+    /* Scrollable content */
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    
+    /* Presentation padding */
+    padding: var(--slide-padding) !important;
+    margin: 0 !important;
+    
+    /* Center content */
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    
+    /* Background inheritance from theme */
+    background: var(--bg-primary, #1a1a1a) !important;
+    color: var(--text-primary, #ffffff) !important;
+    
+    /* Smooth transitions */
+    transition: var(--slide-transition);
+    
+    /* Typography scaling */
+    font-size: calc(1rem * var(--slide-font-scale)) !important;
+    line-height: 1.6 !important;
+}
+
+/* Content container within slide */
+.presentation-mode .active-slide > * {
+    width: 100%;
+    max-width: var(--slide-max-width);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ============== TYPOGRAPHY ENHANCEMENTS ============== */
+
+/* Headings in presentation mode */
+.presentation-mode .active-slide h1,
+.presentation-mode .active-slide h2,
+.presentation-mode .active-slide h3,
+.presentation-mode .active-slide h4 {
+    font-size: calc(var(--font-size, 1.5rem) * var(--slide-font-scale) * 1.2) !important;
+    margin-bottom: 1.5rem !important;
+    margin-top: 2rem !important;
+    text-align: center !important;
+    color: var(--text-primary, #ffffff) !important;
+}
+
+.presentation-mode .active-slide h1 { font-size: calc(2.5rem * var(--slide-font-scale)) !important; }
+.presentation-mode .active-slide h2 { font-size: calc(2rem * var(--slide-font-scale)) !important; }
+.presentation-mode .active-slide h3 { font-size: calc(1.7rem * var(--slide-font-scale)) !important; }
+.presentation-mode .active-slide h4 { font-size: calc(1.4rem * var(--slide-font-scale)) !important; }
+
+/* First heading in slide */
+.presentation-mode .active-slide h1:first-child,
+.presentation-mode .active-slide h2:first-child,
+.presentation-mode .active-slide h3:first-child {
+    margin-top: 0 !important;
+}
+
+/* Paragraph text */
+.presentation-mode .active-slide p {
+    font-size: calc(1.1rem * var(--slide-font-scale)) !important;
+    line-height: 1.7 !important;
+    margin-bottom: 1.5rem !important;
+    text-align: center !important;
+    max-width: 800px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Lists */
+.presentation-mode .active-slide ul,
+.presentation-mode .active-slide ol {
+    font-size: calc(1.1rem * var(--slide-font-scale)) !important;
+    line-height: 1.7 !important;
+    margin: 1.5rem auto !important;
+    max-width: 700px !important;
+    padding-left: 2rem !important;
+}
+
+.presentation-mode .active-slide li {
+    margin-bottom: 0.8rem !important;
+}
+
+/* ============== LESSON-SPECIFIC COMPONENTS ============== */
+
+/* Lesson headers */
+.presentation-mode .active-slide .lesson-header {
+    text-align: center !important;
+    margin-bottom: 3rem !important;
+    padding: 2rem 0 !important;
+}
+
+.presentation-mode .active-slide .lesson-number {
+    font-size: calc(3rem * var(--slide-font-scale)) !important;
+    margin-bottom: 1rem !important;
+}
+
+.presentation-mode .active-slide .lesson-title {
+    font-size: calc(2.5rem * var(--slide-font-scale)) !important;
+    margin-bottom: 1rem !important;
+}
+
+.presentation-mode .active-slide .lesson-subtitle {
+    font-size: calc(1.3rem * var(--slide-font-scale)) !important;
+    opacity: 0.8 !important;
+    font-style: italic !important;
+}
+
+/* Concept grids */
+.presentation-mode .active-slide .concept-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+    gap: 2rem !important;
+    margin: 2rem 0 !important;
+    max-width: 1000px !important;
+}
+
+.presentation-mode .active-slide .concept-card {
+    background: var(--bg-secondary, rgba(255,255,255,0.05)) !important;
+    border: 1px solid var(--border-color, rgba(255,255,255,0.1)) !important;
+    border-radius: 12px !important;
+    padding: 2rem !important;
+    text-align: center !important;
+    transition: var(--slide-transition) !important;
+}
+
+.presentation-mode .active-slide .concept-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 10px 30px var(--shadow-medium, rgba(0,0,0,0.3)) !important;
+}
+
+.presentation-mode .active-slide .concept-icon {
+    font-size: calc(2.5rem * var(--slide-font-scale)) !important;
+    margin-bottom: 1rem !important;
+}
+
+.presentation-mode .active-slide .concept-title {
+    font-size: calc(1.3rem * var(--slide-font-scale)) !important;
+    margin-bottom: 1rem !important;
+    color: var(--accent-primary, #007acc) !important;
+}
+
+.presentation-mode .active-slide .concept-description {
+    font-size: calc(1rem * var(--slide-font-scale)) !important;
+    line-height: 1.6 !important;
+    text-align: left !important;
+}
+
+/* ============== CODE BLOCKS ============== */
+
+.presentation-mode .active-slide .code-block {
+    position: relative !important;
+    margin: 2rem auto !important;
+    max-width: 900px !important;
+    background: var(--code-bg, #1e1e1e) !important;
+    border: 1px solid var(--border-color, rgba(255,255,255,0.1)) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    box-shadow: 0 8px 25px var(--shadow-medium, rgba(0,0,0,0.3)) !important;
+}
+
+.presentation-mode .active-slide .code-block pre {
+    margin: 0 !important;
+    padding: 2rem !important;
+    font-size: calc(0.9rem * var(--slide-font-scale)) !important;
+    line-height: 1.5 !important;
+    overflow-x: auto !important;
+}
+
+.presentation-mode .active-slide .code-block code {
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace !important;
+    background: none !important;
+    color: var(--code-text, #d4d4d4) !important;
+}
+
+/* Copy button enhancement */
+.presentation-mode .active-slide .copy-btn {
+    position: absolute !important;
+    top: 1rem !important;
+    right: 1rem !important;
+    background: var(--accent-primary, #007acc) !important;
+    color: white !important;
+    border: none !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 6px !important;
+    font-size: calc(0.85rem * var(--slide-font-scale)) !important;
+    cursor: pointer !important;
+    transition: var(--slide-transition) !important;
+    z-index: 10 !important;
+}
+
+.presentation-mode .active-slide .copy-btn:hover {
+    background: var(--accent-secondary, #005a9e) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* ============== OUTPUT PREVIEWS ============== */
+
+.presentation-mode .active-slide .output-preview {
+    background: var(--bg-tertiary, #000000) !important;
+    border: 1px solid var(--border-color, rgba(255,255,255,0.1)) !important;
+    border-radius: 8px !important;
+    padding: 2rem !important;
+    margin: 2rem auto !important;
+    max-width: 800px !important;
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace !important;
+    font-size: calc(0.95rem * var(--slide-font-scale)) !important;
+    line-height: 1.6 !important;
+    color: var(--code-output, #00ff00) !important;
+    white-space: pre-wrap !important;
+    box-shadow: inset 0 2px 8px var(--shadow-light, rgba(0,0,0,0.2)) !important;
+}
+
+/* ============== SPECIAL CONTENT SECTIONS ============== */
+
+/* Pet showcase */
+.presentation-mode .active-slide .pet-showcase {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
+    gap: 1.5rem !important;
+    margin: 2rem auto !important;
+    max-width: 800px !important;
+}
+
+.presentation-mode .active-slide .pet-item {
+    text-align: center !important;
+    padding: 1.5rem !important;
+    background: var(--bg-secondary, rgba(255,255,255,0.05)) !important;
+    border-radius: 12px !important;
+    transition: var(--slide-transition) !important;
+}
+
+.presentation-mode .active-slide .pet-item:hover {
+    transform: scale(1.05) !important;
+}
+
+.presentation-mode .active-slide .pet-item .emoji {
+    font-size: calc(3rem * var(--slide-font-scale)) !important;
+    display: block !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.presentation-mode .active-slide .pet-item .name {
+    font-size: calc(1.1rem * var(--slide-font-scale)) !important;
+    font-weight: bold !important;
+    margin-bottom: 0.25rem !important;
+}
+
+.presentation-mode .active-slide .pet-item .type {
+    font-size: calc(0.9rem * var(--slide-font-scale)) !important;
+    opacity: 0.7 !important;
+}
+
+/* Challenge sections */
+.presentation-mode .active-slide .challenge-section {
+    background: linear-gradient(135deg, var(--accent-primary, #007acc)22, var(--accent-secondary, #005a9e)22) !important;
+    border-radius: 16px !important;
+    padding: 2.5rem !important;
+    margin: 2rem auto !important;
+    max-width: 900px !important;
+    color: white !important;
+    box-shadow: 0 10px 30px var(--shadow-medium, rgba(0,0,0,0.3)) !important;
+}
+
+.presentation-mode .active-slide .challenge-title {
+    font-size: calc(1.5rem * var(--slide-font-scale)) !important;
+    margin-bottom: 1.5rem !important;
+    text-align: center !important;
+}
+
+.presentation-mode .active-slide .challenge-item {
+    background: rgba(255,255,255,0.1) !important;
+    border-radius: 8px !important;
+    padding: 1.5rem !important;
+    margin-bottom: 1rem !important;
+    font-size: calc(1rem * var(--slide-font-scale)) !important;
+    border-left: 4px solid rgba(255,255,255,0.5) !important;
+}
+
+/* Warning/tip boxes */
+.presentation-mode .active-slide .tip-box,
+.presentation-mode .active-slide .warning-box {
+    border-radius: 12px !important;
+    padding: 2rem !important;
+    margin: 2rem auto !important;
+    max-width: 800px !important;
+    border-left: 5px solid var(--accent-primary, #007acc) !important;
+}
+
+.presentation-mode .active-slide .warning-box {
+    background: rgba(255, 193, 7, 0.1) !important;
+    border-left-color: #ffc107 !important;
+}
+
+.presentation-mode .active-slide .tip-box {
+    background: rgba(40, 167, 69, 0.1) !important;
+    border-left-color: #28a745 !important;
+}
+
+/* ============== REAL-WORLD EXAMPLES ============== */
+
+.presentation-mode .active-slide .real-world-example {
+    background: var(--bg-secondary, rgba(255,255,255,0.05)) !important;
+    border-radius: 16px !important;
+    padding: 2.5rem !important;
+    margin: 2rem auto !important;
+    max-width: 1000px !important;
+    text-align: center !important;
+}
+
+.presentation-mode .active-slide .blueprint-container {
+    display: flex !important;
+    align-items: center !important;
+    gap: 2rem !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+}
+
+.presentation-mode .active-slide .blueprint-image {
+    flex: 0 0 auto !important;
+}
+
+.presentation-mode .active-slide .blueprint-text {
+    flex: 1 1 400px !important;
+    text-align: left !important;
+}
+
+.presentation-mode .active-slide .blueprint-text h4 {
+    text-align: center !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* ============== THEME-SPECIFIC OVERRIDES ============== */
+
+/* Dark theme (default) */
+[data-theme="dark"] .presentation-mode .active-slide {
+    background: #1a1a1a !important;
+    color: #ffffff !important;
+}
+
+/* Light theme */
+[data-theme="light"] .presentation-mode .active-slide {
+    background: #ffffff !important;
+    color: #333333 !important;
+}
+
+[data-theme="light"] .presentation-mode .active-slide .concept-card {
+    background: rgba(0,0,0,0.05) !important;
+    border-color: rgba(0,0,0,0.1) !important;
+}
+
+[data-theme="light"] .presentation-mode .active-slide .code-block {
+    background: #f8f9fa !important;
+    border-color: rgba(0,0,0,0.1) !important;
+}
+
+[data-theme="light"] .presentation-mode .active-slide .output-preview {
+    background: #1e1e1e !important;
+    color: #00ff00 !important;
+}
+
+/* High contrast theme */
+[data-theme="high-contrast"] .presentation-mode .active-slide {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+[data-theme="high-contrast"] .presentation-mode .active-slide .concept-card,
+[data-theme="high-contrast"] .presentation-mode .active-slide .code-block {
+    border: 2px solid #ffffff !important;
+}
+
+/* Kid-friendly theme */
+[data-theme="kid-friendly"] .presentation-mode .active-slide {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: #ffffff !important;
+}
+
+[data-theme="kid-friendly"] .presentation-mode .active-slide .concept-card {
+    background: rgba(255,255,255,0.15) !important;
+    border-color: rgba(255,255,255,0.3) !important;
+}
+
+/* Colorful theme */
+[data-theme="colorful"] .presentation-mode .active-slide {
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57) !important;
+    background-size: 400% 400% !important;
+    animation: gradientShift 15s ease infinite !important;
+    color: #ffffff !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5) !important;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Print-friendly theme */
+[data-theme="print-friendly"] .presentation-mode .active-slide {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-family: 'Times New Roman', serif !important;
+}
+
+[data-theme="print-friendly"] .presentation-mode .active-slide .concept-card,
+[data-theme="print-friendly"] .presentation-mode .active-slide .code-block {
+    border: 2px solid #000000 !important;
+    background: transparent !important;
+}
+
+/* ============== RESPONSIVE DESIGN ============== */
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+    :root {
+        --slide-padding: clamp(1.5rem, 4vw, 3rem);
+        --slide-font-scale: 1.1;
+    }
+    
+    .presentation-mode .active-slide .concept-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+        gap: 1.5rem !important;
+    }
+    
+    .presentation-mode .active-slide .blueprint-container {
+        flex-direction: column !important;
+    }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    :root {
+        --slide-padding: 1rem;
+        --slide-font-scale: 1.05;
+    }
+    
+    .presentation-mode .active-slide h1 { font-size: calc(2rem * var(--slide-font-scale)) !important; }
+    .presentation-mode .active-slide h2 { font-size: calc(1.7rem * var(--slide-font-scale)) !important; }
+    .presentation-mode .active-slide h3 { font-size: calc(1.4rem * var(--slide-font-scale)) !important; }
+    
+    .presentation-mode .active-slide .concept-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    .presentation-mode .active-slide .pet-showcase {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)) !important;
+        gap: 1rem !important;
+    }
+    
+    .presentation-mode .active-slide .code-block pre {
+        padding: 1rem !important;
+        font-size: calc(0.8rem * var(--slide-font-scale)) !important;
+    }
+}
+
+/* ============== PRINT STYLES ============== */
+
+@media print {
+    .presentation-mode .active-slide {
+        position: static !important;
+        padding: 2cm !important;
+        background: white !important;
+        color: black !important;
+        page-break-after: always !important;
+    }
+    
+    .presentation-mode .active-slide .concept-card,
+    .presentation-mode .active-slide .code-block,
+    .presentation-mode .active-slide .output-preview {
+        border: 1px solid #000000 !important;
+        background: transparent !important;
+        break-inside: avoid !important;
+    }
+    
+    .presentation-mode .active-slide .challenge-section {
+        background: #f0f0f0 !important;
+        color: black !important;
+    }
+}
+
+/* ============== ACCESSIBILITY ENHANCEMENTS ============== */
+
+/* Focus indicators for keyboard navigation */
+.presentation-mode .active-slide .copy-btn:focus,
+.presentation-mode .active-slide button:focus {
+    outline: 3px solid var(--accent-primary, #007acc) !important;
+    outline-offset: 2px !important;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .presentation-mode .active-slide,
+    .presentation-mode .active-slide *,
+    .presentation-mode .active-slide *::before,
+    .presentation-mode .active-slide *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .presentation-mode .active-slide {
+        background: #000000 !important;
+        color: #ffffff !important;
+    }
+    
+    .presentation-mode .active-slide .concept-card,
+    .presentation-mode .active-slide .code-block {
+        border: 2px solid #ffffff !important;
+    }
+}

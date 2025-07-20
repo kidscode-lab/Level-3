@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Python Data Structures - KidsCode Lab</title>
     <link rel="stylesheet" href="../styles/master.css">
+    <script src="../scripts/presentation-engine.js"></script>
     <style>
         /* Page-specific styles using CSS custom properties for theme compatibility */
         .data-structures-grid {
@@ -255,6 +256,13 @@
             color: var(--text-secondary);
         }
 
+        /* Presentation Engine: Override slide padding */
+        :root {
+            --slide-padding: 3rem;
+            --slide-font-scale: 1.2;
+            --slide-max-width: 1000px;
+        }
+
         @media (max-width: 768px) {
             .data-structures-grid,
             .operations-grid {
@@ -262,6 +270,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="../styles/presentation-mode.css">
 </head>
 <body>
     <div class="container">
@@ -294,7 +303,7 @@
 
                 <div class="data-structures-grid">
                     <!-- Lists -->
-                    <div class="data-type-card list">
+                    <div class="data-type-card list" data-slide="1" data-slide-title="Data Strucrure: List">
                         <div class="data-type-header">
                             <div class="data-type-icon">L</div>
                             <h3 class="data-type-title">Lists [ ]</h3>
@@ -318,7 +327,7 @@ fruits[<span class="code-number">1</span>] = <span class="code-string">"mango"</
                     </div>
                     
                     <!-- Tuples -->
-                    <div class="data-type-card tuple">
+                    <div class="data-type-card tuple" data-slide="2" data-slide-title="Data Strucrure: Tuples">
                         <div class="data-type-header">
                             <div class="data-type-icon">T</div>
                             <h3 class="data-type-title">Tuples ( )</h3>
@@ -342,7 +351,7 @@ colors = (<span class="code-string">"red"</span>, <span class="code-string">"gre
                     </div>
                     
                     <!-- Sets -->
-                    <div class="data-type-card set">
+                    <div class="data-type-card set" data-slide="3" data-slide-title="Data Strucrure: Sets">
                         <div class="data-type-header">
                             <div class="data-type-icon">S</div>
                             <h3 class="data-type-title">Sets { }</h3>
@@ -366,7 +375,7 @@ animals.<span class="code-function">remove</span>(<span class="code-string">"dog
                     </div>
                     
                     <!-- Dictionaries -->
-                    <div class="data-type-card dictionary">
+                    <div class="data-type-card dictionary" data-slide="4" data-slide-title="Data Strucrure: Dictionary">
                         <div class="data-type-header">
                             <div class="data-type-icon">D</div>
                             <h3 class="data-type-title">Dictionaries { : }</h3>

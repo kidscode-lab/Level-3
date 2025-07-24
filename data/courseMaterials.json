@@ -43,17 +43,24 @@
             "icon": "📋"
         },
         {
-            "level": "Level 4",
+            "level": "Level 3",
             "title": "Material Repository - Lesson 4",
             "description": "Object Oriented Programming - Fundamentals",
             "url": "https://kidscode-lab.github.io/Level-3/Lesson04/illustration-L3-04-OOP-Fundamentals.html",
             "icon": "📋"
         },
         {
-            "level": "Level 4",
+            "level": "Level 3",
             "title": "Material Repository - Lesson 4",
             "description": "Object Oriented Programming - Fundamentals",
             "url": "https://kidscode-lab.github.io/Level-3/Lesson04/illustration-L3-04-OOP-Advanced.html",
+            "icon": "📋"
+        },
+        {
+            "level": "Level 3",
+            "title": "Material Repository - Lesson 5",
+            "description": "Exercise - Object Oriented Programming, API, Error Handling",
+            "url": "https://kidscode-lab.github.io/Level-3/Lesson05/illustration-L3-05-OOP-API-GUI-Template.html",
             "icon": "📋"
         }
     ]

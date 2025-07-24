@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Image Viewer Assignment | KidsCode Lab</title>
+    <link rel="stylesheet" href="../styles/master.css">
+    <link rel="stylesheet" href="illustration-L3-04-OOP-API-GUI-Template.css">
+    <style>
+    </style>
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-top">
+                <div class="brand-logo">
+                    <img src="../images/kidscode-lab-logo.png" alt="KidsCode Lab Logo" class="brand-logo-img">
+                    <div class="brand-logo-text">KidsCode Lab</div>
+                </div>                
+                <div class="theme-switcher">
+                    <button class="theme-cycle-button" onclick="cycleTheme()" title="Switch Theme">
+                        🔄
+                        <div class="theme-tooltip" id="themeTooltip">Next: Light Theme</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Assignment Overview -->
+            <div class="assignment-overview">
+                <h3>🎯 What You'll Build</h3>
+                <p>You'll complete a Python GUI application that fetches random dog images from an API and displays them to users. The UI is already built for you - your job is to implement the core API functionality!</p>
+                
+                <h4>Learning Objectives:</h4>
+                <ul>
+                    <li>Make HTTP GET requests to external APIs</li>
+                    <li>Parse JSON responses and extract data</li>
+                    <li>Handle different types of errors gracefully</li>
+                    <li>Use threading to keep the UI responsive</li>
+                    <li>Process and display images from URLs</li>
+                </ul>
+            </div>
+
+            <!-- Prerequisites -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">🔧 Prerequisites & Setup</h2>
+                    <p class="section-description">Make sure you have everything ready before starting</p>
+                </div>
+
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">📦</div>
+                        <h4>Required Libraries</h4>
+                        <p>pip install customtkinter requests pillow</p>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">🌐</div>
+                        <h4>API Endpoint</h4>
+                        <p>https://dog.ceo/api/breeds/image/random</p>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">💻</div>
+                        <h4>Python Version</h4>
+                        <p>Python 3.7 or higher recommended</p>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">📝</div>
+                        <h4>Template File</h4>
+                        <p>Download the provided template to start coding</p>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Important Notes</h4>
+                    <ul>
+                        <li>All UI components are already implemented for you</li>
+                        <li>Focus only on the 4 methods marked with "STUDENT TASK"</li>
+                        <li>Test your code frequently as you implement each method</li>
+                        <li>Read the API documentation to understand the response format</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Task 1 -->
+            <section class="content-section">
+                <div class="task-card">
+                    <div class="task-header">
+                        <div class="task-number">1</div>
+                        <div class="task-title">Button Click Handler</div>
+                    </div>
+                    <div class="task-description">
+                        Implement the <code>fetch_dog_image()</code> method to handle when users click the "Get New Dog Image" button.
+                    </div>
+
+                    <div class="todo-list">
+                        <h4>TODO: Complete these steps</h4>
+                        <ul>
+                            <li>Disable the button and change text to "Loading..."</li>
+                            <li>Update status label to show "Fetching new dog image..."</li>
+                            <li>Create and start a background thread to prevent UI freezing</li>
+                            <li>Set thread as daemon and call start()</li>
+                        </ul>
+                    </div>
+
+                    <div class="hint-box">
+                        <h4>Programming Hints</h4>
+                        <ul>
+                            <li>Use <code>self.fetch_button.configure(state="disabled", text="Loading...")</code></li>
+                            <li>Use <code>self.status_label.configure(text="Fetching new dog image...")</code></li>
+                            <li>Use <code>threading.Thread(target=self._fetch_image_thread)</code></li>
+                            <li>Don't forget to set <code>thread.daemon = True</code></li>
+                        </ul>
+                    </div>
+
+                    <div class="code-block">
+<span class="code-comment"># Example structure for Task 1</span>
+<span class="code-keyword">def</span> <span class="code-function">fetch_dog_image</span>(<span class="code-keyword">self</span>):
+    <span class="code-comment"># Step 1: Update button state</span>
+    <span class="code-keyword">self</span>.fetch_button.configure(state=<span class="code-string">"disabled"</span>, text=<span class="code-string">"Loading..."</span>)
+    
+    <span class="code-comment"># Step 2: Update status message</span>
+    <span class="code-keyword">self</span>.status_label.configure(text=<span class="code-string">"Fetching new dog image..."</span>)
+    
+    <span class="code-comment"># Step 3: Create and start thread</span>
+    thread = threading.Thread(target=<span class="code-keyword">self</span>._fetch_image_thread)
+    thread.daemon = <span class="code-keyword">True</span>
+    thread.start()
+                    </div>
+                </div>
+            </section>
+
+            <!-- Task 2 -->
+            <section class="content-section">
+                <div class="task-card">
+                    <div class="task-header">
+                        <div class="task-number">2</div>
+                        <div class="task-title">API Call & Response Processing</div>
+                    </div>
+                    <div class="task-description">
+                        Implement the <code>_fetch_image_thread()</code> method to make the actual API call and process the response.
+                    </div>
+
+                    <div class="todo-list">
+                        <h4>TODO: Complete these steps</h4>
+                        <ul>
+                            <li>Make a GET request to the API URL with timeout</li>
+                            <li>Parse the JSON response</li>
+                            <li>Extract the image URL from the response</li>
+                            <li>Update the URL textbox (using root.after for thread safety)</li>
+                            <li>Call download_and_display_image() method</li>
+                            <li>Handle network errors and other exceptions</li>
+                        </ul>
+                    </div>
+
+                    <div class="hint-box">
+                        <h4>Programming Hints</h4>
+                        <ul>
+                            <li>Use <code>requests.get(self.API_URL, timeout=self.API_TIMEOUT)</code></li>
+                            <li>Use <code>response.json()</code> to parse JSON</li>
+                            <li>Image URL is in the "message" field</li>
+                            <li>Use <code>self.root.after(0, method_name, parameters)</code> for UI updates</li>
+                            <li>Wrap everything in try-except blocks</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-block">
+<span class="code-comment"># Example structure for Task 2</span>
+<span class="code-keyword">def</span> <span class="code-function">_fetch_image_thread</span>(<span class="code-keyword">self</span>):
+    <span class="code-keyword">try</span>:
+        <span class="code-comment"># Step 1: Make API request</span>
+        response = requests.get(<span class="code-keyword">self</span>.API_URL, timeout=<span class="code-keyword">self</span>.API_TIMEOUT)
+        response.raise_for_status()
+        
+        <span class="code-comment"># Step 2: Parse JSON</span>
+        data = response.json()
+        
+        <span class="code-comment"># Step 3: Extract image URL</span>
+        <span class="code-keyword">if</span> data.get(<span class="code-keyword">self</span>.API_FIELDS.STATUS) == <span class="code-keyword">self</span>.API_FIELDS.SUCCESS_VALUE:
+            image_url = data.get(<span class="code-keyword">self</span>.API_FIELDS.MESSAGE)
+            
+            <span class="code-comment"># Step 4: Update UI safely from thread</span>
+            <span class="code-keyword">self</span>.root.after(<span class="code-number">0</span>, <span class="code-keyword">self</span>.update_url_textbox, image_url)
+            <span class="code-keyword">self</span>.download_and_display_image(image_url)
+            
+    <span class="code-keyword">except</span> requests.exceptions.RequestException <span class="code-keyword">as</span> e:
+        <span class="code-keyword">self</span>.root.after(<span class="code-number">0</span>, <span class="code-keyword">self</span>.show_error, <span class="code-string">f"Network error: {str(e)}"</span>)
+                    </div>
+                </div>
+            </section>
+
+            <!-- Task 3 -->
+            <section class="content-section">
+                <div class="task-card">
+                    <div class="task-header">
+                        <div class="task-number">3</div>
+                        <div class="task-title">Image Download & Processing</div>
+                    </div>
+                    <div class="task-description">
+                        Implement the <code>download_and_display_image()</code> method to download the image from the URL and prepare it for display.
+                    </div>
+
+                    <div class="todo-list">
+                        <h4>TODO: Complete these steps</h4>
+                        <ul>
+                            <li>Download the image from the provided URL</li>
+                            <li>Open the image using PIL (Python Imaging Library)</li>
+                            <li>Resize the image to fit within MAX_IMAGE_SIZE</li>
+                            <li>Convert the image to PhotoImage format for tkinter</li>
+                            <li>Call display_image() to show it in the UI</li>
+                            <li>Handle any image processing errors</li>
+                        </ul>
+                    </div>
+
+                    <div class="hint-box">
+                        <h4>Programming Hints</h4>
+                        <ul>
+                            <li>Use <code>requests.get(image_url, timeout=self.API_TIMEOUT)</code></li>
+                            <li>Use <code>Image.open(BytesIO(response.content))</code></li>
+                            <li>Use <code>image.thumbnail(self.MAX_IMAGE_SIZE, Image.Resampling.LANCZOS)</code></li>
+                            <li>Use <code>ImageTk.PhotoImage(image)</code> to convert for tkinter</li>
+                            <li>Use <code>self.root.after(0, self.display_image, photo)</code></li>
+                        </ul>
+                    </div>
+
+                    <div class="code-block">
+<span class="code-comment"># Example structure for Task 3</span>
+<span class="code-keyword">def</span> <span class="code-function">download_and_display_image</span>(<span class="code-keyword">self</span>, image_url):
+    <span class="code-keyword">try</span>:
+        <span class="code-comment"># Step 1: Download image</span>
+        response = requests.get(image_url, timeout=<span class="code-keyword">self</span>.API_TIMEOUT)
+        response.raise_for_status()
+        
+        <span class="code-comment"># Step 2: Open with PIL</span>
+        image = Image.open(BytesIO(response.content))
+        
+        <span class="code-comment"># Step 3: Resize image</span>
+        image.thumbnail(<span class="code-keyword">self</span>.MAX_IMAGE_SIZE, Image.Resampling.LANCZOS)
+        
+        <span class="code-comment"># Step 4: Convert for tkinter</span>
+        photo = ImageTk.PhotoImage(image)
+        
+        <span class="code-comment"># Step 5: Update UI</span>
+        <span class="code-keyword">self</span>.root.after(<span class="code-number">0</span>, <span class="code-keyword">self</span>.display_image, photo)
+        
+    <span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+        <span class="code-keyword">self</span>.root.after(<span class="code-number">0</span>, <span class="code-keyword">self</span>.show_error, <span class="code-string">f"Error loading image: {str(e)}"</span>)
+                    </div>
+                </div>
+            </section>
+
+            <!-- Task 4 -->
+            <section class="content-section">
+                <div class="task-card">
+                    <div class="task-header">
+                        <div class="task-number">4</div>
+                        <div class="task-title">Error Handling & UI Reset</div>
+                    </div>
+                    <div class="task-description">
+                        Implement the <code>show_error()</code> method to handle and display errors to the user.
+                    </div>
+
+                    <div class="todo-list">
+                        <h4>TODO: Complete these steps</h4>
+                        <ul>
+                            <li>Update the status label to show the error message</li>
+                            <li>Re-enable the fetch button and reset its text</li>
+                            <li>Clear the image display area</li>
+                            <li>Show "Failed to load image" message in image area</li>
+                        </ul>
+                    </div>
+
+                    <div class="hint-box">
+                        <h4>Programming Hints</h4>
+                        <ul>
+                            <li>Use <code>self.status_label.configure(text=error_message)</code></li>
+                            <li>Use <code>self.fetch_button.configure(state="normal", text="Get New Dog Image")</code></li>
+                            <li>Use <code>self.image_label.configure(image="", text="Failed to load image")</code></li>
+                            <li>This method ensures the UI always returns to a usable state</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-block">
+<span class="code-comment"># Example structure for Task 4</span>
+<span class="code-keyword">def</span> <span class="code-function">show_error</span>(<span class="code-keyword">self</span>, error_message):
+    <span class="code-comment"># Step 1: Show error message</span>
+    <span class="code-keyword">self</span>.status_label.configure(text=error_message)
+    
+    <span class="code-comment"># Step 2: Re-enable button</span>
+    <span class="code-keyword">self</span>.fetch_button.configure(state=<span class="code-string">"normal"</span>, text=<span class="code-string">"Get New Dog Image"</span>)
+    
+    <span class="code-comment"># Step 3: Clear image display</span>
+    <span class="code-keyword">self</span>.image_label.configure(image=<span class="code-string">""</span>, text=<span class="code-string">"Failed to load image"</span>)
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testing Guide -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">🧪 Testing Your Implementation</h2>
+                    <p class="section-description">Follow these steps to test your code thoroughly</p>
+                </div>
+
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">✅</div>
+                        <h4>Normal Operation</h4>
+                        <p>Click the button and verify a dog image loads successfully</p>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">🌐</div>
+                        <h4>Network Issues</h4>
+                        <p>Test with no internet connection to verify error handling</p>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">🔄</div>
+                        <h4>Multiple Clicks</h4>
+                        <p>Click multiple times rapidly to test threading and UI responsiveness</p>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">📱</div>
+                        <h4>UI Responsiveness</h4>
+                        <p>Ensure the UI doesn't freeze during image loading</p>
+                    </div>
+                </div>
+
+                <div class="success-box">
+                    <h4>What Success Looks Like</h4>
+                    <ul>
+                        <li>Button shows "Loading..." while fetching</li>
+                        <li>Status updates show current operation</li>
+                        <li>API URL appears in the textbox</li>
+                        <li>Image URL updates after successful fetch</li>
+                        <li>Dog image displays in the image area</li>
+                        <li>Error messages appear when things go wrong</li>
+                        <li>UI remains responsive throughout</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Common Mistakes -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">⚠️ Common Mistakes to Avoid</h2>
+                    <p class="section-description">Learn from these frequent student errors</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Threading Issues</h4>
+                    <ul>
+                        <li><strong>Mistake:</strong> Forgetting to use <code>self.root.after(0, ...)</code> when updating UI from threads</li>
+                        <li><strong>Result:</strong> Runtime errors or UI freezing</li>
+                        <li><strong>Fix:</strong> Always use <code>root.after()</code> for UI updates from background threads</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Error Handling</h4>
+                    <ul>
+                        <li><strong>Mistake:</strong> Not wrapping API calls in try-except blocks</li>
+                        <li><strong>Result:</strong> App crashes when network fails</li>
+                        <li><strong>Fix:</strong> Use specific exception types like <code>requests.exceptions.RequestException</code></li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>JSON Processing</h4>
+                    <ul>
+                        <li><strong>Mistake:</strong> Not checking if API response contains expected fields</li>
+                        <li><strong>Result:</strong> KeyError when API format changes</li>
+                        <li><strong>Fix:</strong> Use <code>data.get('field_name')</code> instead of <code>data['field_name']</code></li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h4>Image Processing</h4>
+                    <ul>
+                        <li><strong>Mistake:</strong> Not keeping a reference to the PhotoImage object</li>
+                        <li><strong>Result:</strong> Image doesn't display (garbage collection issue)</li>
+                        <li><strong>Fix:</strong> Store PhotoImage in <code>self.current_image</code></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- API Reference -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">📚 API Reference</h2>
+                    <p class="section-description">Understanding the Dog CEO API response format</p>
+                </div>
+
+                <h4 style="color: var(--text-primary); margin-bottom: 15px;">Request Format:</h4>
+                <div class="code-block">
+<span class="code-comment"># HTTP GET Request</span>
+GET https://dog.ceo/api/breeds/image/random
+<span class="code-comment"># No authentication required</span>
+<span class="code-comment"># No request body needed</span>
+                </div>
+
+                <h4 style="color: var(--text-primary); margin: 20px 0 15px 0;">Successful Response:</h4>
+                <div class="code-block">
+{
+    <span class="code-string">"message"</span>: <span class="code-string">"https://images.dog.ceo/breeds/dane-great/n02109047_8912.jpg"</span>,
+    <span class="code-string">"status"</span>: <span class="code-string">"success"</span>
+}
+                </div>
+
+                <h4 style="color: var(--text-primary); margin: 20px 0 15px 0;">Error Response:</h4>
+                <div class="code-block">
+{
+    <span class="code-string">"message"</span>: <span class="code-string">"Breed not found (master breed does not exist)"</span>,
+    <span class="code-string">"status"</span>: <span class="code-string">"error"</span>,
+    <span class="code-string">"code"</span>: <span class="code-number">404</span>
+}
+                </div>
+
+                <div class="hint-box">
+                    <h4>Key Points</h4>
+                    <ul>
+                        <li>Always check the <code>status</code> field first</li>
+                        <li>Image URL is in the <code>message</code> field when successful</li>
+                        <li>API is free and doesn't require authentication</li>
+                        <li>Response time is usually under 2 seconds</li>
+                        <li>Images are high-quality JPEGs from various breeds</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Debugging Tips -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">🔍 Debugging Tips</h2>
+                    <p class="section-description">Troubleshooting strategies when things don't work</p>
+                </div>
+
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">🖨️</div>
+                        <h4>Use Print Statements</h4>
+                        <p>Add print() statements to see what data you're getting from the API</p>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">🌐</div>
+                        <h4>Test API Directly</h4>
+                        <p>Visit the API URL in your browser to see the raw JSON response</p>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">📝</div>
+                        <h4>Check Console Output</h4>
+                        <p>Look for error messages in your IDE's console or terminal</p>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">🔧</div>
+                        <h4>Test Step by Step</h4>
+                        <p>Implement one method at a time and test before moving on</p>
+                    </div>
+                </div>
+
+                <div class="code-block">
+<span class="code-comment"># Debugging example: Add these print statements</span>
+<span class="code-keyword">def</span> <span class="code-function">_fetch_image_thread</span>(<span class="code-keyword">self</span>):
+    <span class="code-keyword">try</span>:
+        <span class="code-function">print</span>(<span class="code-string">"Making API request..."</span>)
+        response = requests.get(<span class="code-keyword">self</span>.API_URL, timeout=<span class="code-keyword">self</span>.API_TIMEOUT)
+        
+        <span class="code-function">print</span>(<span class="code-string">f"Response status: {response.status_code}"</span>)
+        data = response.json()
+        <span class="code-function">print</span>(<span class="code-string">f"Response data: {data}"</span>)
+        
+        image_url = data.get(<span class="code-string">"message"</span>)
+        <span class="code-function">print</span>(<span class="code-string">f"Image URL: {image_url}"</span>)
+        
+    <span class="code-keyword">except</span> Exception <span class="code-keyword">as</span> e:
+        <span class="code-function">print</span>(<span class="code-string">f"Error occurred: {e}"</span>)
+                </div>
+            </section>
+
+            <!-- Extension Challenges -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">🚀 Extension Challenges</h2>
+                    <p class="section-description">For students who finish early and want extra credit</p>
+                </div>
+
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">🐕</div>
+                        <h4>Breed Selection</h4>
+                        <p>Add a dropdown to let users choose specific dog breeds</p>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">💾</div>
+                        <h4>Save Images</h4>
+                        <p>Add a "Save Image" button to download pictures to local disk</p>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">📊</div>
+                        <h4>Image History</h4>
+                        <p>Keep track of previously viewed images in a list</p>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">❤️</div>
+                        <h4>Favorites System</h4>
+                        <p>Let users mark images as favorites and view them later</p>
+                    </div>
+                </div>
+
+                <div class="hint-box">
+                    <h4>Challenge APIs to Explore</h4>
+                    <ul>
+                        <li><strong>Cat API:</strong> https://aws.random.cat/meow</li>
+                        <li><strong>Fox API:</strong> https://randomfox.ca/floof/</li>
+                        <li><strong>Dog Breeds List:</strong> https://dog.ceo/api/breeds/list/all</li>
+                        <li><strong>Specific Breed:</strong> https://dog.ceo/api/breed/{breed}/images/random</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Assessment Criteria -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">📋 Assessment Criteria</h2>
+                    <p class="section-description">How your assignment will be evaluated</p>
+                </div>
+
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">✅</div>
+                        <h4>Functionality (40%)</h4>
+                        <p>All 4 methods work correctly and the app functions as expected</p>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">🛡️</div>
+                        <h4>Error Handling (30%)</h4>
+                        <p>Proper exception handling for network and processing errors</p>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">🎯</div>
+                        <h4>Code Quality (20%)</h4>
+                        <p>Clean, readable code following Python best practices</p>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">🧪</div>
+                        <h4>Testing (10%)</h4>
+                        <p>Evidence of thorough testing and debugging</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Answer Section -->
+            <div class="answer-section">
+                <h3>📎 Submit Your Solution</h3>
+                <p>Once you've completed all four tasks and tested your implementation, submit your completed Python file using the link below.</p>
+                
+                <div class="answer-placeholder">
+                    <p><strong>Instructor:</strong> Insert assignment submission link here</p>
+                    <p>Students should submit their completed .py file with all four methods implemented</p>
+                    <p>Expected filename: dog_image_viewer_[student_name].py</p>
+                </div>
+                
+                <div style="margin-top: 20px; padding: 15px; background: var(--bg-tertiary); border-radius: 8px;">
+                    <h4 style="color: var(--text-primary); margin-bottom: 10px;">Before Submitting:</h4>
+                    <ul style="color: var(--text-secondary); line-height: 1.6;">
+                        <li>✅ All four methods are implemented</li>
+                        <li>✅ App runs without errors</li>
+                        <li>✅ Images load and display correctly</li>
+                        <li>✅ Error handling works (test with no internet)</li>
+                        <li>✅ UI remains responsive during loading</li>
+                        <li>✅ Code is clean and well-commented</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Resources -->
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">📖 Additional Resources</h2>
+                    <p class="section-description">Helpful links for further learning</p>
+                </div>
+
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">📚</div>
+                        <h4>Requests Documentation</h4>
+                        <p>Learn more about making HTTP requests in Python</p>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">🖼️</div>
+                        <h4>PIL/Pillow Guide</h4>
+                        <p>Image processing techniques and methods</p>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">🧵</div>
+                        <h4>Python Threading</h4>
+                        <p>Understanding concurrent programming in Python</p>
+                    </div>
+                    <div class="resource-card">
+                        <div class="resource-icon">🌐</div>
+                        <h4>REST API Basics</h4>
+                        <p>Learn about API design and best practices</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

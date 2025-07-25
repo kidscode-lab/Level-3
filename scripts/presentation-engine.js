@@ -271,6 +271,9 @@ class PresentationEngine {
             document.body.classList.add('presentation-mode');
             document.documentElement.classList.add('presentation-mode');
             
+            // Hide course navigation elements
+            this.hideCourseNavigation();
+            
             console.log('Added presentation-mode classes');
             
             // Create presentation UI
@@ -317,6 +320,9 @@ class PresentationEngine {
             // Remove presentation mode classes
             document.body.classList.remove('presentation-mode');
             document.documentElement.classList.remove('presentation-mode');
+
+            // Restore course navigation elements
+            this.showCourseNavigation();
             
             // Remove keyboard listener
             document.removeEventListener('keydown', this.handleKeyboard);
@@ -332,10 +338,22 @@ class PresentationEngine {
             // Restore scrolling
             document.body.style.overflow = '';
             
-            // Show all slides again
+            // Show all slides again and restore original styling
             this.slides.forEach(slide => {
                 slide.element.classList.remove('active-slide');
                 slide.element.style.display = '';
+                slide.element.style.position = '';
+                slide.element.style.top = '';
+                slide.element.style.left = '';
+                slide.element.style.width = '';
+                slide.element.style.height = '';
+                slide.element.style.zIndex = '';
+                slide.element.style.padding = '';
+                slide.element.style.overflowY = '';
+                slide.element.style.background = '';
+                slide.element.style.margin = '';
+                slide.element.style.borderRadius = '';
+                slide.element.style.border = '';
             });
             
             // Restore original scroll position
@@ -357,7 +375,42 @@ class PresentationEngine {
             console.error('Failed to exit presentation mode:', error);
         }
     }
-    
+
+    /**
+     * Hide course navigation elements for presentation mode
+     */
+    hideCourseNavigation() {
+        const elementsToHide = [
+            '.course-progress',
+            '.course-navigation', 
+            '.lesson-sidebar',
+            '.sidebar-toggle'
+        ];
+        
+        elementsToHide.forEach(selector => {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(el => {
+                el.style.display = 'none';
+                el.setAttribute('data-presentation-hidden', 'true');
+            });
+        });
+        
+        console.log('Course navigation elements hidden');
+    }
+
+    /**
+     * Show course navigation elements when exiting presentation mode
+     */
+    showCourseNavigation() {
+        const hiddenElements = document.querySelectorAll('[data-presentation-hidden="true"]');
+        hiddenElements.forEach(el => {
+            el.style.display = '';
+            el.removeAttribute('data-presentation-hidden');
+        });
+        
+        console.log('Course navigation elements restored');
+    }
+
     /**
      * Create presentation UI elements
      */
@@ -515,6 +568,22 @@ class PresentationEngine {
         targetSlide.element.classList.add('active-slide');
         targetSlide.element.style.display = 'block';
         targetSlide.element.style.visibility = 'visible';
+
+        // Apply full-screen presentation styling to active slide
+        if (this.isPresenting) {
+            targetSlide.element.style.position = 'fixed';
+            targetSlide.element.style.top = '0';
+            targetSlide.element.style.left = '0';
+            targetSlide.element.style.width = '100vw';
+            targetSlide.element.style.height = '100vh';
+            targetSlide.element.style.zIndex = '9999';
+            targetSlide.element.style.padding = '60px';
+            targetSlide.element.style.overflowY = 'auto';
+            targetSlide.element.style.background = 'var(--bg-secondary, #fff)';
+            targetSlide.element.style.margin = '0';
+            targetSlide.element.style.borderRadius = '0';
+            targetSlide.element.style.border = 'none';
+        }
         
         console.log('Active slide classes:', targetSlide.element.classList.toString());
         console.log('Active slide display:', targetSlide.element.style.display);

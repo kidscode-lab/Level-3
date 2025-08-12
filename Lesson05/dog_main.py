@@ -10,7 +10,7 @@ and allows for unit testing of the UI and API modules independently.
 
 from __future__ import annotations
 
-from dog_api_ui import DogImageViewerUI
+from Lesson05.dog_ui import DogImageViewerUI
 
 def main() -> None:
     """Initialise and run the dog image viewer application."""

@@ -2,8 +2,8 @@
 dog_api_template.py - Skeleton for the Dog CEO API interaction
 
 This file provides a starting point for students to implement the
-functionality required to fetch a random dog image from the Dog CEO
-API.  The goal of this template is to encourage students to apply
+functionality required to fetch a random dog image from the Dog CEO API.  
+The goal of this template is to encourage students to apply
 their understanding of making HTTP requests, handling errors, parsing
 JSON, and returning results in a structured way.
 
@@ -46,33 +46,46 @@ def get_random_dog_image() -> Tuple[Optional[str], Optional[str]]:
 
       1. Make an HTTP GET request to API_URL using requests.get.
          - Remember to specify timeout=TIMEOUT in your call.
-         - (example: request.get(API_URL, timeout=TIMEOUT))
+         - (example: requests.get(API_URL, timeout=TIMEOUT))
          - After receiving a response, call raise_for_status()
          - Use a try/except block to catch network-related exceptions
          - from the requests library 
          - (example: requests.exceptions.RequestException).
    """
    # Write your code below:
+   try:
+      response = requests.get(API_URL, timeout=TIMEOUT)
+      response.raise_for_status()
+   except requests.exceptions.HTTPError as e:
+      print("Error")
 
    """
       2. Parse the response body as JSON using response.json().  
-         - If parsing fails, catch the resulting exception and return an
-         error message.
+         - If parsing fails, catch the resulting exception (ValueError) 
+         and return an error message.
    """
    # Write your code below:
-
+   try:
+      data = response.json()
+   except ValueError as e:
+      print("Response error")
    
    """
       3. The JSON data should be a dictionary {} with at least two fields:
          {STATUS_FIELD, MESSAGE_FIELD}.
-         (example: data.get(STATUS_FIELD))
-         - Verify that the status field equals SUCCESS_VALUE (string of "success").  
+         example: 
+            print(data.get(STATUS_FIELD)))
+            print(data.get(MESSAGE_FIELD)))
+         - Verify that the STATUS_FIELD field equals SUCCESS_VALUE (string of "success").  
          - If it does not, return an error message indicating that 
            the API did not succeed.
    """
    # Your code here:
-
-   
+   if data.get(STATUS_FIELD) == 'success':
+      return data.get("message"), None
+   else:
+      return None, "API repsonse error"
+  
    """
       4. If the API returned a success status, the message field will
          contain the URL of the dog image.  

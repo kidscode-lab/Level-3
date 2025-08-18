@@ -13,8 +13,14 @@ class Weather:
         self.daily_forecast = None
 
     def fetch(self) -> bool:
-        # develop this function to fetch weather data from API
-        pass
+        weather_data = fetch_weather_data(self.city)
+        if weather_data:
+            self.current_weather = self._process_current_weather(weather_data)
+            self.daily_forecast = self._process_daily_forecast(weather_data)
+            return True
+        else:
+            print("Failed to fetch weather data.")
+            return False
         
     def _process_current_weather(self, data: dict) -> dict:
 

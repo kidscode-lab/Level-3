@@ -18,3 +18,4 @@ def fetch_weather_data(city):
     location = get_location_data(city)
     
     # Step 2: Check if location data was found and then fetch the weather
+    

@@ -62,6 +62,13 @@
             "description": "Exercise - Object Oriented Programming, API, Error Handling",
             "url": "https://kidscode-lab.github.io/Level-3/Lesson05/illustration-L3-05-OOP-API-GUI-Template.html",
             "icon": "📋"
+        },
+        {
+            "level": "Level 3",
+            "title": "Capstone Project Resources",
+            "description": "Capstone Project - Study Buddy App, Create Icons and Software Packing",
+            "url": "https://kidscode-lab.github.io/Level-3/Capstone/L3-capstone-project-guide.html",
+            "icon": "📋"
         }
     ]
 }
